@@ -1,0 +1,23 @@
+Name: Alex Gan
+Student Number: 101071670
+Team Name: Team SAYY
+Project: Dr. Med. Notifier
+
+Group Discussion/Meetings
+- Attended group meeting to discuss how the mobile app would be designed in terms of user interface and design pages (1h 30 min.)
+=> Our group decided to make a list of potential screens that the app would contain as well as low-fidelity prototypes
+- Practiced group presentation for in-class presentation this week (20 min.)
+- Prepared slideshow for in-class presentation (20 min.)
+
+
+Plannings
+- Created detailed notes of what features each page the mobile app should contain and how they would interact with each other (30 min.)
+
+
+Research
+- Began following tutorials that teach how to use Android Studio (3 hrs)
+- Viewed existing medication notification apps for potential references of design and features (30 min.)
+
+
+Implementation of Features
+- N/A (Currently still planning how app will work and appear, as well as learning how to use Android Studio)
