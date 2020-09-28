@@ -1,0 +1,16 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Had a group meeting with team members to discuss about the UI design of our app (1h 30min)
+- Practiced the group presentation (30min)
+
+Plannings
+- Created a prototype database schema in sqlite (30min)
+
+Research
+- Self-learned about how to use Android Studio (2hrs)
+- Investigated about the database tool: sqlite (1hr)
+
+Implementation of features
+- N/A
