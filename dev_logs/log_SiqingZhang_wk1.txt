@@ -1,0 +1,16 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meeting:
+- Joined the group meeting to discuss the GUI design of DR. Med Notifier (1 h 30 min)
+- Prepared slides for group presentation (2 hrs)
+- Practiced the presentation (30 min)
+
+Plannings
+- N/A
+
+Research
+- Learned the git commands and github operations (2 hrs)
+
+Implementation of Features
+- N/A
