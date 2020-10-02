@@ -1,42 +1,72 @@
+
+
 package com.example.drmednotifier;
 
+
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.annotation.NonNull;
-import android.view.MenuItem;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextMessage;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        mTextMessage = findViewById(R.id.message);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+
+    public void xyz(View y){
+
+
+        findViewById(R.id.main_button).setEnabled(false);
+        ((Button)findViewById(R.id.main_button)).setText("new new disable");
+
+
+
+    }
+
+    public void handleText(View v){
+
+
+        TextView t = findViewById(R.id.source);
+        String input = t.getText().toString();
+
+        ((TextView)findViewById(R.id.output)).setVisibility(View.VISIBLE);
+        ((TextView)findViewById(R.id.output)).setText(input);
+
+        ((Button)findViewById(R.id.button)).setText(input);
+
+
+
+        /* alert action   */
+        Toast.makeText(this, "Alert u whats wrong u did", Toast.LENGTH_SHORT).show();
+
+    }
+
+    /*launch new activity
+    public void launchSettings(View x){
+
+        Intent i = new Intent(this,SettingsActivity.class);
+      test data transfer
+       String input = ((TextView)findViewById(R.id.source)).getText().toString();
+       i.putExtra("COOL",input);
+
+        startActivity(i);
+
+
+    }
+
+
+*/
+
+
 }
+
