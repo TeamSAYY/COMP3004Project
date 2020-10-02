@@ -1,6 +1,5 @@
 package com.example.drmednotifier;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -17,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
 
-            Intent startIntent;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     selectedFragment = new HomeFragment();
