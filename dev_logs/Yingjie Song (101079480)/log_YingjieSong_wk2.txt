@@ -1,0 +1,17 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Had a group meeting with team members to discuss about the task assignment and GitHub setup (2hrs)
+- Helped team member with git commands (1hr)
+
+Plannings
+- Started to work on the assigned task (30min)
+
+Research
+- Learned about Android Studio with online tutorial (2hrs)
+- Searched about how to create bottom navigation bar and fragments (30min)
+
+Implementation of features
+- Implemented a prototype of bottom navigation bar and fragments (1hr)
+- Fixed the building issue of the project (2hrs)
