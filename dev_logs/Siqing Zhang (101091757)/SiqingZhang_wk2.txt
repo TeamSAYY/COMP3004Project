@@ -6,11 +6,11 @@ Group Discussion/Meetings
 - Assigned page design tasks (15 min)
 
 Plannings
--To work on the page design in Android Studio
+- To work on the page design in Android Studio
 
 Research
--Learned the github operations following tutorials (2 hrs)
--Self-learned Android Studio following online tutorials (4 hrs)
+- Learned the github operations following tutorials (2 hrs)
+- Self-learned Android Studio following online tutorials (4 hrs)
 
 Implementation of Features
--Started working on the Notifications page designated to me (1 hr)
+- Started working on the Notifications page designated to me (1 hr)
