@@ -3,4 +3,14 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="add_personal_info_page">Add Personal Information</string>
+    <string name="edit_personal_info_page">Edit Personal Information</string>
+    <string name="fname_personal_info_page">First Name</string>
+    <string name="lname_personal_info_page">Last Name</string>
+    <string name="age_personal_info_page">Age</string>
+    <string name="male_personal_info_page">Male</string>
+    <string name="female_personal_info_page">Female</string>
+    <string name="other_personal_info_page">Other</string>
+
 </resources>
