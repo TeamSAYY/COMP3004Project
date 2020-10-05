@@ -17,10 +17,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Nav_page extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class Nav_page extends AppCompatActivity{
 
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
@@ -33,17 +34,15 @@ public class Nav_page extends AppCompatActivity implements BottomNavigationView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
 
-       bottomNavigationView = findViewById(R.id.bottomNavigationView);
-       frameLayout = findViewById(R.id.frameLayoutView);
+        BottomNavigationView navView= findViewById(R.id.bottomNavigationView);
+        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
 
-
-
-
-
-
-        bottomNavigationView.setSelectedItemId(R.id.home);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+//        frameLayout = findViewById(R.id.frameLayoutView);
+//
+//        BottomNavigationView.setSelectedItemId(R.id.home);
+//        BottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
 /*
@@ -68,34 +67,34 @@ public class Nav_page extends AppCompatActivity implements BottomNavigationView.
 
 
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Fragment selectedFragment = null;
 
-        /*switch(item.getItemId()){
+            switch (item.getItemId()) {
+                case R.id.home:
+                    selectedFragment = new Frag_Home();
+                    break;
+                case R.id.add_product:
+                    selectedFragment = new Frag_Add();
+                    break;
+                case R.id.self_report:
+                    selectedFragment = new Frag_Selfreport();
+                    break;
+                case R.id.notification:
+                    selectedFragment = new Frag_Notification();
+                    break;
+                case R.id.Setting:
+                    selectedFragment = new Frag_Setting();
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, selectedFragment).commit();
 
-            case R.id.home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,home).commit();
-                return true;
-
-            case R.id.add_product:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,add).commit();
-                return true;
-            case R.id.self_report:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,self_report).commit();
-                return true;
-            case R.id.notification:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,notification).commit();
-                return true;
-            case R.id.Setting:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container,setting).commit();
-                return true;
-
+            return false;
         }
-
-
-        return false;*/
-    }
+    };
 
 
 
