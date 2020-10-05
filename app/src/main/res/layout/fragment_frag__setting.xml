@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.drmednotifier.Nav_page">
+
+    <CheckBox
+        android:id="@+id/checkbox_top"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/Title_One"
+        android:onClick="CheckboxClicked"
+        android:buttonTint="#FF3D00"/>
+
+
+    <ListView
+        android:id="@+id/listing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginVertical="50dp"
+        android:layout_marginBottom="49dp"
+        />
+
+
+
+
+
+
+</RelativeLayout>
