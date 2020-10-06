@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,7 +24,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Nav_page extends AppCompatActivity{
 
-    BottomNavigationView bottomNavigationView;
+    BottomNavigationView navView;
     FrameLayout frameLayout;
     String N,A;
     ListView listView;
@@ -34,7 +35,8 @@ public class Nav_page extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
 
-        BottomNavigationView navView= findViewById(R.id.bottomNavigationView);
+        navView= findViewById(R.id.bottomNavigationView);
+        navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
@@ -76,20 +78,28 @@ public class Nav_page extends AppCompatActivity{
 
             switch (item.getItemId()) {
                 case R.id.home:
-                    selectedFragment = new Frag_Home();
+                     selectedFragment = new Frag_Home();
+
                     break;
                 case R.id.add_product:
                     selectedFragment = new Frag_Add();
+
                     break;
                 case R.id.self_report:
                     selectedFragment = new Frag_Selfreport();
+
                     break;
                 case R.id.notification:
                     selectedFragment = new Frag_Notification();
+
                     break;
                 case R.id.Setting:
                     selectedFragment = new Frag_Setting();
+
+                    break;
             }
+            item.setChecked(true);
+            assert selectedFragment != null;
             getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, selectedFragment).commit();
 
             return false;
