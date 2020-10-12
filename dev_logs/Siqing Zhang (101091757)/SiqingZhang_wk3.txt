@@ -1,0 +1,15 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Grope Discussion/Meetings
+- Attended the group meeting to discuss our workflow (2 hrs)
+- Displayed part of the Notifications page that I created (15 min) 
+
+Plannings
+- To finish the Notifications page design in Android Studio
+
+Research
+- Learned Android Studio following online tutorials (2 hrs)
+
+Implementation of Features
+- Finished layout of the Notifications page designated to me (6 hrs)
