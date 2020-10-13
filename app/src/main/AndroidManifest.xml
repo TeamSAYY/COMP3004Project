@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".New_User_Profile"></activity>
         <!-- <activity android:name=".Frag_Setting"></activity> -->
         <!-- <activity android:name=".Frag_Notification" /> -->
         <activity android:name=".Nav_page" />

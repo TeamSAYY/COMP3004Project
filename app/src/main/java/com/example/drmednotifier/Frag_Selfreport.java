@@ -14,7 +14,7 @@ public class Frag_Selfreport extends Fragment {
 
 
     TextView name,age;
-    ImageView Avatarr;
+    ImageView Avatar;
 
     public Frag_Selfreport() {
         // Required empty public constructor
@@ -28,6 +28,8 @@ public class Frag_Selfreport extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_frag__selfreport, container, false);
 
+
+
 /*
         String NNN = ((Nav_page)getActivity()).getNamed();
         name = (TextView) v.findViewById(R.id.s_name) ;
@@ -38,8 +40,8 @@ public class Frag_Selfreport extends Fragment {
         age.setText("Age: "+AAA);
 
 
-        Avatarr  = (ImageView)v.findViewById(R.id.Avatar);
-        Avatarr.setImageResource(R.drawable.avatar);
+        Avatar  = (ImageView)v.findViewById(R.id.Avatar);
+        Avatar.setImageResource(R.drawable.avatar);
 */
 
         return v;
