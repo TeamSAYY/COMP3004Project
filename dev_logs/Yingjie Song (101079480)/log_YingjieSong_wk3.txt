@@ -1,0 +1,15 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Had a group meeting with team members to discuss about task assignment (1hr)
+- Showcased the medication info page (30min)
+
+Plannings
+- Started to work on the assigned task (30min)
+
+Research
+- Learned about Android Studio with online tutorial (1hr)
+
+Implementation of features
+- Implemented the medication info page (5hr)
