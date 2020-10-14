@@ -1,0 +1,19 @@
+Name: Yun Huang	
+Student ID: 101076248
+Team Name: Team SAYY
+Project: Dr. Med. Notifier
+
+Group Discussion/Meeting:
+- Talk about design structure and Fragment page(1h)
+- sign the page and talk about code prograss
+- discuss about Fragment coding for each page(30 min)
+
+Planings
+-focus on the setting page for the nav bar
+
+
+Research
+- Learned Android studio(9h)
+
+Implementation of Features
+- got most setting layout and some feature, working on transfer data and page between fragment to activity
