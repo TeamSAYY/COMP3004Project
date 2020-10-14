@@ -6,5 +6,6 @@
     <color name="background_default_Color">#FFFFFF</color>
     <color name="btColor">#FF3D00</color>
     <color name="nav_button_colour">#065DA3</color>
+    <color name="Setting_Cat">#B8B8B8</color>
 
 </resources>

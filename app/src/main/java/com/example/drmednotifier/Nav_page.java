@@ -5,9 +5,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +22,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Nav_page extends AppCompatActivity{
 
+    private Toolbar toolbar;
     BottomNavigationView navView;
     FrameLayout frameLayout;
     String N,A;
@@ -34,6 +41,13 @@ public class Nav_page extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
+
+        toolbar=findViewById(R.id.Toolbar);
+
+        setSupportActionBar(toolbar);
+
+
+
 
         navView= findViewById(R.id.bottomNavigationView);
         navView.setSelectedItemId(R.id.home);
@@ -56,8 +70,27 @@ public class Nav_page extends AppCompatActivity{
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.tool_bar_menu,menu);
 
 
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.toolbarsetting) {
+            Intent intent = new Intent(this, Setting_Page.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 /*
     Frag_Add add = new Frag_Add();
@@ -75,10 +108,11 @@ public class Nav_page extends AppCompatActivity{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
+            Activity selectedActivity = null;
 
             switch (item.getItemId()) {
                 case R.id.home:
-                     selectedFragment = new Frag_Home();
+                    selectedFragment = new Frag_Home();
 
                     break;
                 case R.id.add_product:
@@ -93,10 +127,7 @@ public class Nav_page extends AppCompatActivity{
                     selectedFragment = new Frag_Notification();
 
                     break;
-                case R.id.Setting:
-                    selectedFragment = new Frag_Setting();
 
-                    break;
             }
             item.setChecked(true);
             assert selectedFragment != null;
@@ -105,33 +136,6 @@ public class Nav_page extends AppCompatActivity{
             return false;
         }
     };
-
-
-
-   /* //CHECKBOX CLICK DETECT
-    public void CheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_top:
-                if (checked){
-                    CheckBox x = view.findViewById(R.id.checkbox_top);
-                    x.setText("Checked Thank u!");
-                    ;
-                    // Put some meat on the sandwich
-                }
-
-                else
-                    // Remove the meat
-                    break;
-
-
-        }
-    }*/
-
-
 
 
 
