@@ -74,12 +74,5 @@ public class Frag_Setting extends Fragment {
 
 
 
-    public void replaceFragment(Fragment someFragment) {
-        assert getFragmentManager() != null;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.Setting, someFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 }
 

@@ -28,10 +28,7 @@
         android:title="notification"/>
 
 
-    <item android:id= "@+id/Setting"
-        android:enabled="true"
-        android:icon="@drawable/nav_setting"
-        android:title="Setting"/>
+
 
 
 
