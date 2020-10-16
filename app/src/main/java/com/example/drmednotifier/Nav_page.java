@@ -5,9 +5,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,16 +22,19 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Nav_page extends AppCompatActivity{
 
+    private Toolbar toolbar;
     BottomNavigationView navView;
-    FrameLayout frameLayout;
-    String N,A;
-    ListView listView;
+    String Nametransfer,Agetransfer,avatar_transfer,avatar_count;
+
+
 
 
     @Override
@@ -35,36 +42,71 @@ public class Nav_page extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
 
+        toolbar=findViewById(R.id.Toolbar);
+        setSupportActionBar(toolbar);
+
+
+
+
+
+
         navView= findViewById(R.id.bottomNavigationView);
         navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
 
-//        frameLayout = findViewById(R.id.frameLayoutView);
-//
-//        BottomNavigationView.setSelectedItemId(R.id.home);
-//        BottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
-/*
-        Intent i = getIntent();
-        N = i.getStringExtra("Name");
-        A = i.getStringExtra("Age");
-*/
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.tool_bar_menu,menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.toolbarsetting) {
+            Intent intent = new Intent(this, Setting_Page.class);
+
+            Nametransfer  = getIntent().getStringExtra("Name");
+            intent.putExtra("Name_transfer",Nametransfer);
+
+            Agetransfer  = getIntent().getStringExtra("Age");
+            intent.putExtra("Age_transfer",Agetransfer);
+
+
+            intent.putExtra("avatar_transfer",avatar_count);
+
+
+
+            startActivityForResult(intent,1);
+            /*startActivity(intent);*/
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
 
 
-/*
-    Frag_Add add = new Frag_Add();
-    Frag_Home home = new Frag_Home();
-    Frag_Notification notification = new Frag_Notification();
-    Frag_Selfreport self_report = new Frag_Selfreport();
-    Frag_Setting setting = new Frag_Setting();*/
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                avatar_count = data.getStringExtra("current_avatar");
+
+
+            }
+        }
+    }
 
 
 
@@ -76,9 +118,10 @@ public class Nav_page extends AppCompatActivity{
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
 
+
             switch (item.getItemId()) {
                 case R.id.home:
-                     selectedFragment = new Frag_Home();
+                    selectedFragment = new Frag_Home();
 
                     break;
                 case R.id.add_product:
@@ -93,10 +136,7 @@ public class Nav_page extends AppCompatActivity{
                     selectedFragment = new Frag_Notification();
 
                     break;
-                case R.id.Setting:
-                    selectedFragment = new Frag_Setting();
 
-                    break;
             }
             item.setChecked(true);
             assert selectedFragment != null;
@@ -108,44 +148,21 @@ public class Nav_page extends AppCompatActivity{
 
 
 
-   /* //CHECKBOX CLICK DETECT
-    public void CheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_top:
-                if (checked){
-                    CheckBox x = view.findViewById(R.id.checkbox_top);
-                    x.setText("Checked Thank u!");
-                    ;
-                    // Put some meat on the sandwich
-                }
-
-                else
-                    // Remove the meat
-                    break;
-
-
-        }
-    }*/
 
 
 
 
+/*
 
+    public  String getNamed(){
+        Intent intent = getIntent();
+        String NN  = intent.getStringExtra("Name");
 
-
-
-
-
-   /* public  String getNamed(){
-        return N;
+        return NN;
     }
     public  String getAge(){
         return A;
-    }*/
+    }
 
-
+*/
 }

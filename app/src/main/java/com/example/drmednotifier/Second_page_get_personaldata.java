@@ -41,6 +41,14 @@ public class Second_page_get_personaldata extends AppCompatActivity {
     }
 
 
+    public void launchActivistswithnovalue(View x){
+
+        Intent i = new Intent(this,Nav_page.class);
+
+        startActivity(i);
+
+    }
+
 
 
 

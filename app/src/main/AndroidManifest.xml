@@ -15,9 +15,18 @@
         >
         <activity android:name=".New_User_Profile" android:parentActivityName=".Nav_page"></activity>
         <!-- <activity android:name=".Frag_Setting"></activity> -->
+        android:theme="@style/AppTheme">
+        <activity android:name=".Dose_Page"></activity>
+        <activity android:name=".Medicine_List" />
         <!-- <activity android:name=".Frag_Notification" /> -->
         <activity android:name=".Nav_page" />
         <activity android:name=".Second_page_get_personaldata" />
+        <activity android:name=".Setting_Page"
+          />
+        <activity android:name=".Popup_Window"
+            android:theme="@style/AppTheme.CustomTheme"
+            ></activity>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
