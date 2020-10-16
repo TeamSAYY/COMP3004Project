@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginTop="50dp"
+        android:text="SELECT PREFER AVATAR"
+        android:textSize="20dp"
+
+
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:layout_marginTop="100dp"
+        android:textSize="30dp"
+        android:background="#AFC5F1"
+
+        />
+
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/avatar1"
+        android:src="@drawable/a1"
+        android:onClick="avatar_change"
+
+        />
+
+    <ImageView
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="155dp"
+        android:layout_marginLeft="120dp"
+        android:src="@drawable/a2"
+        android:onClick="avatar_change1"
+
+        />
+
+
+
+
+</RelativeLayout>
