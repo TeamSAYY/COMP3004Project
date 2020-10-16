@@ -32,9 +32,9 @@ public class Nav_page extends AppCompatActivity{
 
     private Toolbar toolbar;
     BottomNavigationView navView;
-    FrameLayout frameLayout;
-    String N,A;
-    ListView listView;
+    String Nametransfer,Agetransfer,avatar_transfer,avatar_count;
+
+
 
 
     @Override
@@ -43,8 +43,9 @@ public class Nav_page extends AppCompatActivity{
         setContentView(R.layout.activity_nav_page);
 
         toolbar=findViewById(R.id.Toolbar);
-
         setSupportActionBar(toolbar);
+
+
 
 
 
@@ -55,17 +56,8 @@ public class Nav_page extends AppCompatActivity{
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
 
-//        frameLayout = findViewById(R.id.frameLayoutView);
-//
-//        BottomNavigationView.setSelectedItemId(R.id.home);
-//        BottomNavigationView.setOnNavigationItemSelectedListener(this);
 
 
-/*
-        Intent i = getIntent();
-        N = i.getStringExtra("Name");
-        A = i.getStringExtra("Age");
-*/
 
 
     }
@@ -74,9 +66,6 @@ public class Nav_page extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.tool_bar_menu,menu);
-
-
-
         return true;
     }
 
@@ -86,18 +75,38 @@ public class Nav_page extends AppCompatActivity{
         int id = item.getItemId();
         if (id == R.id.toolbarsetting) {
             Intent intent = new Intent(this, Setting_Page.class);
-            startActivity(intent);
+
+            Nametransfer  = getIntent().getStringExtra("Name");
+            intent.putExtra("Name_transfer",Nametransfer);
+
+            Agetransfer  = getIntent().getStringExtra("Age");
+            intent.putExtra("Age_transfer",Agetransfer);
+
+
+            intent.putExtra("avatar_transfer",avatar_count);
+
+
+
+            startActivityForResult(intent,1);
+            /*startActivity(intent);*/
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-/*
-    Frag_Add add = new Frag_Add();
-    Frag_Home home = new Frag_Home();
-    Frag_Notification notification = new Frag_Notification();
-    Frag_Selfreport self_report = new Frag_Selfreport();
-    Frag_Setting setting = new Frag_Setting();*/
+
+
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                avatar_count = data.getStringExtra("current_avatar");
+
+
+            }
+        }
+    }
 
 
 
@@ -108,7 +117,7 @@ public class Nav_page extends AppCompatActivity{
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            Activity selectedActivity = null;
+
 
             switch (item.getItemId()) {
                 case R.id.home:
@@ -143,13 +152,17 @@ public class Nav_page extends AppCompatActivity{
 
 
 
+/*
 
-   /* public  String getNamed(){
-        return N;
+    public  String getNamed(){
+        Intent intent = getIntent();
+        String NN  = intent.getStringExtra("Name");
+
+        return NN;
     }
     public  String getAge(){
         return A;
-    }*/
+    }
 
-
+*/
 }
