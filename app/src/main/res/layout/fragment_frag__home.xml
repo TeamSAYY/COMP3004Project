@@ -6,6 +6,12 @@
     tools:context="com.example.drmednotifier.Nav_page">
 
     <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/btnUserIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Icon" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
