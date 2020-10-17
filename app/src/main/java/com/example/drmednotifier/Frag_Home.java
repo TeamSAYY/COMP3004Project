@@ -1,13 +1,24 @@
 package com.example.drmednotifier;
 
-import android.content.Intent;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
+import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
+
+import java.util.List;
+
+//import android.support.v4.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -15,6 +26,9 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class Frag_Home extends Fragment {
+    private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
+    private MedicationsListViewModel medicationsListViewModel;
+    private RecyclerView medicationsRecyclerView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +70,17 @@ public class Frag_Home extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter();
+        medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
+        medicationsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Medication>>() {
+            @Override
+            public void onChanged(List<Medication> alarms) {
+                if (alarms != null) {
+                    medicationRecyclerViewAdapter.setAlarms(alarms);
+                }
+            }
+        });
     }
 
     @Override
@@ -64,16 +89,20 @@ public class Frag_Home extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frag__home, container, false);
 
-        Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
-        btnUserProfile.setOnClickListener(new View.OnClickListener() {
+        medicationsRecyclerView = view.findViewById(R.id.home_listmed_recylerView);
+        medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-            @Override
-            public void onClick(View view) {
-                Intent in = new Intent(getActivity(), New_User_Profile.class);
-                //in.putExtra("some", "some data");
-                startActivity(in);
-            }
-        });
+//        Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
+//        btnUserProfile.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View view) {
+//                Intent in = new Intent(getActivity(), New_User_Profile.class);
+//                //in.putExtra("some", "some data");
+//                startActivity(in);
+//            }
+//        });
 
         return view;
     }
