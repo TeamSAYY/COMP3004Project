@@ -190,6 +190,76 @@
                     android:dropDownWidth="match_parent"
                     android:spinnerMode="dropdown" />
 
+                <LinearLayout
+                    android:id="@+id/llayout_specificDays_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkMon"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Mon" />
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkTue"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tue" />
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkWed"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Wed" />
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkThu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Thu" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llayout_specificDays_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkFri"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fri" />
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkSat"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sat" />
+
+                    <CheckBox
+                        android:id="@+id/add_med_checkSun"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sun" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
                 <TextView
                     android:id="@+id/text_med_timesaday"
                     android:layout_width="match_parent"

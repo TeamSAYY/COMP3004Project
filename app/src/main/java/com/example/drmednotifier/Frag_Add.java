@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -43,6 +44,15 @@ public class Frag_Add extends Fragment {
     @BindView(R.id.button_hide_schedule) Button button_hide_schedule;
     @BindView(R.id.llayout_schedule) View med_schedule_view;
     @BindView(R.id.spinner_med_freq) Spinner dropdown_freq;
+    @BindView(R.id.llayout_specificDays_1) View specificDays_view_1;
+    @BindView(R.id.llayout_specificDays_2) View specificDays_view_2;
+    @BindView(R.id.add_med_checkMon) CheckBox checkBox_Mon;
+    @BindView(R.id.add_med_checkTue) CheckBox checkBox_Tue;
+    @BindView(R.id.add_med_checkWed) CheckBox checkBox_Wed;
+    @BindView(R.id.add_med_checkThu) CheckBox checkBox_Thu;
+    @BindView(R.id.add_med_checkFri) CheckBox checkBox_Fri;
+    @BindView(R.id.add_med_checkSat) CheckBox checkBox_Sat;
+    @BindView(R.id.add_med_checkSun) CheckBox checkBox_Sun;
     @BindView(R.id.spinner_med_timesaday) Spinner dropdown_timesaday;
     @BindView(R.id.text_time_dose_1) TextView text_time_dose_1;
     @BindView(R.id.llayout_time_dose_1) View time_dose_view_1;
@@ -122,15 +132,80 @@ public class Frag_Add extends Fragment {
             }
         });
 
-        // Drop down list #1
+        // Drop down list - frequency
         String[] items_freq = new String[]{"Every Day", "Specific Day"};
         ArrayAdapter<String> adapter_freq = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_freq);
         dropdown_freq.setAdapter(adapter_freq);
 
-        // Drop down list #2
+        checkBox_Mon.setChecked(true);
+        checkBox_Tue.setChecked(true);
+        checkBox_Wed.setChecked(true);
+        checkBox_Thu.setChecked(true);
+        checkBox_Fri.setChecked(true);
+        checkBox_Sat.setChecked(true);
+        checkBox_Sun.setChecked(true);
+
+        specificDays_view_1.setVisibility(View.GONE);
+        specificDays_view_2.setVisibility(View.GONE);
+
+        dropdown_freq.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        specificDays_view_1.setVisibility(View.GONE);
+                        specificDays_view_2.setVisibility(View.GONE);
+                        break;
+                    case 1:
+                        specificDays_view_1.setVisibility(View.VISIBLE);
+                        specificDays_view_2.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
+
+        // Drop down list - times in a day
         String[] items_timesaday = new String[]{"1", "2", "3", "4"};
         ArrayAdapter<String> adapter_timesaday = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_timesaday);
         dropdown_timesaday.setAdapter(adapter_timesaday);
+
+        dose_1.setText("1");
+        dose_2.setText("1");
+        dose_3.setText("1");
+        dose_4.setText("1");
+
+        text_time_dose_1.setVisibility(View.GONE);
+        text_time_dose_2.setVisibility(View.GONE);
+        text_time_dose_3.setVisibility(View.GONE);
+        text_time_dose_4.setVisibility(View.GONE);
+
+        dropdown_timesaday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                text_time_dose_1.setVisibility(View.GONE);
+                text_time_dose_2.setVisibility(View.GONE);
+                text_time_dose_3.setVisibility(View.GONE);
+                text_time_dose_4.setVisibility(View.GONE);
+                switch (position) {
+                    case 3:
+                        text_time_dose_4.setVisibility(View.VISIBLE);
+                    case 2:
+                        text_time_dose_3.setVisibility(View.VISIBLE);
+                    case 1:
+                        text_time_dose_2.setVisibility(View.VISIBLE);
+                    case 0:
+                        text_time_dose_1.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                return;
+            }
+        });
 
         // Text hide time dose 1
         text_time_dose_1.setTag(1);
@@ -256,47 +331,9 @@ public class Frag_Add extends Fragment {
             }
         });
 
-        text_time_dose_1.setVisibility(View.GONE);
-        text_time_dose_2.setVisibility(View.GONE);
-        text_time_dose_3.setVisibility(View.GONE);
-        text_time_dose_4.setVisibility(View.GONE);
-
-        dropdown_timesaday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) {
-                    text_time_dose_1.setVisibility(View.VISIBLE);
-                    text_time_dose_2.setVisibility(View.GONE);
-                    text_time_dose_3.setVisibility(View.GONE);
-                    text_time_dose_4.setVisibility(View.GONE);
-                }
-                if (position == 1) {
-                    text_time_dose_1.setVisibility(View.VISIBLE);
-                    text_time_dose_2.setVisibility(View.VISIBLE);
-                    text_time_dose_3.setVisibility(View.GONE);
-                    text_time_dose_4.setVisibility(View.GONE);
-                }
-                if (position == 2) {
-                    text_time_dose_1.setVisibility(View.VISIBLE);
-                    text_time_dose_2.setVisibility(View.VISIBLE);
-                    text_time_dose_3.setVisibility(View.VISIBLE);
-                    text_time_dose_4.setVisibility(View.GONE);
-                }
-                if (position == 3) {
-                    text_time_dose_1.setVisibility(View.VISIBLE);
-                    text_time_dose_2.setVisibility(View.VISIBLE);
-                    text_time_dose_3.setVisibility(View.VISIBLE);
-                    text_time_dose_4.setVisibility(View.VISIBLE);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                return;
-            }
-        });
-
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+
+        // Save button
         Button button_save = view.findViewById(R.id.button_med_save);
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -304,7 +341,16 @@ public class Frag_Add extends Fragment {
                 scheduleMedication();
                 getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
                 bottomNavigationView.setSelectedItemId(R.id.home);
+            }
+        });
 
+        // Cancel button
+        Button button_cancel = view.findViewById(R.id.button_med_cancel);
+        button_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
+                bottomNavigationView.setSelectedItemId(R.id.home);
             }
         });
 
@@ -348,6 +394,26 @@ public class Frag_Add extends Fragment {
             dose4 = 0;
         }
 
+        boolean mon, tue, wed, thu, fri, sat, sun;
+
+        if (dropdown_freq.getSelectedItemPosition() == 0) {
+            mon = true;
+            tue = true;
+            wed = true;
+            thu = true;
+            fri = true;
+            sat = true;
+            sun = true;
+        } else {
+            mon = checkBox_Mon.isChecked();
+            tue = checkBox_Mon.isChecked();
+            wed = checkBox_Mon.isChecked();
+            thu = checkBox_Mon.isChecked();
+            fri = checkBox_Mon.isChecked();
+            sat = checkBox_Mon.isChecked();
+            sun = checkBox_Mon.isChecked();
+        }
+
         Medication medication = new Medication(
             medId,
             name.getText().toString(),
@@ -355,13 +421,13 @@ public class Frag_Add extends Fragment {
             stockNum,
             shape_radioBtnGroup.indexOfChild(getView().findViewById(shape_radioBtnGroup.getCheckedRadioButtonId())),
             System.currentTimeMillis(),
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
+            mon,
+            tue,
+            wed,
+            thu,
+            fri,
+            sat,
+            sun,
             dropdown_timesaday.getSelectedItemPosition(),
             timePicker_1.getHour(),
             timePicker_1.getMinute(),
