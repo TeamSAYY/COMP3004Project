@@ -1,0 +1,15 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2hrs)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the notification feature (2hrs)
+
+Implementation of features
+- Implemented a database for medication list (8hrs)
+- Implemented a database for user profile (4hrs)
