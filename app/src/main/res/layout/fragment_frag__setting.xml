@@ -12,7 +12,8 @@
         android:layout_height="50dp"
         android:text="@string/Title_One"
         android:onClick="CheckboxClicked"
-        android:buttonTint="#FF3D00"/>
+        android:buttonTint="#FF3D00"
+        tools:ignore="OnClick" />
 
 
     <ListView

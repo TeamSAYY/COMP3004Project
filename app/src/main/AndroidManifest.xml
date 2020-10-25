@@ -13,9 +13,9 @@
         android:alwaysRetainTaskState="true"
         android:exported="true"
         >
-        <activity android:name=".New_User_Profile" android:parentActivityName=".Nav_page"></activity>
         <!-- <activity android:name=".Frag_Setting"></activity> -->
         android:theme="@style/AppTheme">
+        <activity android:name=".New_User_Profile"></activity>
         <activity android:name=".Dose_Page"></activity>
         <activity android:name=".Medicine_List" />
         <!-- <activity android:name=".Frag_Notification" /> -->

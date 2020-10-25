@@ -18,9 +18,6 @@ public class Medicine_List extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine__list);
 
-
-
-
         Toolbar toolbar =  findViewById(R.id.toolbar_Medicine_list);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

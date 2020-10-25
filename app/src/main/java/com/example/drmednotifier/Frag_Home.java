@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +50,13 @@ public class Frag_Home extends Fragment {
         return fragment;
     }
 
+    /*public void click_user_avatar(View view) {
+        Intent i = new Intent(this, New_User_Profile.class);
+        startActivity(i);
+
+    }*/
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +72,7 @@ public class Frag_Home extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frag__home, container, false);
 
-        Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
+        /*Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
         btnUserProfile.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -73,7 +81,7 @@ public class Frag_Home extends Fragment {
                 //in.putExtra("some", "some data");
                 startActivity(in);
             }
-        });
+        });*/
 
         return view;
     }
