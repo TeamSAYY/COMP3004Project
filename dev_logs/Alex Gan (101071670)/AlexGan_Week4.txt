@@ -1,0 +1,19 @@
+Name: Alex Gan
+Student Number: 101071670
+Team Name: Team SAYY
+Project: Dr. Med. Notifier
+
+Group Discussion/Meetings
+- Attended group meeting to review individual design pages for mobile app and offered feedback/criticism on each page (2 hrs)
+- Discussed future plans for next implementation of features (Notification system and saving information into database) (30 min.)
+- Continued discussing potential user interface displays that would help users unfamiliar with technology navigate through the UI (30 min.)
+
+Plannings
+- Scheduled a brief meeting on Friday with TA to monitor our team's progress and offer potential feedback
+
+Research
+
+Implementation of Features
+- Reworked user profile app for consistency and after receiving feedback from other members (2 hrs)
+- Discovered bug with back button of user profile page; will discuss with team members on how to best resolve said issue (30 min.)
+- Began to look over typography and grammar of statements, as well as localizing strings into the string file (30 min.)

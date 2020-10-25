@@ -1,0 +1,15 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meetings
+- Attended the group meeting to discuss the workflow (2 hrs)
+- Displayed the main page that I created (30 min)
+
+Plannings
+- To finish the interactable calendar
+
+Research
+- Did the online research about layout components (4 hrs)
+
+Implementation of Features
+- Finished layout of Homepage designated to me (5 hrs)
