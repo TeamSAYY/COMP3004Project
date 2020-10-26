@@ -146,6 +146,11 @@ public class Nav_page extends AppCompatActivity{
         }
     };
 
+    public void click_User_Profile(View view) {
+        Intent i = new Intent(this, New_User_Profile.class);
+        startActivity(i);
+    }
+
 
 
 

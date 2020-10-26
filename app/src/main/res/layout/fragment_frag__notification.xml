@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="24sp"
-                    android:text="Notifications"
+                    android:text="Enable Prescription \nNotifications"
                     android:textStyle="bold"/>
 
                 <Switch
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Notification type" />
+                    android:text="Prescription Notification Type" />
 
                 <Spinner
                     android:id="@+id/spinner_noti_type"
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
-                    android:text="Repeat remind me" />
+                    android:text="Set Prescription Reminder To" />
 
                 <Spinner
                     android:id="@+id/spinner_noti_repeat"
@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
-                    android:text="Message" />
+                    android:text="Prescription Notification Message" />
 
                 <EditText
                     android:id="@+id/edit_noti_msg"
@@ -109,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:textSize="24sp"
-                    android:text="Refill reminder"
+                    android:text="Enable Medication \nRefill Notifications"
                     android:textStyle="bold"/>
 
                 <Switch
@@ -133,7 +133,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Notification time" />
+                    android:text="Number of Days before\nMedication Refill Notification is sent" />
 
                 <Spinner
                     android:id="@+id/spinner_renew_time"
@@ -149,14 +149,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
-                    android:text="Message" />
+                    android:text="Refill Notification Message" />
 
                 <EditText
                     android:id="@+id/edit_noti__renew_msg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="It's time for refill!" />
+                    android:text="It's time for a medication refill!" />
 
             </LinearLayout>
 

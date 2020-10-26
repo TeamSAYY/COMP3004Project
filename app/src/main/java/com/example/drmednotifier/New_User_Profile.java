@@ -35,11 +35,16 @@ public class New_User_Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new__user__profile);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_User_Profile);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-        getSupportActionBar().setTitle(getResources().getString(R.string.new_user_report_title));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setTitle(getResources().getString(R.string.new_user_report_title));
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // May need a better implementation of accessing database - YS
         userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
