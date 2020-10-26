@@ -19,36 +19,66 @@
             android:paddingBottom="10dp"
             android:background="@android:color/white">
 
+<!--            <TextView-->
+<!--                android:id="@+id/item_medication_time"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.2"-->
+<!--                android:text="00:00"-->
+<!--                android:textAlignment="center"-->
+<!--                android:textColor="@android:color/holo_red_light"-->
+<!--                android:textSize="24sp"-->
+<!--                android:textStyle="bold" />-->
+
             <TextView
-                android:id="@+id/item_medication_time"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.2"
-                android:text="00:00"
-                android:textAlignment="center"
-                android:textColor="@android:color/holo_red_light"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
 
             <TextView
                 android:id="@+id/item_medication_name"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.4"
+                android:layout_height="match_parent"
+                android:layout_weight="0.35"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/item_medication_dose"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:textSize="24sp" />
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.4">
+
+                <TextView
+                    android:id="@+id/item_medication_recurringDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/item_medication_times"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+<!--            <TextView-->
+<!--                android:id="@+id/item_medication_dose"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_weight="0.25"-->
+<!--                android:textSize="24sp" />-->
 
             <Switch
                 android:id="@+id/item_medication_status"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.15"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
