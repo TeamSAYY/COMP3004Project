@@ -3,9 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.drmednotifier">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:name=".application.App"
         android:allowBackup="true"
         android:alwaysRetainTaskState="true"
         android:exported="true"
@@ -35,6 +38,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".RingActivity">
+        </activity>
+
+        <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.AlarmService" />
+        <service android:name=".service.RescheduleAlarmsService" />
     </application>
 
 </manifest>

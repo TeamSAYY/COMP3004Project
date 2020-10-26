@@ -4,9 +4,11 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,9 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
+
 public class RingActivity extends AppCompatActivity {
     @BindView(R.id.activity_ring_dismiss)
     Button dismiss;
@@ -27,6 +32,8 @@ public class RingActivity extends AppCompatActivity {
     Button snooze;
     @BindView(R.id.activity_ring_clock)
     ImageView clock;
+    @BindView(R.id.textView)
+    TextView message;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +41,15 @@ public class RingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ring);
 
         ButterKnife.bind(this);
+
+        String medName = getIntent().getStringExtra(MED_NAME);
+        int medDose = getIntent().getIntExtra(MED_DOSE, 0);
+
+        Log.d("myTag", String.format("RING NAME: %s", medName));
+
+        Log.d("myTag", String.format("RING DOSE: %d", medDose));
+
+        message.setText(String.format("Remember to take %d %s", medDose, medName));
 
         dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +69,7 @@ public class RingActivity extends AppCompatActivity {
 
                 Medication medication = new Medication(
                         new Random().nextInt(Integer.MAX_VALUE),
-                        "Snooze",
+                        medName,
                         "",
                         0,
                         0,
@@ -67,7 +83,7 @@ public class RingActivity extends AppCompatActivity {
                         false,
                         calendar.get(Calendar.HOUR_OF_DAY),
                         calendar.get(Calendar.MINUTE),
-                        0
+                        medDose
                 );
 
                 medication.schedule(getApplicationContext());

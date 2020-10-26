@@ -362,13 +362,15 @@ public class Frag_Add extends Fragment {
     private void scheduleMedication() {
         int medId = new Random().nextInt(Integer.MAX_VALUE);
 
-        int stockNum, dose1, dose2, dose3, dose4;
+        int stockNum, times, dose1, dose2, dose3, dose4;
 
         try {
             stockNum = Integer.parseInt(quantity.getText().toString());
         } catch (NumberFormatException e) {
             stockNum = 0;
         }
+
+        times = dropdown_timesaday.getSelectedItemPosition() + 1;
 
         try {
             dose1 = Integer.parseInt(dose_1.getText().toString());
@@ -406,12 +408,12 @@ public class Frag_Add extends Fragment {
             sun = true;
         } else {
             mon = checkBox_Mon.isChecked();
-            tue = checkBox_Mon.isChecked();
-            wed = checkBox_Mon.isChecked();
-            thu = checkBox_Mon.isChecked();
-            fri = checkBox_Mon.isChecked();
-            sat = checkBox_Mon.isChecked();
-            sun = checkBox_Mon.isChecked();
+            tue = checkBox_Tue.isChecked();
+            wed = checkBox_Wed.isChecked();
+            thu = checkBox_Thu.isChecked();
+            fri = checkBox_Fri.isChecked();
+            sat = checkBox_Sat.isChecked();
+            sun = checkBox_Sun.isChecked();
         }
 
         Medication medication = new Medication(
@@ -428,7 +430,7 @@ public class Frag_Add extends Fragment {
             fri,
             sat,
             sun,
-            dropdown_timesaday.getSelectedItemPosition(),
+            times,
             timePicker_1.getHour(),
             timePicker_1.getMinute(),
             dose1,

@@ -1,0 +1,14 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (1hr)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the notification feature (1hr)
+
+Implementation of features
+- Implemented the alarm/notification feature (7hrs)
