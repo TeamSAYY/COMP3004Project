@@ -2,14 +2,12 @@ package com.example.drmednotifier;
 
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.CalendarView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,8 +19,6 @@ import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.List;
-
-//import android.support.v4.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +39,7 @@ public class Frag_Home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button btnUser;
+    private CalendarView theCalendarView;
 
     public Frag_Home() {
         // Required empty public constructor
@@ -97,16 +93,17 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-//        Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
-//        btnUserProfile.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent in = new Intent(getActivity(), New_User_Profile.class);
-//                //in.putExtra("some", "some data");
-//                startActivity(in);
-//            }
-//        });
+        theCalendarView = view.findViewById(R.id.calendarView);
+        theCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                Intent intent = new Intent(getActivity(), Dose_Page.class);
+                intent.putExtra("YEAR", year);
+                intent.putExtra("MONTH", month + 1);
+                intent.putExtra("DAY", dayOfMonth);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
