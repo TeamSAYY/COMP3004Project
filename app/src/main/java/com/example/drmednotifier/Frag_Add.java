@@ -140,17 +140,25 @@ public class Frag_Add extends Fragment {
         dose_4.setText("1");
 
         text_time_dose_1.setVisibility(View.GONE);
+        time_dose_view_1.setVisibility(View.GONE);
         text_time_dose_2.setVisibility(View.GONE);
+        time_dose_view_2.setVisibility(View.GONE);
         text_time_dose_3.setVisibility(View.GONE);
+        time_dose_view_3.setVisibility(View.GONE);
         text_time_dose_4.setVisibility(View.GONE);
+        time_dose_view_4.setVisibility(View.GONE);
 
         dropdown_timesPerDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 text_time_dose_1.setVisibility(View.GONE);
+                time_dose_view_1.setVisibility(View.GONE);
                 text_time_dose_2.setVisibility(View.GONE);
+                time_dose_view_2.setVisibility(View.GONE);
                 text_time_dose_3.setVisibility(View.GONE);
+                time_dose_view_3.setVisibility(View.GONE);
                 text_time_dose_4.setVisibility(View.GONE);
+                time_dose_view_4.setVisibility(View.GONE);
                 switch (position) {
                     case 3:
                         text_time_dose_4.setVisibility(View.VISIBLE);
