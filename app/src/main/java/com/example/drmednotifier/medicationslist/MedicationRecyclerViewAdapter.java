@@ -38,7 +38,7 @@ public class MedicationRecyclerViewAdapter extends RecyclerView.Adapter<Medicati
         return medications.size();
     }
 
-    public void setAlarms(List<Medication> medications) {
+    public void setMedications(List<Medication> medications) {
         this.medications = medications;
         notifyDataSetChanged();
     }

@@ -12,6 +12,8 @@ import com.example.drmednotifier.R;
 import com.example.drmednotifier.data.Medication;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerViewAdapter.ViewHolder> {
@@ -39,7 +41,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
         return doses.size();
     }
 
-    public void setAlarms(List<Medication> medications, int dayOfWeek) {
+    public void setDoses(List<Medication> medications, int dayOfWeek) {
         doses = new ArrayList<>();
         if (medications == null) return;
 
@@ -134,6 +136,13 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
                 ));
             }
         }
+
+        Collections.sort(doses, new Comparator<Medication>() {
+            @Override
+            public int compare(Medication o1, Medication o2) {
+                return (o1.getHour_1() - o2.getHour_1()) * 60 + (o1.getMinute_1() - o2.getMinute_1());
+            }
+        });
 
         notifyDataSetChanged();
     }

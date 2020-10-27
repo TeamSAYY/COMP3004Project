@@ -3,6 +3,8 @@ package com.example.drmednotifier;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,7 @@ public class Frag_Add extends Fragment {
     @BindView(R.id.add_med_checkFri) CheckBox checkBox_Fri;
     @BindView(R.id.add_med_checkSat) CheckBox checkBox_Sat;
     @BindView(R.id.add_med_checkSun) CheckBox checkBox_Sun;
-    @BindView(R.id.spinner_med_timesaday) Spinner dropdown_timesaday;
+    @BindView(R.id.spinner_med_timesPerDay) Spinner dropdown_timesPerDay;
     @BindView(R.id.text_time_dose_1) TextView text_time_dose_1;
     @BindView(R.id.llayout_time_dose_1) View time_dose_view_1;
     @BindView(R.id.timePicker_med_time_1) TimePicker timePicker_1;
@@ -66,6 +68,7 @@ public class Frag_Add extends Fragment {
     @BindView(R.id.text_time_dose_4) TextView text_time_dose_4;
     @BindView(R.id.llayout_time_dose_4) View time_dose_view_4;
     @BindView(R.id.timePicker_med_time_4) TimePicker timePicker_4;
+    @BindView(R.id.button_med_save) Button button_save;
 
 
     private CreateMedicationViewModel createMedicationViewModel;
@@ -90,47 +93,9 @@ public class Frag_Add extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        // Button hide med info
-        button_hide_med_info.setTag(1);
-        button_hide_med_info.setText("hide");
-
-        button_hide_med_info.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    button_hide_med_info.setText("show");
-                    med_info_view.setVisibility(View.GONE);
-                    view.setTag(0);
-                } else {
-                    button_hide_med_info.setText("hide");
-                    med_info_view.setVisibility(View.VISIBLE);
-                    view.setTag(1);
-                }
-            }
-        });
-
-        // Button hide med schedule
-        button_hide_schedule.setTag(1);
-        button_hide_schedule.setText("hide");
-
-        button_hide_schedule.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    button_hide_schedule.setText("show");
-                    med_schedule_view.setVisibility(View.GONE);
-                    view.setTag(0);
-                } else {
-                    button_hide_schedule.setText("hide");
-                    med_schedule_view.setVisibility(View.VISIBLE);
-                    view.setTag(1);
-                }
-            }
-        });
+        // Buttons hide views
+        buttonHideView(button_hide_med_info, med_info_view) ;
+        buttonHideView(button_hide_schedule, med_schedule_view) ;
 
         // Drop down list - frequency
         String[] items_freq = new String[]{"Every Day", "Specific Day"};
@@ -167,10 +132,10 @@ public class Frag_Add extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Drop down list - times in a day
-        String[] items_timesaday = new String[]{"1", "2", "3", "4"};
-        ArrayAdapter<String> adapter_timesaday = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_timesaday);
-        dropdown_timesaday.setAdapter(adapter_timesaday);
+        // Drop down list - times per day
+        String[] items_timesPerDay = new String[]{"1", "2", "3", "4"};
+        ArrayAdapter<String> adapter_timesPerDay = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_timesPerDay);
+        dropdown_timesPerDay.setAdapter(adapter_timesPerDay);
 
         dose_1.setText("1");
         dose_2.setText("1");
@@ -182,7 +147,7 @@ public class Frag_Add extends Fragment {
         text_time_dose_3.setVisibility(View.GONE);
         text_time_dose_4.setVisibility(View.GONE);
 
-        dropdown_timesaday.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dropdown_timesPerDay.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 text_time_dose_1.setVisibility(View.GONE);
@@ -207,134 +172,15 @@ public class Frag_Add extends Fragment {
             }
         });
 
-        // Text hide time dose 1
-        text_time_dose_1.setTag(1);
-
-        time_dose_view_1.setVisibility(View.GONE);
-
-        timePicker_1.setHour(8);
-        timePicker_1.setMinute(0);
-        text_time_dose_1.setText(String.format("%02d:%02d", 8, 0));
-
-        text_time_dose_1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    time_dose_view_1.setVisibility(View.VISIBLE);
-                    view.setTag(0);
-                } else {
-                    time_dose_view_1.setVisibility(View.GONE);
-                    view.setTag(1);
-                }
-            }
-        });
-
-        timePicker_1.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                text_time_dose_1.setText(String.format("%02d:%02d", hourOfDay, minute));
-            }
-        });
-
-        // Text hide time dose 2
-        text_time_dose_2.setTag(1);
-
-        time_dose_view_2.setVisibility(View.GONE);
-
-        timePicker_2.setHour(13);
-        timePicker_2.setMinute(0);
-        text_time_dose_2.setText(String.format("%02d:%02d", 13, 0));
-
-        text_time_dose_2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    time_dose_view_2.setVisibility(View.VISIBLE);
-                    view.setTag(0);
-                } else {
-                    time_dose_view_2.setVisibility(View.GONE);
-                    view.setTag(1);
-                }
-            }
-        });
-
-        timePicker_2.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                text_time_dose_2.setText(String.format("%02d:%02d", hourOfDay, minute));
-            }
-        });
-
-        // Text hide time dose 3
-        text_time_dose_3.setTag(1);
-
-        time_dose_view_3.setVisibility(View.GONE);
-
-        timePicker_3.setHour(18);
-        timePicker_3.setMinute(0);
-        text_time_dose_3.setText(String.format("%02d:%02d", 18, 0));
-
-        text_time_dose_3.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    time_dose_view_3.setVisibility(View.VISIBLE);
-                    view.setTag(0);
-                } else {
-                    time_dose_view_3.setVisibility(View.GONE);
-                    view.setTag(1);
-                }
-            }
-        });
-
-        timePicker_3.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                text_time_dose_3.setText(String.format("%02d:%02d", hourOfDay, minute));
-            }
-        });
-
-        // Text hide time dose 4
-        text_time_dose_4.setTag(1);
-
-        time_dose_view_4.setVisibility(View.GONE);
-
-        timePicker_4.setHour(23);
-        timePicker_4.setMinute(0);
-        text_time_dose_4.setText(String.format("%02d:%02d", 23, 0));
-
-        text_time_dose_4.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    time_dose_view_4.setVisibility(View.VISIBLE);
-                    view.setTag(0);
-                } else {
-                    time_dose_view_4.setVisibility(View.GONE);
-                    view.setTag(1);
-                }
-            }
-        });
-
-        timePicker_4.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                text_time_dose_4.setText(String.format("%02d:%02d", hourOfDay, minute));
-            }
-        });
+        // Generate times and doses
+        generateTimeAndDose(text_time_dose_1, time_dose_view_1, timePicker_1,8,0);
+        generateTimeAndDose(text_time_dose_2, time_dose_view_2, timePicker_2,13,0);
+        generateTimeAndDose(text_time_dose_3, time_dose_view_3, timePicker_3,18,0);
+        generateTimeAndDose(text_time_dose_4, time_dose_view_4, timePicker_4,23,0);
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
 
         // Save button
-        Button button_save = view.findViewById(R.id.button_med_save);
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,18 +190,62 @@ public class Frag_Add extends Fragment {
             }
         });
 
-        // Cancel button
-        Button button_cancel = view.findViewById(R.id.button_med_cancel);
-        button_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.home);
-            }
-        });
+        decideSaveButtonStatus();
+        setMandatoryTextListener();
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void buttonHideView(Button button, View view) {
+        button.setTag(1);
+        button.setText("hide");
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int status = (Integer) v.getTag();
+                if (status == 1) {
+                    button.setText("show");
+                    view.setVisibility(View.GONE);
+                    v.setTag(0);
+                } else {
+                    button.setText("hide");
+                    view.setVisibility(View.VISIBLE);
+                    v.setTag(1);
+                }
+            }
+        });
+    }
+
+    private void generateTimeAndDose(TextView text_time_dose, View time_dose_view, TimePicker timePicker, int defaultHour, int defaultMinute) {
+        text_time_dose.setTag(1);
+        time_dose_view.setVisibility(View.GONE);
+
+        timePicker.setHour(defaultHour);
+        timePicker.setMinute(defaultMinute);
+
+        text_time_dose.setText(String.format("%02d:%02d", defaultHour, defaultMinute));
+        text_time_dose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final int status = (Integer) view.getTag();
+                if (status == 1) {
+                    time_dose_view.setVisibility(View.VISIBLE);
+                    view.setTag(0);
+                } else {
+                    time_dose_view.setVisibility(View.GONE);
+                    view.setTag(1);
+                }
+            }
+        });
+
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                text_time_dose.setText(String.format("%02d:%02d", hourOfDay, minute));
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -370,7 +260,7 @@ public class Frag_Add extends Fragment {
             stockNum = 0;
         }
 
-        times = dropdown_timesaday.getSelectedItemPosition() + 1;
+        times = dropdown_timesPerDay.getSelectedItemPosition() + 1;
 
         try {
             dose1 = Integer.parseInt(dose_1.getText().toString());
@@ -448,5 +338,42 @@ public class Frag_Add extends Fragment {
         createMedicationViewModel.insert(medication);
 
         medication.schedule(getContext());
+    }
+
+    private void setMandatoryTextListener() {
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                decideSaveButtonStatus();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                decideSaveButtonStatus();
+            }
+        };
+
+        name.addTextChangedListener(textWatcher);
+        quantity.addTextChangedListener(textWatcher);
+        dose_1.addTextChangedListener(textWatcher);
+        dose_2.addTextChangedListener(textWatcher);
+        dose_3.addTextChangedListener(textWatcher);
+        dose_4.addTextChangedListener(textWatcher);
+    }
+
+    private void decideSaveButtonStatus() {
+        if (name.getText().length() == 0 ||
+                quantity.getText().length() == 0 ||
+                dose_1.getText().length() == 0 ||
+                dose_2.getText().length() == 0 ||
+                dose_3.getText().length() == 0 ||
+                dose_4.getText().length() == 0) {
+            button_save.setEnabled(false);
+        } else {
+            button_save.setEnabled(true);
+        }
     }
 }

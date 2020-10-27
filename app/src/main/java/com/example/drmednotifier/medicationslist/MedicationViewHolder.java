@@ -10,26 +10,19 @@ import com.example.drmednotifier.R;
 import com.example.drmednotifier.data.Medication;
 
 public class MedicationViewHolder extends RecyclerView.ViewHolder {
-//    private TextView medTime;
     private TextView medName;
     private TextView medDays;
     private TextView medTimes;
-//    private TextView medDose;
 
     public MedicationViewHolder(@NonNull View itemView) {
         super(itemView);
 
-//        medTime = itemView.findViewById(R.id.item_medication_time);
         medName = itemView.findViewById(R.id.item_medication_name);
         medDays = itemView.findViewById(R.id.item_medication_recurringDays);
         medTimes = itemView.findViewById(R.id.item_medication_times);
-//        medDose = itemView.findViewById(R.id.item_medication_dose);
     }
 
     public void bind(Medication medication) {
-//        String alarmText = String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1());
-//        medTime.setText(alarmText);
-
         if (medication.getName().length() != 0) {
             medName.setText(String.format("%s", medication.getName()));
         } else {
@@ -56,7 +49,5 @@ public class MedicationViewHolder extends RecyclerView.ViewHolder {
         if (medication.getTimes() >= 3) times += String.format("%02d:%02d ", medication.getHour_3(), medication.getMinute_3());
         if (medication.getTimes() >= 4) times += String.format("%02d:%02d ", medication.getHour_4(), medication.getMinute_4());
         medTimes.setText(times);
-
-//        medDose.setText(String.format("%d pill(s)", medication.getDose_1()));
     }
 }

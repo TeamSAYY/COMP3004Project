@@ -68,7 +68,7 @@ public class Dose_Page extends AppCompatActivity {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
-                    adapter.setAlarms(medications, dayOfWeek);
+                    adapter.setDoses(medications, dayOfWeek);
                 }
             }
         });
