@@ -261,14 +261,14 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/text_med_timesaday"
+                    android:id="@+id/text_med_timesPerDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="How many times per day?"
                     android:textSize="20sp" />
 
                 <Spinner
-                    android:id="@+id/spinner_med_timesaday"
+                    android:id="@+id/spinner_med_timesPerDay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -354,7 +354,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Dose"
+                        android:text="Number of Doses"
                         android:textSize="20sp" />
 
                     <EditText
@@ -362,7 +362,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:drawable/edit_text"
-                        android:hint="dose"
+                        android:hint="Total Amount of Doses"
                         android:inputType="number" />
 
                 </LinearLayout>
@@ -400,7 +400,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Dose"
+                        android:text="Number of Doses"
                         android:textSize="20sp" />
 
                     <EditText
@@ -408,7 +408,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:drawable/edit_text"
-                        android:hint="dose"
+                        android:hint="Total Amount of Doses"
                         android:inputType="number" />
 
                 </LinearLayout>
@@ -446,7 +446,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
-                        android:text="Dose"
+                        android:text="Number of Doses"
                         android:textSize="20sp" />
 
                     <EditText
@@ -454,7 +454,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:drawable/edit_text"
-                        android:hint="dose"
+                        android:hint="Total Amount of Doses"
                         android:inputType="number" />
 
                 </LinearLayout>
@@ -472,6 +472,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@android:drawable/btn_default"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:textColor="@color/background_default_Color"
                     android:text="Save" />
 
             </LinearLayout>
