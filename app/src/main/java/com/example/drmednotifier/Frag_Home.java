@@ -75,9 +75,9 @@ public class Frag_Home extends Fragment {
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         medicationsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
-            public void onChanged(List<Medication> alarms) {
-                if (alarms != null) {
-                    medicationRecyclerViewAdapter.setAlarms(alarms);
+            public void onChanged(List<Medication> medications) {
+                if (medications != null) {
+                    medicationRecyclerViewAdapter.setAlarms(medications);
                 }
             }
         });
@@ -99,7 +99,7 @@ public class Frag_Home extends Fragment {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 Intent intent = new Intent(getActivity(), Dose_Page.class);
                 intent.putExtra("YEAR", year);
-                intent.putExtra("MONTH", month + 1);
+                intent.putExtra("MONTH", month);
                 intent.putExtra("DAY", dayOfMonth);
                 startActivity(intent);
             }
