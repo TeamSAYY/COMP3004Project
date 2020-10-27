@@ -1,6 +1,5 @@
 package com.example.drmednotifier;
 
-
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -70,7 +69,6 @@ public class Frag_Add extends Fragment {
     @BindView(R.id.timePicker_med_time_4) TimePicker timePicker_4;
     @BindView(R.id.button_med_save) Button button_save;
 
-
     private CreateMedicationViewModel createMedicationViewModel;
 
     @Override
@@ -88,7 +86,6 @@ public class Frag_Add extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_frag__add, container, false);
 
         ButterKnife.bind(this, view);
@@ -231,6 +228,14 @@ public class Frag_Add extends Fragment {
             public void onClick(View view) {
                 final int status = (Integer) view.getTag();
                 if (status == 1) {
+                    time_dose_view_1.setVisibility(View.GONE);
+                    text_time_dose_1.setTag(1);
+                    time_dose_view_2.setVisibility(View.GONE);
+                    text_time_dose_2.setTag(1);
+                    time_dose_view_3.setVisibility(View.GONE);
+                    text_time_dose_3.setTag(1);
+                    time_dose_view_4.setVisibility(View.GONE);
+                    text_time_dose_4.setTag(1);
                     time_dose_view.setVisibility(View.VISIBLE);
                     view.setTag(0);
                 } else {
