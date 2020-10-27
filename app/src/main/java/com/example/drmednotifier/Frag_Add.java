@@ -1,6 +1,5 @@
 package com.example.drmednotifier;
 
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
