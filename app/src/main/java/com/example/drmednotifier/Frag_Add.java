@@ -344,16 +344,6 @@ public class Frag_Add extends Fragment {
             }
         });
 
-        // Cancel button
-        Button button_cancel = view.findViewById(R.id.button_med_cancel);
-        button_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.home);
-            }
-        });
-
         // Inflate the layout for this fragment
         return view;
     }

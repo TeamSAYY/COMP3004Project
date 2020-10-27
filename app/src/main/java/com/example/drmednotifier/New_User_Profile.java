@@ -1,6 +1,8 @@
 package com.example.drmednotifier;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,12 +25,44 @@ import android.view.View;
 public class New_User_Profile extends AppCompatActivity {
 
     private UserDatabase userDatabase;
-
     private UserDao userDao;
-
-//    private UserRepository userRepository;
-
     private List<User> usersLiveData;
+
+    private EditText editTextFirstName, editTextLastName, editTextAge;
+    //  create a textWatcher member
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            // check Fields For Empty Values
+            checkFieldsForEmptyValues();
+        }
+    };
+
+    void checkFieldsForEmptyValues(){
+        Button btnSave = (Button) findViewById(R.id.btnSaveChanges);
+
+        String firstName = editTextFirstName.getText().toString();
+        String lastName = editTextLastName.getText().toString();
+        String age = editTextAge.getText().toString();
+
+        if(firstName.equals("") || lastName.equals("") || age.equals("")){
+            btnSave.setEnabled(false);
+            btnSave.setTextColor(getResources().getColor(R.color.button_disabled_text_colour));
+            btnSave.getBackground().setAlpha(64);
+        } else {
+            btnSave.setEnabled(true);
+            btnSave.setTextColor(getResources().getColor(R.color.background_default_Color));
+            btnSave.getBackground().setAlpha(255);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,29 +77,27 @@ public class New_User_Profile extends AppCompatActivity {
             }
         });
 
-        //getSupportActionBar().setTitle(getResources().getString(R.string.new_user_report_title));
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        editTextFirstName = (EditText) findViewById(R.id.textFirstName);
+        editTextLastName = (EditText) findViewById(R.id.textLastName);
+        editTextAge = (EditText) findViewById(R.id.textAge);
 
-        // May need a better implementation of accessing database - YS
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        editTextFirstName.addTextChangedListener(mTextWatcher);
+        editTextLastName.addTextChangedListener(mTextWatcher);
+        editTextAge.addTextChangedListener(mTextWatcher);
 
-        if (!usersLiveData.isEmpty()) {
-            User user = usersLiveData.get(0);
-            ((EditText) findViewById(R.id.textFirstName)).setText(user.getFirstName());
-            ((EditText) findViewById(R.id.textLastName)).setText(user.getLastName());
-            ((EditText) findViewById(R.id.textAge)).setText(String.format("%d", user.getAge()));
-            if (user.isMale()) ((RadioButton)findViewById(R.id.btnMale)).setChecked(true);
-            else if (user.isFemale()) ((RadioButton)findViewById(R.id.btnFemale)).setChecked(true);
-            else if (user.isOthers()) ((RadioButton)findViewById(R.id.btnOther)).setChecked(true);
-        }
+        checkFieldsForEmptyValues();
+
+        setUserProperties();
 
         Button btnSave = findViewById(R.id.btnSaveChanges);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveUser();
+
+                Intent returnIntent = new Intent();
+                setResult(RESULT_OK, returnIntent);
+
                 finish();
             }
         });
@@ -74,13 +106,13 @@ public class New_User_Profile extends AppCompatActivity {
     private void saveUser() {
         int userId;
 
-        String firstName = ((EditText) findViewById(R.id.textFirstName)).getText().toString();
-        String lastName = ((EditText) findViewById(R.id.textLastName)).getText().toString();
+        String firstName = editTextFirstName.getText().toString();
+        String lastName = editTextLastName.getText().toString();
 
         int age, gender;
 
         try {
-            age = Integer.parseInt(((EditText) findViewById(R.id.textAge)).getText().toString());
+            age = Integer.parseInt(editTextAge.getText().toString());
         } catch (NumberFormatException e) {
             age = 0;
         }
@@ -104,6 +136,25 @@ public class New_User_Profile extends AppCompatActivity {
             userDao.update(user);
         }
 
+    }
+
+    private void setUserProperties () {
+        // May need a better implementation of accessing database - YS
+        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
+
+        if (!usersLiveData.isEmpty()) {
+            User user = usersLiveData.get(0);
+
+            editTextFirstName.setText(user.getFirstName());
+            editTextLastName.setText(user.getLastName());
+            editTextAge.setText(String.format("%d", user.getAge()));
+
+            if (user.isMale()) ((RadioButton)findViewById(R.id.btnMale)).setChecked(true);
+            else if (user.isFemale()) ((RadioButton)findViewById(R.id.btnFemale)).setChecked(true);
+            else if (user.isOthers()) ((RadioButton)findViewById(R.id.btnOther)).setChecked(true);
+        }
     }
 
     /*@Override

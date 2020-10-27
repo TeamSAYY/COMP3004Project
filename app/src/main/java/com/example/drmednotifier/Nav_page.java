@@ -34,9 +34,6 @@ public class Nav_page extends AppCompatActivity{
     BottomNavigationView navView;
     String Nametransfer,Agetransfer,avatar_transfer,avatar_count;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,21 +42,11 @@ public class Nav_page extends AppCompatActivity{
         toolbar=findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
 
-
-
-
-
-
         navView= findViewById(R.id.bottomNavigationView);
         navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
-
-
-
-
-
     }
 
     @Override
@@ -94,22 +81,25 @@ public class Nav_page extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-
-
-
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 avatar_count = data.getStringExtra("current_avatar");
-
-
+            }
+        }
+        else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayoutView);
+                if (currentFragment instanceof Frag_Home) {
+                    FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                    fragTransaction.detach(currentFragment);
+                    fragTransaction.attach(currentFragment);
+                    fragTransaction.commit();
+                }
             }
         }
     }
-
-
-
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -147,14 +137,10 @@ public class Nav_page extends AppCompatActivity{
     };
 
     public void click_User_Profile(View view) {
-        Intent i = new Intent(this, New_User_Profile.class);
-        startActivity(i);
+
+        Intent i = new Intent(this,New_User_Profile.class);
+        startActivityForResult(i, 2);
     }
-
-
-
-
-
 
 
 /*

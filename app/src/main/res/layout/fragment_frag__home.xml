@@ -30,14 +30,14 @@
                 android:padding="2dp">
 
                 <TextView
-                    android:id="@+id/userName"
+                    android:id="@+id/txtViewUserName"
                     style="@style/TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Name" />
 
                 <TextView
-                    android:id="@+id/userAge"
+                    android:id="@+id/txtViewUserAge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Age"

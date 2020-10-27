@@ -8,15 +8,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.data.User;
+import com.example.drmednotifier.data.UserDao;
+import com.example.drmednotifier.data.UserDatabase;
 import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
@@ -43,7 +50,10 @@ public class Frag_Home extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private Button btnUser;
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private List<User> usersLiveData;
+
 
     public Frag_Home() {
         // Required empty public constructor
@@ -97,17 +107,25 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-//        Button btnUserProfile = (Button) view.findViewById(R.id.btnUserIcon);
-//        btnUserProfile.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//                Intent in = new Intent(getActivity(), New_User_Profile.class);
-//                //in.putExtra("some", "some data");
-//                startActivity(in);
-//            }
-//        });
+        updateUserInfo(view);
 
         return view;
+    }
+
+    private void updateUserInfo(View view) {
+        userDatabase = Room.databaseBuilder(getContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
+
+        if (!usersLiveData.isEmpty()) {
+            String fullName = "";
+            String age = "";
+            User user = usersLiveData.get(0);
+            fullName = user.getFirstName() + " " + user.getLastName();
+            age = String.format("%d", user.getAge()) + " years old";
+
+            ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
+            ((TextView) view.findViewById(R.id.txtViewUserAge)).setText(age);
+        }
     }
 }

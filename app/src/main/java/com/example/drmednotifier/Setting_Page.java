@@ -5,6 +5,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +30,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.drmednotifier.data.User;
+import com.example.drmednotifier.data.UserDao;
+import com.example.drmednotifier.data.UserDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,38 +41,35 @@ import java.util.List;
 public class Setting_Page extends AppCompatActivity {
 
 
-int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
-String[] headline = new String[]{"Medicine List","Today's Dose"};
-String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
-SwitchCompat switchCompat;
-String current_avatar;
+    int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
+    String[] headline = new String[]{"Medicine List","Today's Dose"};
+    String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
+    SwitchCompat switchCompat;
+    String current_avatar;
     String avatar_T;
+
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private List<User> usersLiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting__page);
 
-
-
-
-
-
-
-
-
+        updateUserInfo();
 
         Intent Namm = getIntent();
-        String Namee  = Namm.getStringExtra("Name_transfer");
-        String Agee  = Namm.getStringExtra("Age_transfer");
+        //String Namee  = Namm.getStringExtra("Name_transfer");
+        //String Agee  = Namm.getStringExtra("Age_transfer");
         avatar_T  = Namm.getStringExtra("avatar_transfer");
 
 
-        TextView a = (TextView) findViewById(R.id.headline_name);
+        /*TextView a = (TextView) findViewById(R.id.headline_name);
         a.setText(Namee);
 
-        TextView b = (TextView) findViewById(R.id.bottomline_gender);
-        b.setText(Agee);
+        TextView b = (TextView) findViewById(R.id.bottomline_age);
+        b.setText(Agee);*/
        // b.setText(avatar_T);
 
         ImageView z = findViewById(R.id.image_view);
@@ -80,9 +82,6 @@ String current_avatar;
 
         if (avatar_T != null && avatar_T.equals("a1")) {z.setImageResource(R.drawable.a1);}
         if (avatar_T != null && avatar_T.equals("a2")) {z.setImageResource(R.drawable.a2);}
-
-
-
 
         /*spinner set up*/
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -254,15 +253,12 @@ String current_avatar;
 
     }
 
-
-
-
     /*transfer to New_User-Profile when click layout bar*/
     public void click_name_tag(View view) {
         Intent i = new Intent(this,New_User_Profile.class);
-
-        startActivity(i);
-
+        //startActivity(i);
+        startActivityForResult(i, 2);
+        //finish();
     }
 
     public void avatar_click(View view) {
@@ -274,7 +270,22 @@ String current_avatar;
 
     }
 
+    private void updateUserInfo() {
+        userDatabase = Room.databaseBuilder(this, UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
 
+        if (!usersLiveData.isEmpty()) {
+            String fullName = "";
+            String age = "";
+            User user = usersLiveData.get(0);
+            fullName = user.getFirstName() + " " + user.getLastName();
+            age = String.format("%d", user.getAge()) + " years old";
+
+            ((TextView) findViewById(R.id.headline_name)).setText(fullName);
+            ((TextView) findViewById(R.id.bottomline_age)).setText(age);
+        }
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -289,13 +300,14 @@ String current_avatar;
                 if(s.equals("a2")){ image.setImageResource(R.drawable.a2);
                     current_avatar="a2";
                 }
-
-
+            }
+        }
+        else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                updateUserInfo();
             }
         }
     }
-
-
 
 
 }

@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:background="#035534"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -72,7 +72,7 @@
 
 
         <TextView
-            android:id="@+id/bottomline_gender"
+            android:id="@+id/bottomline_age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Age"
