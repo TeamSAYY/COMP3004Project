@@ -52,7 +52,9 @@
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="327dp" />
+            android:layout_height="310dp"
+            android:background="#CFFF66"
+            android:weekDayTextAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <ScrollView
             android:layout_width="match_parent"
