@@ -77,7 +77,7 @@ public class Frag_Home extends Fragment {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
-                    medicationRecyclerViewAdapter.setAlarms(medications);
+                    medicationRecyclerViewAdapter.setMedications(medications);
                 }
             }
         });
