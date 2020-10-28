@@ -20,7 +20,6 @@ import static com.example.drmednotifier.application.App.CHANNEL_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.TITLE;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
-//import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
 
 public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;

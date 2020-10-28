@@ -1,5 +1,6 @@
 package com.example.drmednotifier;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -90,6 +93,8 @@ public class Frag_Add extends Fragment {
 
         ButterKnife.bind(this, view);
 
+        Boolean editExisting = getActivity().getIntent().hasExtra("MED_ID");
+
         // Buttons hide views
         buttonHideView(button_hide_med_info, med_info_view) ;
         buttonHideView(button_hide_schedule, med_schedule_view) ;
@@ -115,6 +120,13 @@ public class Frag_Add extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
+                        checkBox_Mon.setChecked(true);
+                        checkBox_Tue.setChecked(true);
+                        checkBox_Wed.setChecked(true);
+                        checkBox_Thu.setChecked(true);
+                        checkBox_Fri.setChecked(true);
+                        checkBox_Sat.setChecked(true);
+                        checkBox_Sun.setChecked(true);
                         specificDays_view_1.setVisibility(View.GONE);
                         specificDays_view_2.setVisibility(View.GONE);
                         break;
@@ -183,17 +195,22 @@ public class Frag_Add extends Fragment {
         generateTimeAndDose(text_time_dose_3, time_dose_view_3, timePicker_3,18,0);
         generateTimeAndDose(text_time_dose_4, time_dose_view_4, timePicker_4,23,0);
 
-        BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
+        if (editExisting) {
+            populateExistingInfo();
+            /* Code to update current medication */
+        } else {
+            BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
 
-        // Save button
-        button_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                scheduleMedication();
-                getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
-                bottomNavigationView.setSelectedItemId(R.id.home);
-            }
-        });
+            // Save button
+            button_save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    scheduleMedication();
+                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
+                    bottomNavigationView.setSelectedItemId(R.id.home);
+                }
+            });
+        }
 
         decideSaveButtonStatus();
         setMandatoryTextListener();
@@ -369,8 +386,30 @@ public class Frag_Add extends Fragment {
             }
         };
 
+        RadioGroup.OnCheckedChangeListener radioGroupListener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                decideSaveButtonStatus();
+            }
+        };
+
+        CompoundButton.OnCheckedChangeListener checkBoxListener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                decideSaveButtonStatus();
+            }
+        };
+
         name.addTextChangedListener(textWatcher);
         quantity.addTextChangedListener(textWatcher);
+        shape_radioBtnGroup.setOnCheckedChangeListener(radioGroupListener);
+        checkBox_Mon.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Tue.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Wed.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Thu.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Fri.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Sat.setOnCheckedChangeListener(checkBoxListener);
+        checkBox_Sun.setOnCheckedChangeListener(checkBoxListener);
         dose_1.addTextChangedListener(textWatcher);
         dose_2.addTextChangedListener(textWatcher);
         dose_3.addTextChangedListener(textWatcher);
@@ -380,6 +419,15 @@ public class Frag_Add extends Fragment {
     private void decideSaveButtonStatus() {
         if (name.getText().length() == 0 ||
                 quantity.getText().length() == 0 ||
+                shape_radioBtnGroup.getCheckedRadioButtonId() == -1 ||
+                (dropdown_freq.getSelectedItemPosition() == 1 &&
+                        !checkBox_Mon.isChecked() &&
+                        !checkBox_Tue.isChecked() &&
+                        !checkBox_Wed.isChecked() &&
+                        !checkBox_Thu.isChecked() &&
+                        !checkBox_Fri.isChecked() &&
+                        !checkBox_Sat.isChecked() &&
+                        !checkBox_Sun.isChecked()) ||
                 dose_1.getText().length() == 0 ||
                 dose_2.getText().length() == 0 ||
                 dose_3.getText().length() == 0 ||
@@ -387,6 +435,56 @@ public class Frag_Add extends Fragment {
             button_save.setEnabled(false);
         } else {
             button_save.setEnabled(true);
+        }
+    }
+
+    private void populateExistingInfo() {
+        Intent intent = getActivity().getIntent();
+        name.setText(intent.getStringExtra("MED_NAME"));
+        description.setText(intent.getStringExtra("DESCRIPTION"));
+        quantity.setText(String.format("%d", intent.getIntExtra("QUANTITY", 0)));
+        ((RadioButton) shape_radioBtnGroup.getChildAt(intent.getIntExtra("SHAPE_ID", -1))).setChecked(true);
+        boolean mon, tue, wed, thu, fri, sat, sun;
+        mon = intent.getBooleanExtra("MONDAY", true);
+        tue = intent.getBooleanExtra("TUESDAY", true);
+        wed = intent.getBooleanExtra("WEDNESDAY", true);
+        thu = intent.getBooleanExtra("THURSDAY", true);
+        fri = intent.getBooleanExtra("FRIDAY", true);
+        sat = intent.getBooleanExtra("SATURDAY", true);
+        sun = intent.getBooleanExtra("SUNDAY", true);
+        if (mon && tue && wed && thu && fri && sat && sun) {
+            dropdown_freq.setSelection(0);
+        } else {
+            dropdown_freq.setSelection(1);
+            checkBox_Mon.setChecked(mon);
+            checkBox_Tue.setChecked(tue);
+            checkBox_Wed.setChecked(wed);
+            checkBox_Thu.setChecked(thu);
+            checkBox_Fri.setChecked(fri);
+            checkBox_Sat.setChecked(sat);
+            checkBox_Sun.setChecked(sun);
+        }
+        int times = intent.getIntExtra("TIMES", 1);
+        dropdown_timesPerDay.setSelection(times - 1);
+        if (times >= 1) {
+            timePicker_1.setHour(intent.getIntExtra("HOUR_1", 8));
+            timePicker_1.setMinute(intent.getIntExtra("MINUTE_1", 0));
+            dose_1.setText(String.format("%d", intent.getIntExtra("DOSE_1", 1)));
+        }
+        if (times >= 2) {
+            timePicker_2.setHour(intent.getIntExtra("HOUR_2", 13));
+            timePicker_2.setMinute(intent.getIntExtra("MINUTE_2", 0));
+            dose_2.setText(String.format("%d", intent.getIntExtra("DOSE_2", 1)));
+        }
+        if (times >= 3) {
+            timePicker_3.setHour(intent.getIntExtra("HOUR_3", 18));
+            timePicker_3.setMinute(intent.getIntExtra("MINUTE_3", 0));
+            dose_3.setText(String.format("%d", intent.getIntExtra("DOSE_3", 1)));
+        }
+        if (times >= 4) {
+            timePicker_4.setHour(intent.getIntExtra("HOUR_4", 23));
+            timePicker_4.setMinute(intent.getIntExtra("MINUTE_4", 0));
+            dose_4.setText(String.format("%d", intent.getIntExtra("DOSE_4", 1)));
         }
     }
 }
