@@ -1,30 +1,18 @@
 package com.example.drmednotifier;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -39,10 +27,10 @@ public class Nav_page extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
 
-        toolbar=findViewById(R.id.Toolbar);
+        toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
 
-        navView= findViewById(R.id.bottomNavigationView);
+        navView = findViewById(R.id.bottomNavigationView);
         navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -69,10 +57,7 @@ public class Nav_page extends AppCompatActivity{
             Agetransfer  = getIntent().getStringExtra("Age");
             intent.putExtra("Age_transfer",Agetransfer);
 
-
             intent.putExtra("avatar_transfer",avatar_count);
-
-
 
             startActivityForResult(intent,1);
             /*startActivity(intent);*/

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Medicine_List">
+    tools:context=".Edit_Medication">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_Medicine_list"
-        app:title="Medicine List"
+        android:id="@+id/toolbar_Edit_Medication"
+        app:title="Edit Medication"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#035534"
@@ -19,24 +19,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/homeAsUpIndicator" />
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/frameLayout_Edit_Medication"
+        android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_Medicine_list"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Edit_Medication">
+    </FrameLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/med_list_recylerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,9 +15,11 @@ import com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver;
 import java.util.Calendar;
 
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.FRIDAY;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.HOUR;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MINUTE;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MONDAY;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.RECURRING;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.SATURDAY;
@@ -251,6 +253,8 @@ public class Medication {
 
         if (times >= 1) {
             intent.putExtra(MED_DOSE, dose_1);
+            intent.putExtra(HOUR, hour_1);
+            intent.putExtra(MINUTE, minute_1);
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
             Calendar calendar_1 = Calendar.getInstance();
@@ -283,7 +287,11 @@ public class Medication {
 
         if (times >= 2) {
             intent.removeExtra(MED_DOSE);
+            intent.removeExtra(HOUR);
+            intent.removeExtra(MINUTE);
             intent.putExtra(MED_DOSE, dose_2);
+            intent.putExtra(HOUR, hour_2);
+            intent.putExtra(MINUTE, minute_2);
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
             Calendar calendar_2 = Calendar.getInstance();
@@ -316,7 +324,11 @@ public class Medication {
 
         if (times >= 3) {
             intent.removeExtra(MED_DOSE);
+            intent.removeExtra(HOUR);
+            intent.removeExtra(MINUTE);
             intent.putExtra(MED_DOSE, dose_3);
+            intent.putExtra(HOUR, hour_3);
+            intent.putExtra(MINUTE, minute_3);
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
             Calendar calendar_3 = Calendar.getInstance();
@@ -349,7 +361,11 @@ public class Medication {
 
         if (times >= 4) {
             intent.removeExtra(MED_DOSE);
+            intent.removeExtra(HOUR);
+            intent.removeExtra(MINUTE);
             intent.putExtra(MED_DOSE, dose_4);
+            intent.putExtra(HOUR, hour_4);
+            intent.putExtra(MINUTE, minute_4);
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, (int) System.currentTimeMillis(), intent, 0);
 
             Calendar calendar_4 = Calendar.getInstance();

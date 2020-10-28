@@ -27,8 +27,9 @@ public class RescheduleAlarmsService extends LifecycleService {
         medicationRepository.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
-                for (Medication a : medications) {
-                    a.schedule(getApplicationContext());
+                if (medications == null) return;
+                for (Medication m : medications) {
+                    m.schedule(getApplicationContext());
                 }
             }
         });
