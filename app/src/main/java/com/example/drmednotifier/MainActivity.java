@@ -3,28 +3,26 @@
 package com.example.drmednotifier;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
-//import android.support.v7.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -88,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
        String input = ((TextView)findViewById(R.id.source)).getText().toString();
        i.putExtra("COOL",input);*/
 
-        Intent i = new Intent(this,Second_page_get_personaldata.class);
-        startActivity(i);
+//        Intent i = new Intent(this,Second_page_get_personaldata.class);
+//        startActivity(i);
 
     }
 
@@ -99,9 +97,15 @@ public class MainActivity extends AppCompatActivity {
         usersLiveData = userDao.getUser();
 
         if (!usersLiveData.isEmpty()) {
-            return true;
-        }
-        else {
+            if (usersLiveData.get(0).getFirstName().length() != 0) {
+                Log.d("myTag", "Existing user info");
+                return true;
+            } else {
+                Log.d("myTag", "Existing user info BUT it only contains avatar info");
+                return false;
+            }
+        } else {
+            Log.d("myTag", "NOT Existing user info");
             return false;
         }
     }

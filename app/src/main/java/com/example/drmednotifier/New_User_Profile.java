@@ -1,5 +1,6 @@
 package com.example.drmednotifier;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,9 +19,6 @@ import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
 import java.util.Random;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 
 public class New_User_Profile extends AppCompatActivity {
 
@@ -147,13 +145,15 @@ public class New_User_Profile extends AppCompatActivity {
         if (!usersLiveData.isEmpty()) {
             User user = usersLiveData.get(0);
 
-            editTextFirstName.setText(user.getFirstName());
-            editTextLastName.setText(user.getLastName());
-            editTextAge.setText(String.format("%d", user.getAge()));
+            if (user.getFirstName().length() != 0) {
+                editTextFirstName.setText(user.getFirstName());
+                editTextLastName.setText(user.getLastName());
+                editTextAge.setText(String.format("%d", user.getAge()));
 
-            if (user.isMale()) ((RadioButton)findViewById(R.id.btnMale)).setChecked(true);
-            else if (user.isFemale()) ((RadioButton)findViewById(R.id.btnFemale)).setChecked(true);
-            else if (user.isOthers()) ((RadioButton)findViewById(R.id.btnOther)).setChecked(true);
+                if (user.isMale()) ((RadioButton)findViewById(R.id.btnMale)).setChecked(true);
+                else if (user.isFemale()) ((RadioButton)findViewById(R.id.btnFemale)).setChecked(true);
+                else if (user.isOthers()) ((RadioButton)findViewById(R.id.btnOther)).setChecked(true);
+            }
         }
     }
 
