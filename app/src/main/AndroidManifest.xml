@@ -17,10 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".New_User_Profile" /> <!-- <activity android:name=".Frag_Setting"></activity> -->
         <activity android:name=".Dose_Page" />
-        <activity android:name=".Medicine_List" /> <!-- <activity android:name=".Frag_Notification" /> -->
+        <activity android:name=".Medicine_List" />
         <activity android:name=".Nav_page" />
         <activity android:name=".Second_page_get_personaldata" />
         <activity android:name=".Setting_Page" />
@@ -36,9 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".RingActivity">
-        </activity>
+        <activity android:name=".RingActivity"></activity>
 
         <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
             <intent-filter>

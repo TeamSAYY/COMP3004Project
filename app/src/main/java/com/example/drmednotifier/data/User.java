@@ -1,6 +1,7 @@
 package com.example.drmednotifier.data;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -14,10 +15,17 @@ public class User {
     private String lastName;
     private int age;
 
+
+
+
     // 0 - Male, 1 - Female, 2 - Other
     private int gender;
 
+    /*private String avatar;*/
+
     private long created;
+
+
 
     public User(int userId, String firstName, String lastName, int age, int gender, long created) {
         this.userId = userId;
@@ -27,6 +35,9 @@ public class User {
         this.gender = gender;
         this.created = created;
     }
+
+
+
 
     public int getUserId() {
         return userId;
@@ -67,6 +78,18 @@ public class User {
     public long getCreated() {
         return created;
     }
+
+    public void  setFirstName(String fname) { this.firstName=fname; }
+
+    public void  setLastName(String lname) { this.lastName=lname; }
+
+    public void  setAge(int age) { this.age=age; }
+
+   /* public void  setAvatar(String avatar) { this.avatar=avatar; }
+
+    public String getAvatar() {
+        return avatar;
+    }*/
 
     public void setCreated(long created) {
         this.created = created;

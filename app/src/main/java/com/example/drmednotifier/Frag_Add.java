@@ -184,7 +184,7 @@ public class Frag_Add extends Fragment {
         generateTimeAndDose(text_time_dose_4, time_dose_view_4, timePicker_4,23,0);
 
         BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Save button
         button_save.setOnClickListener(new View.OnClickListener() {
             @Override

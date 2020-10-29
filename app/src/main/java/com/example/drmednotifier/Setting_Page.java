@@ -1,10 +1,15 @@
 package com.example.drmednotifier;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.ColumnInfo;
+import androidx.room.Dao;
+import androidx.room.Query;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,25 +28,41 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.drmednotifier.data.User;
+import com.example.drmednotifier.data.UserDao;
+import com.example.drmednotifier.data.UserDatabase;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Setting_Page extends AppCompatActivity {
 
 
-int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
-String[] headline = new String[]{"Medicine List","Today's Dose"};
-String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
-SwitchCompat switchCompat;
-String current_avatar;
+    int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
+    String[] headline = new String[]{"Medicine List","Today's Dose"};
+    String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
+    SwitchCompat switchCompat;
+    String current_avatar;
     String avatar_T;
+    String default_avatar;
+    int  count;
+
+
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private List<User> usersLiveData;
+    String name,g,age_gender;
+    int gender;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,36 +71,68 @@ String current_avatar;
 
 
 
-
-
-
-
-
+        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
 
 
         Intent Namm = getIntent();
-        String Namee  = Namm.getStringExtra("Name_transfer");
-        String Agee  = Namm.getStringExtra("Age_transfer");
         avatar_T  = Namm.getStringExtra("avatar_transfer");
-
-
-        TextView a = (TextView) findViewById(R.id.headline_name);
-        a.setText(Namee);
-
-        TextView b = (TextView) findViewById(R.id.bottomline_gender);
-        b.setText(Agee);
-       // b.setText(avatar_T);
-
         ImageView z = findViewById(R.id.image_view);
-        /*THIS IS SOME SERIOUS SHIT*/
-        /*EQUAL DOESNT WORK*/
-        /*COMPARE DOESNT WORK*/
-        /*THE DISPLAY IS FINE */
-        /*DOUBLE DATA TRANSFER FROM POP TO NAV*/
 
 
-        if (avatar_T != null && avatar_T.equals("a1")) {z.setImageResource(R.drawable.a1);}
-        if (avatar_T != null && avatar_T.equals("a2")) {z.setImageResource(R.drawable.a2);}
+        z.setImageResource(R.drawable.a1);
+/*
+        if(avatar_T != null && avatar_T.equals("a1")){ z.setImageResource(R.drawable.a1);}
+       if(avatar_T != null && avatar_T.equals("a2")){ z.setImageResource(R.drawable.a2);}
+        else{
+
+            if(avatar_T == null && current_avatar==null){ z.setImageResource(R.drawable.a2);}
+            if(avatar_T == null && current_avatar!=null){ z.setImageResource(R.drawable.a1);}
+           }*/
+        if(avatar_T != null && avatar_T.equals("a1")){ z.setImageResource(R.drawable.a1);}
+        if(avatar_T != null && avatar_T.equals("a2")){ z.setImageResource(R.drawable.a2);avatar_T="a2";}
+        if(avatar_T == null && current_avatar==null){  z.setImageResource(R.drawable.a1);}
+
+
+
+        if (!usersLiveData.isEmpty()) {
+            User user = usersLiveData.get(0);
+            name = user.getFirstName() + " "+ user.getLastName();
+            gender = user.getGender();
+            if(gender == 0){g ="Male";}
+            else if (gender == 1){g ="Female";}
+            else{g="Others";}
+
+            age_gender =  user.getAge() + " years old, " + g;
+            ((TextView) findViewById(R.id.headline_name)).setText(name);
+            ((TextView) findViewById(R.id.bottomline_gender)).setText(age_gender);
+
+
+            /*
+            default_avatar = user.getAvatar();
+            if (default_avatar != null && default_avatar.equals("a1")){  z.setImageResource(R.drawable.a1);}
+            if (default_avatar != null && default_avatar.equals("a2")){  z.setImageResource(R.drawable.a2);}*/
+
+        }
+
+
+
+
+
+
+
+
+        /*
+         if ( default_avatar.equals("a1")){ z.setImageResource(R.drawable.a1);}
+       if (default_avatar.equals("a2")){ z.setImageResource(R.drawable.a2);}*/
+
+/*
+        TextView a = (TextView) findViewById(R.id.headline_name);
+
+
+
+
 
 
 
@@ -91,6 +144,7 @@ String current_avatar;
         s_list.add("Light Music");
         s_list.add("Pop Music");
         s_list.add("Rock Hard");
+
 
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,s_list);
@@ -133,10 +187,6 @@ String current_avatar;
 
 
 
-                /*
-                Intent intent = new Intent(Setting_Page.this, Nav_page.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
             }
         });
 
@@ -270,7 +320,7 @@ String current_avatar;
 
         Intent i = new Intent(this, Popup_Window.class);
         startActivityForResult(i, 1);
-        ImageView image =findViewById(R.id.image_view);
+
 
     }
 

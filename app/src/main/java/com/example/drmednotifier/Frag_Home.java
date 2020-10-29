@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,8 +14,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.data.User;
+import com.example.drmednotifier.data.UserDao;
+import com.example.drmednotifier.data.UserDatabase;
 import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
@@ -29,6 +34,10 @@ public class Frag_Home extends Fragment {
     private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
     private MedicationsListViewModel medicationsListViewModel;
     private RecyclerView medicationsRecyclerView;
+
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private List<User> usersLiveData;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,6 +113,39 @@ public class Frag_Home extends Fragment {
                 startActivity(intent);
             }
         });
+
+        userDatabase = Room.databaseBuilder( requireActivity(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
+
+
+        int userId;
+        if (!usersLiveData.isEmpty()) {
+            User user = usersLiveData.get(0);
+            String fn = user.getFirstName();
+            String ln = user.getLastName();
+            int age = user.getAge();
+            String name = user.getFirstName() + " "+ user.getLastName();
+            int gender = user.getGender();
+            String g;
+            if(gender == 0){g ="Male";}
+            else if (gender == 1){g ="Female";}
+            else{g="Others";}
+
+           String  age_gender =  user.getAge() + " years old, " + g;
+            ((TextView) view.findViewById(R.id.userName)).setText(name);
+            ((TextView) view.findViewById(R.id.userAge)).setText(age_gender);
+
+
+            /*
+            userId = usersLiveData.get(0).getUserId();
+            user = new User(userId, fn, ln, age, gender, System.currentTimeMillis());
+            userDao.update(user);*/
+        }
+
+
+
+
 
         return view;
     }
