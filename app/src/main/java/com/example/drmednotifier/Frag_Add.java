@@ -584,6 +584,6 @@ public class Frag_Add extends Fragment {
 
         createMedicationViewModel.update(medication);
 
-//        medication.schedule(getContext());
+        medication.schedule(getContext());
     }
 }
