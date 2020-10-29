@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2hrs)
+
+Plannings
+- Start Setting page coding and layout
+
+Research
+- pop up window feture and data transfer
+
+Implementation of features
+- Working on Setting page feture and layout
+- fix previous problem code(3h)

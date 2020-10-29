@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity android:name=".Edit_Medication" />
         <activity android:name=".New_User_Profile" /> <!-- <activity android:name=".Frag_Setting"></activity> -->
         <activity android:name=".Dose_Page" />
         <activity android:name=".Medicine_List" /> <!-- <activity android:name=".Frag_Notification" /> -->

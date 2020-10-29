@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2h)
+
+Plannings
+- finish most layout and feture for setting page
+
+Research
+- data base code learning and apply for it in the activity and fragment(5h)
+
+Implementation of features
+- Working on Setting page feture , home page and activity feture inside setting page (6h) 
+- fix previous problem code(user page code, get user info code, data base code)(2h)

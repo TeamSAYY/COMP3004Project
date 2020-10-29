@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.drmednotifier.Second_page_get_personaldata">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -160,8 +159,5 @@
                 android:text="CONFIRM" />
 
         </LinearLayout>
-
     </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

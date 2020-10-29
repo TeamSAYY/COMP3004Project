@@ -1,10 +1,14 @@
 package com.example.drmednotifier;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.ColumnInfo;
+import androidx.room.Dao;
+import androidx.room.Query;
 import androidx.room.Room;
 
 import android.content.Intent;
@@ -24,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -37,6 +42,7 @@ import com.example.drmednotifier.data.UserDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 public class Setting_Page extends AppCompatActivity {
 
@@ -47,41 +53,89 @@ public class Setting_Page extends AppCompatActivity {
     SwitchCompat switchCompat;
     String current_avatar;
     String avatar_T;
+    String default_avatar;
+    int  count;
+
 
     private UserDatabase userDatabase;
     private UserDao userDao;
     private List<User> usersLiveData;
+    String name,g,age_gender;
+    int gender;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting__page);
 
-        updateUserInfo();
+
+
+        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
+
 
         Intent Namm = getIntent();
-        //String Namee  = Namm.getStringExtra("Name_transfer");
-        //String Agee  = Namm.getStringExtra("Age_transfer");
         avatar_T  = Namm.getStringExtra("avatar_transfer");
-
-
-        /*TextView a = (TextView) findViewById(R.id.headline_name);
-        a.setText(Namee);
-
-        TextView b = (TextView) findViewById(R.id.bottomline_age);
-        b.setText(Agee);*/
-       // b.setText(avatar_T);
-
         ImageView z = findViewById(R.id.image_view);
-        /*THIS IS SOME SERIOUS SHIT*/
-        /*EQUAL DOESNT WORK*/
-        /*COMPARE DOESNT WORK*/
-        /*THE DISPLAY IS FINE */
-        /*DOUBLE DATA TRANSFER FROM POP TO NAV*/
 
 
-        if (avatar_T != null && avatar_T.equals("a1")) {z.setImageResource(R.drawable.a1);}
-        if (avatar_T != null && avatar_T.equals("a2")) {z.setImageResource(R.drawable.a2);}
+        z.setImageResource(R.drawable.a1);
+/*
+        if(avatar_T != null && avatar_T.equals("a1")){ z.setImageResource(R.drawable.a1);}
+       if(avatar_T != null && avatar_T.equals("a2")){ z.setImageResource(R.drawable.a2);}
+        else{
+
+            if(avatar_T == null && current_avatar==null){ z.setImageResource(R.drawable.a2);}
+            if(avatar_T == null && current_avatar!=null){ z.setImageResource(R.drawable.a1);}
+           }*/
+        if(avatar_T != null && avatar_T.equals("a1")){ z.setImageResource(R.drawable.a1);}
+        if(avatar_T != null && avatar_T.equals("a2")){ z.setImageResource(R.drawable.a2);avatar_T="a2";}
+        if(avatar_T == null && current_avatar==null){  z.setImageResource(R.drawable.a1);}
+
+
+
+        if (!usersLiveData.isEmpty()) {
+            User user = usersLiveData.get(0);
+            name = user.getFirstName() + " "+ user.getLastName();
+            gender = user.getGender();
+            if(gender == 0){g ="Male";}
+            else if (gender == 1){g ="Female";}
+            else{g="Others";}
+
+            age_gender =  user.getAge() + " years old, " + g;
+            ((TextView) findViewById(R.id.headline_name)).setText(name);
+            ((TextView) findViewById(R.id.bottomline_age)).setText(age_gender);
+
+
+            /*
+            default_avatar = user.getAvatar();
+            if (default_avatar != null && default_avatar.equals("a1")){  z.setImageResource(R.drawable.a1);}
+            if (default_avatar != null && default_avatar.equals("a2")){  z.setImageResource(R.drawable.a2);}*/
+
+        }
+
+
+
+
+
+
+
+
+        /*
+         if ( default_avatar.equals("a1")){ z.setImageResource(R.drawable.a1);}
+       if (default_avatar.equals("a2")){ z.setImageResource(R.drawable.a2);}*/
+
+/*
+        TextView a = (TextView) findViewById(R.id.headline_name);
+
+
+
+
+
+
+
 
         /*spinner set up*/
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -90,6 +144,7 @@ public class Setting_Page extends AppCompatActivity {
         s_list.add("Light Music");
         s_list.add("Pop Music");
         s_list.add("Rock Hard");
+
 
 
         ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,s_list);
@@ -132,10 +187,6 @@ public class Setting_Page extends AppCompatActivity {
 
 
 
-                /*
-                Intent intent = new Intent(Setting_Page.this, Nav_page.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);*/
             }
         });
 
@@ -147,22 +198,22 @@ public class Setting_Page extends AppCompatActivity {
 
 
         /*switch */
-    switchCompat =(SwitchCompat)  findViewById(R.id.Switch);
-    switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-            if(isChecked){
-                Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_SHORT).show();
+        switchCompat =(SwitchCompat)  findViewById(R.id.Switch);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_SHORT).show();
+                }
+
+
 
             }
-            else{
-                Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_SHORT).show();
-            }
-
-
-
-        }
-    });
+        });
 
 
 
@@ -180,11 +231,11 @@ public class Setting_Page extends AppCompatActivity {
 
         }
 
-            /*bar menu set up*/
-            String[] from = {"image","headline","bottomline"};
-            int[] to ={R.id.image_view,R.id.headline,R.id.bottomline};
-            SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(),list,R.layout.listview_case,from,to);
-            listView.setAdapter(simpleAdapter);
+        /*bar menu set up*/
+        String[] from = {"image","headline","bottomline"};
+        int[] to ={R.id.image_view,R.id.headline,R.id.bottomline};
+        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(),list,R.layout.listview_case,from,to);
+        listView.setAdapter(simpleAdapter);
 
 
 
@@ -253,12 +304,15 @@ public class Setting_Page extends AppCompatActivity {
 
     }
 
+
+
+
     /*transfer to New_User-Profile when click layout bar*/
     public void click_name_tag(View view) {
         Intent i = new Intent(this,New_User_Profile.class);
-        //startActivity(i);
-        startActivityForResult(i, 2);
-        //finish();
+
+        startActivity(i);
+
     }
 
     public void avatar_click(View view) {
@@ -266,26 +320,11 @@ public class Setting_Page extends AppCompatActivity {
 
         Intent i = new Intent(this, Popup_Window.class);
         startActivityForResult(i, 1);
-        ImageView image =findViewById(R.id.image_view);
+
 
     }
 
-    private void updateUserInfo() {
-        userDatabase = Room.databaseBuilder(this, UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
 
-        if (!usersLiveData.isEmpty()) {
-            String fullName = "";
-            String age = "";
-            User user = usersLiveData.get(0);
-            fullName = user.getFirstName() + " " + user.getLastName();
-            age = String.format("%d", user.getAge()) + " years old";
-
-            ((TextView) findViewById(R.id.headline_name)).setText(fullName);
-            ((TextView) findViewById(R.id.bottomline_age)).setText(age);
-        }
-    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -300,14 +339,13 @@ public class Setting_Page extends AppCompatActivity {
                 if(s.equals("a2")){ image.setImageResource(R.drawable.a2);
                     current_avatar="a2";
                 }
-            }
-        }
-        else if (requestCode == 2) {
-            if (resultCode == RESULT_OK) {
-                updateUserInfo();
+
+
             }
         }
     }
+
+
 
 
 }
