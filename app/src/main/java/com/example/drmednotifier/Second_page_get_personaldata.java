@@ -1,15 +1,12 @@
 package com.example.drmednotifier;
 
 import android.content.Intent;
-//import android.support.v7.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -20,6 +17,8 @@ import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
 import java.util.Random;
+
+//import android.support.v7.app.AppCompatActivity;
 
 public class Second_page_get_personaldata extends AppCompatActivity {
 
@@ -87,7 +86,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         String lastName = editTextLastName.getText().toString();
 
         int age;
-        int gender = 0;
+        int gender = -1; // Use -1 as a place holder for empty int field. Can change it later if we come up a better solution. - YS
 
         try {
             age = Integer.parseInt(editTextAge.getText().toString());

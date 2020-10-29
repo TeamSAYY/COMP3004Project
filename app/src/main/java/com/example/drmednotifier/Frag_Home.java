@@ -6,10 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -131,11 +127,14 @@ public class Frag_Home extends Fragment {
             String fullName = "";
             String age = "";
             User user = usersLiveData.get(0);
-            fullName = user.getFirstName() + " " + user.getLastName();
-            age = String.format("%d", user.getAge()) + " years old";
 
-            ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
-            ((TextView) view.findViewById(R.id.txtViewUserAge)).setText(age);
+            if (user.getFirstName().length() != 0) {
+                fullName = user.getFirstName() + " " + user.getLastName();
+                age = String.format("%d", user.getAge()) + " years old";
+
+                ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
+                ((TextView) view.findViewById(R.id.txtViewUserAge)).setText(age);
+            }
         }
     }
 }

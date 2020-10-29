@@ -1,14 +1,9 @@
 package com.example.drmednotifier;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
 import androidx.room.Room;
 
@@ -20,9 +15,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Popup_Window extends Setting_Page{
-
-
-
     private UserDatabase userDatabase;
     private UserDao userDao;
     private List<User> usersLiveData;
@@ -31,15 +23,11 @@ public class Popup_Window extends Setting_Page{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
         userDao = userDatabase.userDao();
         usersLiveData = userDao.getUser();
 
-
-
         setContentView(R.layout.popup_window_layout);
-
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -48,62 +36,45 @@ public class Popup_Window extends Setting_Page{
         int height = dm.heightPixels;
 
         getWindow().setLayout((int)(width*.8),(int) (height*.6));
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
     public void avatar_change(View view) {
-
-
         Intent intent = new Intent();
-        intent.putExtra("avatar_change_1", "a1");
-        intent.putExtra("avatar_change_11", "a1");
 
-       /* if (!usersLiveData.isEmpty()) {
-            User user = usersLiveData.get(0);
-            if(avatar_T != null ){ user.setAvatar("a1");}
-
-        }*/
-
+        User user;
+        if (usersLiveData.isEmpty()) {
+            int userId = new Random().nextInt(Integer.MAX_VALUE);
+            user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
+            user.setAvatar("a1");
+            userDao.insert(user);
+        } else {
+            user = usersLiveData.get(0);
+            user.setAvatar("a1");
+            userDao.update(user);
+        }
 
         setResult(RESULT_OK, intent);
         finish();
-
-
     }
 
 
     public void avatar_change1(View view) {
-
-
-
         Intent intent = new Intent();
-        intent.putExtra("avatar_change_1", "a2");
-        intent.putExtra("avatar_change_12", "a2");
 
-        /*
-        if (!usersLiveData.isEmpty()) {
-            User user = usersLiveData.get(0);
-            if(avatar_T != null ){ user.setAvatar("a2");}
-
-
-        }*/
+        User user;
+        if (usersLiveData.isEmpty()) {
+            int userId = new Random().nextInt(Integer.MAX_VALUE);
+            user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
+            user.setAvatar("a2");
+            userDao.insert(user);
+        } else {
+            user = usersLiveData.get(0);
+            user.setAvatar("a2");
+            userDao.update(user);
+        }
 
         setResult(RESULT_OK, intent);
         finish();
     }
-
-
 }

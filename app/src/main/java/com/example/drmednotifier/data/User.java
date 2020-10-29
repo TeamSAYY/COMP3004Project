@@ -14,6 +14,8 @@ public class User {
     private String lastName;
     private int age;
 
+    private String avatar;
+
     // 0 - Male, 1 - Female, 2 - Other
     private int gender;
 
@@ -24,6 +26,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
+        this.avatar = "";
         this.gender = gender;
         this.created = created;
     }
@@ -46,6 +49,14 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public int getGender() {
