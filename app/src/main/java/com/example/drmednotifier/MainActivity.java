@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 //import android.support.v7.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
+
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,6 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.drmednotifier.data.User;
+import com.example.drmednotifier.data.UserDao;
+import com.example.drmednotifier.data.UserDatabase;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -26,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
     TextView logo;
     Button TB1;
 
+    private UserDatabase userDatabase;
+    private UserDao userDao;
+    private List<User> usersLiveData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +76,34 @@ public class MainActivity extends AppCompatActivity {
 
     public void launchActivity(View x){
 
-        Intent i = new Intent(this,Second_page_get_personaldata.class);
+        if (existingUserInfo()) {
+            Intent i = new Intent(this, Nav_page.class);
+            startActivity(i);
+        }
+        else {
+            Intent i = new Intent(this, Second_page_get_personaldata.class);
+            startActivity(i);
+        }
     /*
        String input = ((TextView)findViewById(R.id.source)).getText().toString();
        i.putExtra("COOL",input);*/
 
+        Intent i = new Intent(this,Second_page_get_personaldata.class);
         startActivity(i);
 
+    }
+
+    private boolean existingUserInfo() {
+        userDatabase = Room.databaseBuilder(this, UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
+
+        if (!usersLiveData.isEmpty()) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
 }

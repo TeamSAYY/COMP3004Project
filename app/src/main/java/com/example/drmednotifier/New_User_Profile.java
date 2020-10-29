@@ -55,11 +55,11 @@ public class New_User_Profile extends AppCompatActivity {
 
         if(firstName.equals("") || lastName.equals("") || age.equals("")){
             btnSave.setEnabled(false);
-            btnSave.setTextColor(getResources().getColor(R.color.button_disabled_text_colour));
+            //btnSave.setTextColor(getResources().getColor(R.color.button_disabled_text_colour));
             btnSave.getBackground().setAlpha(64);
         } else {
             btnSave.setEnabled(true);
-            btnSave.setTextColor(getResources().getColor(R.color.background_default_Color));
+            //btnSave.setTextColor(getResources().getColor(R.color.background_default_Color));
             btnSave.getBackground().setAlpha(255);
         }
     }
