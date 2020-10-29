@@ -106,7 +106,7 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-        updateUserInfo(view);
+        getUserInfo(view);
         theCalendarView = view.findViewById(R.id.calendarView);
         theCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -122,7 +122,7 @@ public class Frag_Home extends Fragment {
         return view;
     }
 
-    private void updateUserInfo(View view) {
+    private void getUserInfo(View view) {
         userDatabase = Room.databaseBuilder(getContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
         userDao = userDatabase.userDao();
         usersLiveData = userDao.getUser();
