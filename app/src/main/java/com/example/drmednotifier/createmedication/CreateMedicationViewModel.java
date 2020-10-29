@@ -20,4 +20,8 @@ public class CreateMedicationViewModel extends AndroidViewModel {
     public void insert(Medication medication) {
         medicationRepository.insert(medication);
     }
+
+    public void update(Medication medication) {
+        medicationRepository.update(medication);
+    }
 }

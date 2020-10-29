@@ -198,6 +198,13 @@ public class Frag_Add extends Fragment {
         if (editExisting) {
             populateExistingInfo();
             /* Code to update current medication */
+            button_save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    updateMedication();
+                    getActivity().finish();
+                }
+            });
         } else {
             BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
 
@@ -278,7 +285,6 @@ public class Frag_Add extends Fragment {
         });
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void scheduleMedication() {
         int medId = new Random().nextInt(Integer.MAX_VALUE);
 
@@ -486,5 +492,98 @@ public class Frag_Add extends Fragment {
             timePicker_4.setMinute(intent.getIntExtra("MINUTE_4", 0));
             dose_4.setText(String.format("%d", intent.getIntExtra("DOSE_4", 1)));
         }
+    }
+
+    private void updateMedication() {
+        Intent intent = getActivity().getIntent();
+
+        int medId = intent.getIntExtra("MED_ID", new Random().nextInt(Integer.MAX_VALUE));
+
+        int stockNum, times, dose1, dose2, dose3, dose4;
+
+        try {
+            stockNum = Integer.parseInt(quantity.getText().toString());
+        } catch (NumberFormatException e) {
+            stockNum = 0;
+        }
+
+        times = dropdown_timesPerDay.getSelectedItemPosition() + 1;
+
+        try {
+            dose1 = Integer.parseInt(dose_1.getText().toString());
+        } catch (NumberFormatException e) {
+            dose1 = 0;
+        }
+
+        try {
+            dose2 = Integer.parseInt(dose_2.getText().toString());
+        } catch (NumberFormatException e) {
+            dose2 = 0;
+        }
+
+        try {
+            dose3 = Integer.parseInt(dose_3.getText().toString());
+        } catch (NumberFormatException e) {
+            dose3 = 0;
+        }
+
+        try {
+            dose4 = Integer.parseInt(dose_4.getText().toString());
+        } catch (NumberFormatException e) {
+            dose4 = 0;
+        }
+
+        boolean mon, tue, wed, thu, fri, sat, sun;
+
+        if (dropdown_freq.getSelectedItemPosition() == 0) {
+            mon = true;
+            tue = true;
+            wed = true;
+            thu = true;
+            fri = true;
+            sat = true;
+            sun = true;
+        } else {
+            mon = checkBox_Mon.isChecked();
+            tue = checkBox_Tue.isChecked();
+            wed = checkBox_Wed.isChecked();
+            thu = checkBox_Thu.isChecked();
+            fri = checkBox_Fri.isChecked();
+            sat = checkBox_Sat.isChecked();
+            sun = checkBox_Sun.isChecked();
+        }
+
+        Medication medication = new Medication(
+                medId,
+                name.getText().toString(),
+                description.getText().toString(),
+                stockNum,
+                shape_radioBtnGroup.indexOfChild(getView().findViewById(shape_radioBtnGroup.getCheckedRadioButtonId())),
+                intent.getLongExtra("CREATED", System.currentTimeMillis()),
+                mon,
+                tue,
+                wed,
+                thu,
+                fri,
+                sat,
+                sun,
+                times,
+                timePicker_1.getHour(),
+                timePicker_1.getMinute(),
+                dose1,
+                timePicker_2.getHour(),
+                timePicker_2.getMinute(),
+                dose2,
+                timePicker_3.getHour(),
+                timePicker_3.getMinute(),
+                dose3,
+                timePicker_4.getHour(),
+                timePicker_4.getMinute(),
+                dose4
+        );
+
+        createMedicationViewModel.update(medication);
+
+//        medication.schedule(getContext());
     }
 }
