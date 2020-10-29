@@ -19,6 +19,9 @@ public interface MedicationDao {
     @Query("SELECT * FROM medication_table ORDER BY created ASC")
     LiveData<List<Medication>> getMedications();
 
+    @Query("SELECT * FROM medication_table WHERE medId =:id")
+    Medication loadSingle(int id);
+
     @Update
     void update(Medication medication);
 }

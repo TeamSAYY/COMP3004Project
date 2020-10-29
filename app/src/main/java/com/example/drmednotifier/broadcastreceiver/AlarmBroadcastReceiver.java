@@ -7,7 +7,11 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.room.Room;
+
 import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.data.MedicationDao;
+import com.example.drmednotifier.data.MedicationDatabase;
 import com.example.drmednotifier.service.AlarmService;
 import com.example.drmednotifier.service.RescheduleAlarmsService;
 
@@ -42,29 +46,37 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             if (alarmIsToday(intent)) {
                 startAlarmService(context, intent);
             }
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-            Medication medication = new Medication(
-                    intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)),
-                    intent.getStringExtra(MED_NAME),
-                    "",
-                    0,
-                    0,
-                    System.currentTimeMillis(),
-                    intent.getBooleanExtra(MONDAY, true),
-                    intent.getBooleanExtra(TUESDAY, true),
-                    intent.getBooleanExtra(WEDNESDAY, true),
-                    intent.getBooleanExtra(THURSDAY, true),
-                    intent.getBooleanExtra(FRIDAY, true),
-                    intent.getBooleanExtra(SATURDAY, true),
-                    intent.getBooleanExtra(SUNDAY, true),
-                    intent.getIntExtra(HOUR, calendar.get(Calendar.HOUR_OF_DAY)),
-                    intent.getIntExtra(MINUTE, calendar.get(Calendar.MINUTE)),
-                    intent.getIntExtra(MED_DOSE, 0)
-            );
-            medication.schedule(context);
 
-            Log.d("myTag", String.format("New alarm scheduled: %02d:%02d", intent.getIntExtra(HOUR, calendar.get(Calendar.HOUR_OF_DAY)), intent.getIntExtra(MINUTE, calendar.get(Calendar.MINUTE))));
+            MedicationDatabase medicationDatabase = Room.databaseBuilder(context.getApplicationContext(), MedicationDatabase.class, "medication_database").allowMainThreadQueries().build();
+
+            MedicationDao medicationDao = medicationDatabase.medicationDao();
+
+            Medication m = medicationDao.loadSingle(intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)));
+            m.schedule(context);
+
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeInMillis(System.currentTimeMillis());
+//            Medication medication = new Medication(
+//                    intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)),
+//                    intent.getStringExtra(MED_NAME),
+//                    "",
+//                    0,
+//                    0,
+//                    System.currentTimeMillis(),
+//                    intent.getBooleanExtra(MONDAY, true),
+//                    intent.getBooleanExtra(TUESDAY, true),
+//                    intent.getBooleanExtra(WEDNESDAY, true),
+//                    intent.getBooleanExtra(THURSDAY, true),
+//                    intent.getBooleanExtra(FRIDAY, true),
+//                    intent.getBooleanExtra(SATURDAY, true),
+//                    intent.getBooleanExtra(SUNDAY, true),
+//                    calendar.get(Calendar.HOUR_OF_DAY),
+//                    calendar.get(Calendar.MINUTE),
+//                    intent.getIntExtra(MED_DOSE, 0)
+//            );
+//            medication.schedule(context);
+//
+//            Log.d("myTag", String.format("New alarm scheduled: %02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE)));
         }
     }
 

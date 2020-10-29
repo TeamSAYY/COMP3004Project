@@ -31,4 +31,8 @@ public class MedicationRepository {
     public LiveData<List<Medication>> getMedicationsLiveData() {
         return medicationsLiveData;
     }
+
+    public Medication loadSingle(int id) {
+        return medicationDao.loadSingle(id);
+    }
 }
