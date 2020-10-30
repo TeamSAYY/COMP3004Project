@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
         /*set title on top bar*/
        /* setTitle("First Page");*/
 
-
-
         /* test date transfer
         Intent i = getIntent();
        message contain the key "COOL"'s value hello
@@ -55,9 +53,6 @@ public class MainActivity extends AppCompatActivity {
         topAnim = AnimationUtils.loadAnimation(this, R.anim.top_anime);
         bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anime);
 
-
-
-
         text = findViewById(R.id.logotext);
         logo = findViewById(R.id.welcome);
         TB1= findViewById(R.id.Tbutton1);
@@ -66,11 +61,7 @@ public class MainActivity extends AppCompatActivity {
         text.setAnimation(topAnim);
         logo.setAnimation(bottomAnim);
         TB1.setAnimation(bottomAnim);
-
-
     }
-
-
 
     public void launchActivity(View x){
 
@@ -100,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             if (usersLiveData.get(0).getFirstName().length() != 0) {
                 Log.d("myTag", "Existing user info");
                 return true;
-            } else {
+            } else { // If the avatar is set but no other information saved, still show the second page
                 Log.d("myTag", "Existing user info BUT it only contains avatar info");
                 return false;
             }
@@ -109,5 +100,4 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     }
-
 }

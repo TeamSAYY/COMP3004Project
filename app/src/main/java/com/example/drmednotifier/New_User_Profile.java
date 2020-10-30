@@ -130,10 +130,11 @@ public class New_User_Profile extends AppCompatActivity {
             userDao.insert(user);
         } else {
             userId = usersLiveData.get(0).getUserId();
+            String avatar = usersLiveData.get(0).getAvatar();
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
+            user.setAvatar(avatar);
             userDao.update(user);
         }
-
     }
 
     private void setUserProperties () {
