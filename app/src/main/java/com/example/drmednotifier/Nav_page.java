@@ -20,7 +20,6 @@ public class Nav_page extends AppCompatActivity{
 
     private Toolbar toolbar;
     BottomNavigationView navView;
-    String Nametransfer,Agetransfer,avatar_transfer,avatar_count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +43,11 @@ public class Nav_page extends AppCompatActivity{
         return true;
     }
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.toolbarsetting) {
             Intent intent = new Intent(this, Setting_Page.class);
-
-            Nametransfer  = getIntent().getStringExtra("Name");
-            intent.putExtra("Name_transfer",Nametransfer);
-
-            Agetransfer  = getIntent().getStringExtra("Age");
-            intent.putExtra("Age_transfer",Agetransfer);
-
-            intent.putExtra("avatar_transfer",avatar_count);
 
             startActivityForResult(intent,1);
             /*startActivity(intent);*/
@@ -70,10 +60,14 @@ public class Nav_page extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                avatar_count = data.getStringExtra("current_avatar");
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayoutView);
+                FragmentTransaction fragTransaction = getSupportFragmentManager().beginTransaction();
+                fragTransaction.detach(currentFragment);
+                fragTransaction.attach(currentFragment);
+                fragTransaction.commit();
             }
         }
-        else if (requestCode == 2) {
+        if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frameLayoutView);
                 if (currentFragment instanceof Frag_Home) {
@@ -122,23 +116,7 @@ public class Nav_page extends AppCompatActivity{
     };
 
     public void click_User_Profile(View view) {
-
-        Intent i = new Intent(this,New_User_Profile.class);
+        Intent i = new Intent(this, New_User_Profile.class);
         startActivityForResult(i, 2);
     }
-
-
-/*
-
-    public  String getNamed(){
-        Intent intent = getIntent();
-        String NN  = intent.getStringExtra("Name");
-
-        return NN;
-    }
-    public  String getAge(){
-        return A;
-    }
-
-*/
 }

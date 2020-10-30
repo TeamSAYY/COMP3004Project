@@ -49,42 +49,12 @@ public class Setting_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting__page);
 
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
-
-        ImageView z = findViewById(R.id.image_view);
-
-        if (!usersLiveData.isEmpty()) {
-            User user = usersLiveData.get(0);
-
-            if (user.getFirstName().length() != 0) {
-                name = user.getFirstName() + " " + user.getLastName();
-                gender = user.getGender();
-                if(gender == 0){g = "Male";}
-                else if (gender == 1){g = "Female";}
-                else if (gender == 2){g = "Others";}
-
-                if (gender == -1) age_gender =  user.getAge() + " years old";
-                else age_gender =  user.getAge() + " years old, " + g;
-
-                ((TextView) findViewById(R.id.headline_name)).setText(name);
-                ((TextView) findViewById(R.id.bottomline_age)).setText(age_gender);
-            }
-
-            default_avatar = user.getAvatar();
-            if (default_avatar.equals("a1")){
-                z.setImageResource(R.drawable.a1);
-            }
-            if (default_avatar.equals("a2")){
-                z.setImageResource(R.drawable.a2);
-            }
-        }
+        setUserProperties();
 
         /*spinner set up*/
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> s_list = new ArrayList<>();
-        s_list.add("Deafult Music");
+        s_list.add("Default Music");
         s_list.add("Light Music");
         s_list.add("Pop Music");
         s_list.add("Rock Hard");
@@ -97,7 +67,7 @@ public class Setting_Page extends AppCompatActivity {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#D81B60"));
                 ((TextView) parent.getChildAt(0)).setTextSize(15);
                 String text = parent.getItemAtPosition(position).toString();
-                if(text=="Deafult Music"){
+                if(text=="Default Music"){
 
                 }
                 else{
@@ -117,14 +87,13 @@ public class Setting_Page extends AppCompatActivity {
             public void onClick(View v) {
 
                 Intent intent = new Intent();
-                intent.putExtra("current_avatar", current_avatar);
                 setResult(RESULT_OK, intent);
                 finish();
             }
         });
 
         /*switch */
-        switchCompat =(SwitchCompat)  findViewById(R.id.Switch);
+        switchCompat = (SwitchCompat)  findViewById(R.id.Switch);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -203,9 +172,7 @@ public class Setting_Page extends AppCompatActivity {
     /*transfer to New_User-Profile when click layout bar*/
     public void click_name_tag(View view) {
         Intent i = new Intent(this,New_User_Profile.class);
-
-        startActivity(i);
-
+        startActivityForResult(i, 2);
     }
 
     public void avatar_click(View view) {
@@ -215,22 +182,47 @@ public class Setting_Page extends AppCompatActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
-            if(resultCode == RESULT_OK) {
-                ImageView image = findViewById(R.id.image_view);
+        if (requestCode == 1 || requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                setUserProperties();
+            }
+        }
+    }
 
-                usersLiveData = userDao.getUser();
-                User user = usersLiveData.get(0);
-                current_avatar = user.getAvatar();
+    private void setUserProperties () {
+        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        userDao = userDatabase.userDao();
+        usersLiveData = userDao.getUser();
 
-                switch (current_avatar) {
-                    case "a1":
-                        image.setImageResource(R.drawable.a1);
-                        break;
-                    case "a2":
-                        image.setImageResource(R.drawable.a2);
-                        break;
+        ImageView z = findViewById(R.id.image_view);
+
+        if (!usersLiveData.isEmpty()) {
+            User user = usersLiveData.get(0);
+
+            if (user.getFirstName().length() != 0) {
+                name = user.getFirstName() + " " + user.getLastName();
+                gender = user.getGender();
+                if (gender == 0) {
+                    g = "Male";
+                } else if (gender == 1) {
+                    g = "Female";
+                } else if (gender == 2) {
+                    g = "Others";
                 }
+
+                if (gender == -1) age_gender = user.getAge() + " years old";
+                else age_gender = user.getAge() + " years old, " + g;
+
+                ((TextView) findViewById(R.id.headline_name)).setText(name);
+                ((TextView) findViewById(R.id.bottomline_age)).setText(age_gender);
+            }
+
+            default_avatar = user.getAvatar();
+            if (default_avatar.equals("a1")) {
+                z.setImageResource(R.drawable.a1);
+            }
+            if (default_avatar.equals("a2")) {
+                z.setImageResource(R.drawable.a2);
             }
         }
     }

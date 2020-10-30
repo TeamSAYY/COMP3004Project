@@ -76,7 +76,6 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         editTextAge.addTextChangedListener(mTextWatcher);
 
         checkFieldsForEmptyValues();
-
     }
 
     private void saveUser() {
@@ -105,26 +104,22 @@ public class Second_page_get_personaldata extends AppCompatActivity {
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
             userDao.insert(user);
         } else { //Will need to remove this later as user can only access this page if they have no user information saved
-            userId = usersLiveData.get(0).getUserId();
-            user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
-            userDao.update(user);
+            if (usersLiveData.get(0).getFirstName().length() == 0) { // If the avatar is set but no other information saved, still show the second page
+                userId = usersLiveData.get(0).getUserId();
+                String avatar = usersLiveData.get(0).getAvatar();
+                user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
+                user.setAvatar(avatar);
+                userDao.update(user);
+            }
         }
     }
 
     public void launchActivists(View x){
-
         saveUser();
 
         Intent i = new Intent(this,Nav_page.class);
         finish();
         startActivity(i);
-
-        /*String Namee = ((EditText)findViewById(R.id.txtFName)).getText().toString();
-        i.putExtra("Name",Namee);
-
-        String Agee = ((EditText)findViewById(R.id.txtAge)).getText().toString();
-        i.putExtra("Age",Agee);*/
-
     }
 
     public void launchActivistswithnovalue(View x){
@@ -132,5 +127,4 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         finish();
         startActivity(i);
     }
-
 }
