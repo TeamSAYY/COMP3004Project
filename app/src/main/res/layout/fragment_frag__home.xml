@@ -17,7 +17,7 @@
             android:onClick="click_User_Profile">
 
             <ImageView
-                android:id="@+id/image_view"
+                android:id="@+id/home_avatar"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:padding="5dp"
