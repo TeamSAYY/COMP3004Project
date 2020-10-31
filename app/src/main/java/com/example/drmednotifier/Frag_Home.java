@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,8 @@ public class Frag_Home extends Fragment {
     private UserDatabase userDatabase;
     private UserDao userDao;
     private List<User> usersLiveData;
+
+    String avatar;
 
 
     public Frag_Home() {
@@ -135,6 +138,23 @@ public class Frag_Home extends Fragment {
                 ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
                 ((TextView) view.findViewById(R.id.txtViewUserAge)).setText(age);
             }
+
+
+            ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
+
+
+
+            ImageView z = view.findViewById(R.id.home_avatar);
+            avatar = user.getAvatar();
+            if (avatar.equals("a1")) {
+                z.setImageResource(R.drawable.a1);
+            }
+            if (avatar.equals("a2")) {
+                z.setImageResource(R.drawable.a2);
+            }
+
+
+
         }
     }
 }

@@ -125,7 +125,7 @@ public class Setting_Page extends AppCompatActivity {
 
         /*bar menu set up*/
         String[] from = {"image","headline","bottomline"};
-        int[] to ={R.id.image_view,R.id.headline,R.id.bottomline};
+        int[] to ={R.id.home_avatar,R.id.headline,R.id.bottomline};
         SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(),list,R.layout.listview_case,from,to);
         listView.setAdapter(simpleAdapter);
 
@@ -194,7 +194,7 @@ public class Setting_Page extends AppCompatActivity {
         userDao = userDatabase.userDao();
         usersLiveData = userDao.getUser();
 
-        ImageView z = findViewById(R.id.image_view);
+        ImageView z = findViewById(R.id.home_avatar);
 
         if (!usersLiveData.isEmpty()) {
             User user = usersLiveData.get(0);
