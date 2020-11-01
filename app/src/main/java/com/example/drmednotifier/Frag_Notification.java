@@ -22,39 +22,36 @@ public class Frag_Notification extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frag__notification, container, false);
 
-        //get the spinner from the xml.
+        // Get the spinner from the xml.
         Spinner dropdown_noti_type = view.findViewById(R.id.spinner_noti_type);
-        //create a list of items for the spinner.
+        // Create a list of items for the spinner.
         String[] items_noti_type = new String[]{"Push Notification", "Alert", "Popup Window"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter_noti_type = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_type);
-        //set the spinners adapter to the previously created one.
+        // Set the spinners adapter to the previously created one.
         dropdown_noti_type.setAdapter(adapter_noti_type);
 
-        //get the spinner from the xml.
+        // Get the spinner from the xml.
         Spinner dropdown_noti_repeat = view.findViewById(R.id.spinner_noti_repeat);
-        //create a list of items for the spinner.
-        String[] items_noti_repeat = new String[]{"None", "2 min", "5 min", "10 min", "30 min"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        // Create a list of items for the spinner.
+        String[] items_noti_repeat = new String[]{"None", "2 min", "5 min", "10 min", "30 min", "60 min"};
+        // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter_noti_repeat = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_repeat);
-        //set the spinners adapter to the previously created one.
+        // Set the spinners adapter to the previously created one.
         dropdown_noti_repeat.setAdapter(adapter_noti_repeat);
 
-        //get the spinner from the xml.
+        // Get the spinner from the xml.
         Spinner dropdown_renew_time = view.findViewById(R.id.spinner_renew_time);
-        //create a list of items for the spinner.
-        String[] items_renew_time = new String[]{"1 day before", "2 days before", "3 days before", "4 days before", "5 days before"};
-        //create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        //There are multiple variations of this, but this is the basic variant.
+        // Create a list of items for the spinner.
+        String[] items_renew_time = new String[]{"1 day before", "2 days before", "7 days before", "14 days before", "31 days before"};
+        // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter_renew_time = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_renew_time);
-        //set the spinners adapter to the previously created one.
+        // Set the spinners adapter to the previously created one.
         dropdown_renew_time.setAdapter(adapter_renew_time);
 
-        // Inflate the layout for this fragment
         return view;
     }
 }

@@ -43,9 +43,7 @@
                     android:hint="Age"
                     android:padding="5dp" />
 
-
             </LinearLayout>
-
 
         </LinearLayout>
 
