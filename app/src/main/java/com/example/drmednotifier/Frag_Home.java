@@ -106,6 +106,8 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
         getUserInfo(view);
+
+        // Get the date info from the Calendar
         theCalendarView = view.findViewById(R.id.calendarView);
         theCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -139,10 +141,7 @@ public class Frag_Home extends Fragment {
                 ((TextView) view.findViewById(R.id.txtViewUserAge)).setText(age);
             }
 
-
             ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
-
-
 
             ImageView z = view.findViewById(R.id.home_avatar);
             avatar = user.getAvatar();
@@ -152,9 +151,6 @@ public class Frag_Home extends Fragment {
             if (avatar.equals("a2")) {
                 z.setImageResource(R.drawable.a2);
             }
-
-
-
         }
     }
 }
