@@ -16,6 +16,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.drmednotifier.data.NotifSetting;
+import com.example.drmednotifier.data.NotifSettingDao;
+import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
@@ -35,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
     private UserDatabase userDatabase;
     private UserDao userDao;
     private List<User> usersLiveData;
+
+    private NotifSettingDatabase notifSettingDatabase;
+    private NotifSettingDao notifSettingDao;
+    private List<NotifSetting> notifSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         text.setAnimation(topAnim);
         logo.setAnimation(bottomAnim);
         TB1.setAnimation(bottomAnim);
+
+        initNotifSettings();
     }
 
     public void launchActivity(View x){
@@ -98,6 +107,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.d("myTag", "NOT Existing user info");
             return false;
+        }
+    }
+
+    private void initNotifSettings() {
+        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        notifSettingDao = notifSettingDatabase.notifSettingDao();
+        notifSettings = notifSettingDao.getNotifSettings();
+
+        if (notifSettings.isEmpty()) {
+            NotifSetting notifSetting = new NotifSetting();
+            notifSettingDao.insert(notifSetting);
         }
     }
 }
