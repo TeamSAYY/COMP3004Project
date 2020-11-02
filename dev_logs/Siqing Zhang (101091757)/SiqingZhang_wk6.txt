@@ -1,0 +1,15 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meetings
+- Attended the group meeting to discuss the workflow (2 hr)
+- Joined the meeting with team member and TA (1 hr)
+
+Plannings
+- N/A
+
+Research
+- Did the online research about calendar component (4 hrs)
+
+Implementation of Features
+- Updated the calendar view and dose page (8 hrs)
