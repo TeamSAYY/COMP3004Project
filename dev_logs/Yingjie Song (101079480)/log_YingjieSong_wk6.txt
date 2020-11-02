@@ -1,0 +1,22 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (1hr 30min)
+- Joined meetings with team members and the TA (1hr)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the notification feature
+
+Implementation of features
+- Fixed the alarm feature (8 hrs)
+- Updated the add page layout (1 hr 30 min)
+- Sorted the dose list by time (30 min)
+- Updated the medication list page (30 min)
+- Created the edit page layout (30 min)
+- Implemented the functionality to update existing medication (4 hrs)
+- Implemented the functionality to update existing alarm (5 hrs)
+- Added avatar info into the database and fixed display issue (2 hrs)
