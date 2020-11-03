@@ -17,7 +17,7 @@ import java.util.List;
 
 import static com.example.drmednotifier.application.App.CHANNEL_ID;
 
-public class RescheduleAlarmsService extends LifecycleService {
+public class DescheduleAlarmsService extends LifecycleService {
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,7 +34,7 @@ public class RescheduleAlarmsService extends LifecycleService {
             public void onChanged(List<Medication> medications) {
                 if (medications == null) return;
                 for (Medication m : medications) {
-                    m.schedule(getApplicationContext());
+                    m.deschedule(getApplicationContext());
                 }
                 stopForeground(true);
                 stopSelf();
@@ -42,7 +42,7 @@ public class RescheduleAlarmsService extends LifecycleService {
         });
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Notification Enabled")
+                .setContentTitle("Notification Disabled")
                 .setContentText("")
                 .setSmallIcon(R.drawable.logo)
                 .build();

@@ -424,4 +424,26 @@ public class Medication {
             alarmManager_4.cancel(alarmPendingIntent);
         }
     }
+
+    public void deschedule(Context context) {
+        Log.d("myTag", String.format("ALARMS REMOVED: %s", name));
+
+        if (alarmManager_1 == null || alarmManager_2 == null || alarmManager_3 == null || alarmManager_4 == null) {
+            return;
+        }
+
+        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+
+        PendingIntent alarmPendingIntent_1 = PendingIntent.getBroadcast(context, medId + 1, intent, 0);
+        alarmManager_1.cancel(alarmPendingIntent_1);
+
+        PendingIntent alarmPendingIntent_2 = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
+        alarmManager_2.cancel(alarmPendingIntent_2);
+
+        PendingIntent alarmPendingIntent_3 = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
+        alarmManager_3.cancel(alarmPendingIntent_3);
+
+        PendingIntent alarmPendingIntent_4 = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
+        alarmManager_4.cancel(alarmPendingIntent_4);
+    }
 }

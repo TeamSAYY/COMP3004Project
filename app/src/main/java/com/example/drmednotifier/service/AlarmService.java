@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.util.Log;
@@ -15,15 +16,22 @@ import androidx.core.app.NotificationCompat;
 
 import com.example.drmednotifier.R;
 import com.example.drmednotifier.RingActivity;
+import com.example.drmednotifier.data.NotifSetting;
+import com.example.drmednotifier.data.NotifSettingDao;
+import com.example.drmednotifier.data.NotifSettingDatabase;
 
 import static com.example.drmednotifier.application.App.CHANNEL_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
-import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.TITLE;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.TITLE;
 
 public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
+
+    private NotifSettingDatabase notifSettingDatabase;
+    private NotifSettingDao notifSettingDao;
+    private NotifSetting notifSetting;
 
     @Override
     public void onCreate() {
@@ -34,10 +42,14 @@ public class AlarmService extends Service {
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        notifSetting = notifSettingDao.getNotifSettings().get(0);
+
         Log.d("myTag", "ALARM STARTED");
 
         Intent notificationIntent = new Intent(this, RingActivity.class);
@@ -45,9 +57,9 @@ public class AlarmService extends Service {
         notificationIntent.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         notificationIntent.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));
 
-        Log.d("myTag", String.format("NOTI NAME: %s", intent.getStringExtra(MED_NAME)));
+        Log.d("myTag", String.format("NOTIF NAME: %s", intent.getStringExtra(MED_NAME)));
 
-        Log.d("myTag", String.format("NOTI DOSE: %d", intent.getIntExtra(MED_DOSE, 0)));
+        Log.d("myTag", String.format("NOTIF DOSE: %d", intent.getIntExtra(MED_DOSE, 0)));
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -55,17 +67,42 @@ public class AlarmService extends Service {
 
         Log.d("myTag", "TITLE: " + alarmTitle);
 
+        String notifMessage = notifSetting.getNotifMessage();
+
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(alarmTitle)
-                .setContentText("Please take your medication!")
+                .setContentText(notifMessage)
                 .setSmallIcon(R.drawable.ic_alarm_black_24dp)
                 .setContentIntent(pendingIntent)
                 .build();
 
-        mediaPlayer.start();
+        int notifTypeId = notifSetting.getNotifTypeId();
 
-        long[] pattern = { 0, 100, 1000 };
-        vibrator.vibrate(pattern, 0);
+        if (notifTypeId >= 2) {
+            mediaPlayer.start();
+        }
+
+        if (notifTypeId >= 1) {
+            long[] pattern = {0, 100, 1000};
+            vibrator.vibrate(pattern, 0);
+        }
+
+        CountDownTimer timer = new CountDownTimer(60000, 60) {
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // Nothing to do
+            }
+
+            @Override
+            public void onFinish() {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+                vibrator.cancel();
+            }
+        };
+        timer.start();
 
         startForeground(1, notification);
 

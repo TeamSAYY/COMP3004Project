@@ -27,6 +27,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.drmednotifier.createmedication.CreateMedicationViewModel;
 import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.data.NotifSetting;
+import com.example.drmednotifier.data.NotifSettingDao;
+import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Random;
@@ -74,11 +77,18 @@ public class Frag_Add extends Fragment {
 
     private CreateMedicationViewModel createMedicationViewModel;
 
+    private NotifSettingDatabase notifSettingDatabase;
+    private NotifSettingDao notifSettingDao;
+    private NotifSetting notifSetting;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         createMedicationViewModel = ViewModelProviders.of(this).get(CreateMedicationViewModel.class);
+
+        notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
+        notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
     public Frag_Add() {
@@ -584,6 +594,11 @@ public class Frag_Add extends Fragment {
 
         createMedicationViewModel.update(medication);
 
-        medication.schedule(getContext());
+        notifSetting = notifSettingDao.getNotifSettings().get(0);
+        boolean enableNotif = notifSetting.isEnableNotif();
+
+        if (enableNotif) {
+            medication.schedule(getContext());
+        }
     }
 }
