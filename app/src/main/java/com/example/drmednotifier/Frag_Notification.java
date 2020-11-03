@@ -1,6 +1,9 @@
 package com.example.drmednotifier;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,6 +22,8 @@ import androidx.fragment.app.Fragment;
 import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
 import com.example.drmednotifier.data.NotifSettingDatabase;
+import com.example.drmednotifier.service.DescheduleAlarmsService;
+import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 
 public class Frag_Notification extends Fragment {
@@ -28,11 +33,13 @@ public class Frag_Notification extends Fragment {
     private NotifSetting notifSetting;
 
     Switch switch_noti;
+    View layout_noti;
     Spinner dropdown_noti_type;
     Spinner dropdown_noti_remind;
     EditText edit_noti_msg;
 
     Switch switch_renew_pre;
+    View layout_renew_pre;
     Spinner dropdown_renew_time;
     EditText edit_noti__renew_msg;
 
@@ -47,62 +54,26 @@ public class Frag_Notification extends Fragment {
 
         notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
         notifSettingDao = notifSettingDatabase.notifSettingDao();
-        notifSetting = notifSettingDao.getNotifSettings().get(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        CompoundButton.OnCheckedChangeListener switchListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                saveNotifSetting();
-            }
-        };
-
-        AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                saveNotifSetting();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-
-        TextWatcher textWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                saveNotifSetting();
-            }
-        };
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frag__notification, container, false);
 
         switch_noti = view.findViewById(R.id.switch_noti);
+        layout_noti = view.findViewById(R.id.layout_noti);
         dropdown_noti_type = view.findViewById(R.id.spinner_noti_type);
         dropdown_noti_remind = view.findViewById(R.id.spinner_noti_remind);
         edit_noti_msg = view.findViewById(R.id.edit_noti_msg);
         switch_renew_pre = view.findViewById(R.id.switch_renew_pre);
+        layout_renew_pre = view.findViewById(R.id.layout_renew_pre);
         dropdown_renew_time = view.findViewById(R.id.spinner_renew_time);
         edit_noti__renew_msg = view.findViewById(R.id.edit_noti__renew_msg);
 
         // Create a list of items for the spinner.
-        String[] items_noti_type = new String[]{"Push Notification", "Alert", "Popup Window"};
+        String[] items_noti_type = new String[]{"Push Notification", "Push Notification & Vibrate", "Push Notification, Vibrate & Alert"};
         // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
         ArrayAdapter<String> adapter_noti_type = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_type);
         // Set the spinners adapter to the previously created one.
@@ -124,15 +95,88 @@ public class Frag_Notification extends Fragment {
 
         setNotifSettings();
 
-        switch_noti.setOnCheckedChangeListener(switchListener);
+        switch_noti.setOnCheckedChangeListener(notif_switchListener);
         dropdown_noti_type.  setOnItemSelectedListener(dropdownListener);
         dropdown_noti_remind.setOnItemSelectedListener(dropdownListener);
         edit_noti_msg.addTextChangedListener(textWatcher);
-        switch_renew_pre.setOnCheckedChangeListener(switchListener);
+        switch_renew_pre.setOnCheckedChangeListener(refill_switchListener);
         dropdown_renew_time.setOnItemSelectedListener(dropdownListener);
         edit_noti__renew_msg.addTextChangedListener(textWatcher);
 
         return view;
+    }
+
+    private CompoundButton.OnCheckedChangeListener notif_switchListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            saveNotifSetting();
+            if (isChecked) {
+                layout_noti.setVisibility(View.VISIBLE);
+                startRescheduleAlarmsService(getContext());
+            } else {
+                layout_noti.setVisibility(View.GONE);
+                startDescheduleAlarmsService(getContext());
+            }
+        }
+    };
+
+    private CompoundButton.OnCheckedChangeListener refill_switchListener = new CompoundButton.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            saveNotifSetting();
+            if (isChecked) {
+                layout_renew_pre.setVisibility(View.VISIBLE);
+            } else {
+                layout_renew_pre.setVisibility(View.GONE);
+            }
+        }
+    };
+
+    private AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            saveNotifSetting();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            saveNotifSetting();
+        }
+    };
+
+    private void startDescheduleAlarmsService(Context context) {
+        Intent intentService = new Intent(context, DescheduleAlarmsService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intentService);
+        } else {
+            context.startService(intentService);
+        }
+    }
+
+    private void startRescheduleAlarmsService(Context context) {
+        Intent intentService = new Intent(context, RescheduleAlarmsService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intentService);
+        } else {
+            context.startService(intentService);
+        }
     }
 
     private void setNotifSettings() {
@@ -153,6 +197,18 @@ public class Frag_Notification extends Fragment {
         switch_renew_pre.setChecked(enableRefillNotif);
         dropdown_renew_time.setSelection(daysBeforeRefillId);
         edit_noti__renew_msg.setText(refillNotifMessage);
+
+        if (enableNotif) {
+            layout_noti.setVisibility(View.VISIBLE);
+        } else {
+            layout_noti.setVisibility(View.GONE);
+        }
+
+        if (enableRefillNotif) {
+            layout_renew_pre.setVisibility(View.VISIBLE);
+        } else {
+            layout_renew_pre.setVisibility(View.GONE);
+        }
     }
 
     private void saveNotifSetting() {

@@ -14,6 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.drmednotifier.data.Medication;
+import com.example.drmednotifier.data.NotifSetting;
+import com.example.drmednotifier.data.NotifSettingDao;
+import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.example.drmednotifier.service.AlarmService;
 
 import java.util.Calendar;
@@ -35,12 +38,20 @@ public class RingActivity extends AppCompatActivity {
     @BindView(R.id.textView)
     TextView message;
 
+    private NotifSettingDatabase notifSettingDatabase;
+    private NotifSettingDao notifSettingDao;
+    private NotifSetting notifSetting;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring);
 
         ButterKnife.bind(this);
+
+        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        notifSettingDao = notifSettingDatabase.notifSettingDao();
+        notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         String medName = getIntent().getStringExtra(MED_NAME);
         int medDose = getIntent().getIntExtra(MED_DOSE, 0);
@@ -60,39 +71,44 @@ public class RingActivity extends AppCompatActivity {
             }
         });
 
-        snooze.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.add(Calendar.MINUTE, 10);
+        int snoozeMinutes = notifSetting.getSnoozeMinutes();
+        if (snoozeMinutes > 0) {
+            snooze.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(System.currentTimeMillis());
+                    calendar.add(Calendar.MINUTE, snoozeMinutes);
 
-                Medication medication = new Medication(
-                        new Random().nextInt(Integer.MAX_VALUE),
-                        medName,
-                        "",
-                        0,
-                        0,
-                        System.currentTimeMillis(),
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        false,
-                        calendar.get(Calendar.HOUR_OF_DAY),
-                        calendar.get(Calendar.MINUTE),
-                        medDose
-                );
+                    Medication medication = new Medication(
+                            new Random().nextInt(Integer.MAX_VALUE),
+                            medName,
+                            "",
+                            0,
+                            0,
+                            System.currentTimeMillis(),
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            true,
+                            calendar.get(Calendar.HOUR_OF_DAY),
+                            calendar.get(Calendar.MINUTE),
+                            medDose
+                    );
 
-                medication.schedule(getApplicationContext());
+                    medication.schedule(getApplicationContext());
 
-                Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-                getApplicationContext().stopService(intentService);
-                finish();
-            }
-        });
+                    Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                    getApplicationContext().stopService(intentService);
+                    finish();
+                }
+            });
+        } else {
+            snooze.setVisibility(View.GONE);
+        }
 
         animateClock();
     }

@@ -31,6 +31,9 @@ public class NotifSetting {
     private int snoozeMinutes;
 
     @Ignore
+    private int snoozeTimes[] = {0, 2, 5, 10, 30, 60};
+
+    @Ignore
     public NotifSetting(int notifSettingId, boolean enableNotif, int notifTypeId, int remindInMinutesId, String notifMessage,
                         boolean enableRefillNotif, int daysBeforeRefillId, String refillNotifMessage,
                         int notifSoundId, int snoozeMinutes) {
@@ -57,7 +60,7 @@ public class NotifSetting {
         this.daysBeforeRefillId = 0;
         this.refillNotifMessage = "It's time for a medication refill!";
         this.notifSoundId = 0;
-        this.snoozeMinutes = 10;
+        this.snoozeMinutes = snoozeTimes[0];
     }
 
     public int getNotifSettingId() {
@@ -90,6 +93,11 @@ public class NotifSetting {
 
     public void setRemindInMinutesId(int remindInMinutesId) {
         this.remindInMinutesId = remindInMinutesId;
+        try {
+            this.snoozeMinutes = snoozeTimes[remindInMinutesId];
+        } catch (IndexOutOfBoundsException e) {
+            // Do nothing
+        }
     }
 
     public String getNotifMessage() {
