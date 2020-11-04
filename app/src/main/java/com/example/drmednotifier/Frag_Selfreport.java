@@ -41,7 +41,7 @@ public class Frag_Selfreport extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_frag__selfreport, container, false);
 
-        ListView listView  = (ListView)v.findViewById(R.id.self_report_list_1);
+        /*ListView listView  = (ListView)v.findViewById(R.id.self_report_list_1);
 
         ArrayAdapter<String> ListViewAdapter = new ArrayAdapter<String>(
                 getActivity(),
@@ -53,7 +53,7 @@ public class Frag_Selfreport extends Fragment {
         );
 
 
-        listView.setAdapter(ListViewAdapter);
+        listView.setAdapter(ListViewAdapter);*/
 
 
 

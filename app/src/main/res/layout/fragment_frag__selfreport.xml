@@ -12,31 +12,29 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical">
 
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:text="Self Report Information"
-          android:textStyle="bold"
-          android:textSize="24sp"
-          android:textColor="#737373"
-         />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Medication Activity\nReport Status"
+            android:textColor="#737373"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="Today's report"
+            android:text="Today's Activity"
             android:gravity="center"
             android:textColor="#2E2E2E"
             android:textSize="24sp" />
 
         <View
-            android:layout_width="369dp"
+            android:layout_width="wrap_content"
             android:layout_height="2dp"
             android:background="#E1DFDF" />
 
@@ -65,7 +63,7 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:text="Medicine taked"
+                android:text="Medication Taken"
                 android:textColor="#373737"
                 android:textSize="24sp" />
 
@@ -81,8 +79,8 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
             />
 
         <View
-            android:layout_width="369dp"
-            android:layout_height="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
             android:background="#E1DFDF" />
 
 
@@ -94,10 +92,6 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
             android:padding="4dp"
             android:clickable="true"
             android:focusable="true"
-
-
-
-
             >
 
             <ImageView
@@ -112,7 +106,7 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:text="Medicine Missed"
+                android:text="Medication Missed"
                 android:textColor="#373737"
                 android:textSize="24sp" />
 
@@ -125,28 +119,23 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
             />
 
         <View
-            android:layout_width="369dp"
-            android:layout_height="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
             android:background="#E1DFDF"
             android:layout_marginBottom="20dp"/>
-
-
-
-
-
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:text="Weekly report"
+            android:text="Weekly Activity"
             android:gravity="center"
             android:textColor="#2E2E2E"
             android:textSize="24sp" />
 
         <View
-            android:layout_width="369dp"
-            android:layout_height="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
             android:background="#E1DFDF" />
 
         <LinearLayout
@@ -173,7 +162,7 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
-                android:text="Medicine taked"
+                android:text="Medication Taken"
                 android:textColor="#373737"
                 android:textSize="24sp" />
 
@@ -188,8 +177,8 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
             />
 
         <View
-            android:layout_width="369dp"
-            android:layout_height="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
             android:background="#E1DFDF" />
 
 
@@ -232,8 +221,8 @@ tools:context="com.example.drmednotifier.Frag_Selfreport">
             />
 
         <View
-            android:layout_width="369dp"
-            android:layout_height="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
             android:background="#E1DFDF" />
 
 
