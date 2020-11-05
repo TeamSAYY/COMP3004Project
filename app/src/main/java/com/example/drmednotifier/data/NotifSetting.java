@@ -53,7 +53,7 @@ public class NotifSetting {
     public NotifSetting() {
         this.notifSettingId = new Random().nextInt(Integer.MAX_VALUE);;
         this.enableNotif = true;
-        this.notifTypeId = 0;
+        this.notifTypeId = 2;
         this.remindInMinutesId = 0;
         this.notifMessage = "Please take your medication!";
         this.enableRefillNotif = true;
