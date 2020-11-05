@@ -22,9 +22,10 @@
             <TextView
                 android:id="@+id/item_dose_time"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.25"
-                android:text="00:00"
+                android:gravity="center"
+                android:hint="00:00"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="24sp"
@@ -34,15 +35,25 @@
                 android:id="@+id/item_dose_medication_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.45"
+                android:layout_weight="0.4"
+                android:breakStrategy="high_quality"
+                android:hyphenationFrequency="full"
+                android:hint="Medication"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.05" />
+
+            <TextView
                 android:id="@+id/item_dose_medication_dose"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.2"
+                android:gravity="center"
+                android:hint="1"
                 android:textSize="24sp" />
 
             <CheckBox
