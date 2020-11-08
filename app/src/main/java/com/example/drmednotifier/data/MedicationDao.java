@@ -22,6 +22,9 @@ public interface MedicationDao {
     @Query("SELECT * FROM medication_table WHERE medId =:id")
     Medication loadSingle(int id);
 
+    @Query("DELETE FROM medication_table WHERE medId = :id")
+    void deleteById(long id);
+
     @Update
     void update(Medication medication);
 }

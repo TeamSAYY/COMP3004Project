@@ -78,6 +78,10 @@ public class MedicationRecyclerViewAdapter extends RecyclerView.Adapter<Medicati
         notifyDataSetChanged();
     }
 
+    public Medication getIdByPos(int position) {
+        return medications.get(position);
+    }
+
     @Override
     public void onViewRecycled(@NonNull MedicationViewHolder holder) {
         super.onViewRecycled(holder);

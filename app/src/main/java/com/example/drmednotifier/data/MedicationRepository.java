@@ -35,4 +35,8 @@ public class MedicationRepository {
     public Medication loadSingle(int id) {
         return medicationDao.loadSingle(id);
     }
+
+    public void deleteById(int id) {
+        medicationDao.deleteById(id);
+    }
 }

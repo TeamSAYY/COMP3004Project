@@ -29,4 +29,8 @@ public class MedicationsListViewModel extends AndroidViewModel {
     public LiveData<List<Medication>> getAlarmsLiveData() {
         return medicationsLiveData;
     }
+
+    public void deleteById(int id) {
+        medicationRepository.deleteById(id);
+    }
 }
