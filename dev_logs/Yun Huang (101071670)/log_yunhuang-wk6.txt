@@ -1,0 +1,17 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (3hrs)
+
+Plannings
+- fix and use the code from data base 
+
+Research
+- room data base(2 hrs) 
+
+Implementation of features
+- fix avatar problem(30min)
+- fix previous problem code(1h)
+- use data base to the fragment and activity, setting page and homepage and self report page(5hrs)
+ 
