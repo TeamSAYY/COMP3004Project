@@ -1,0 +1,25 @@
+Name: Alex Gan
+Student Number: 101071670
+Team Name: Team SAYY
+Project: Dr. Med. Notifier
+
+Group Discussion/Meetings
+- Reviewed current work, completed features, and progress towards goals (30 min.)
+- Discussed current progress on incomplete features and potential next steps (30 min.)
+- Went over discussions on what to feature for demo next week (1 hr)
+- Went over discussions on how demo should be organized for next week (45 min.)
+- Discussed review over documentation of D2 (20 min.)
+- Practiced demo with group and improved demo based on time constratins (1 hr)
+- Met with TA to review component diagrams (30 min.)
+- Divided future work and ran through questions we had about next steps on improving the application (30 min.)
+
+Plannings
+- Began creating rough draft of component diagram (15 min.)
+- Finalized documentation for D2 deliverable (2 hr)
+- Wrote script for D2 demo (45 min.)
+- Practiced D2 demo by timing myself and improving intonnation and speech (1 hr)
+
+Research
+
+
+Implementation of Features
