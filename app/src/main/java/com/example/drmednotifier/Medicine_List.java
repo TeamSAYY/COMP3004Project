@@ -42,7 +42,7 @@ public class Medicine_List extends AppCompatActivity {
 
         medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter();
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-        medicationsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Medication>>() {
+        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {

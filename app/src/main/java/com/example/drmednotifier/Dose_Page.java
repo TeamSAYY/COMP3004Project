@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.drmednotifier.data.MedActivity;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.medicationslist.DoseRecyclerViewAdapter;
+import com.example.drmednotifier.medicationslist.MedActivitiesListViewModel;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.Calendar;
@@ -26,6 +28,7 @@ public class Dose_Page extends AppCompatActivity {
     private RecyclerView doseRecyclerView;
 
     private MedicationsListViewModel medicationsListViewModel;
+    private MedActivitiesListViewModel medActivitiesListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +61,20 @@ public class Dose_Page extends AppCompatActivity {
 
         DoseRecyclerViewAdapter adapter = new DoseRecyclerViewAdapter();
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-        medicationsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Medication>>() {
+        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
                     adapter.setDoses(medications, year, month, day);
+                }
+            }
+        });
+        medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
+        medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, new Observer<List<MedActivity>>() {
+            @Override
+            public void onChanged(List<MedActivity> medActivities) {
+                if (medActivities != null) {
+                    adapter.setMedActivities(getApplication(), medActivities, year, month, day);
                 }
             }
         });

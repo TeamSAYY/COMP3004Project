@@ -26,7 +26,7 @@ public class MedicationsListViewModel extends AndroidViewModel {
         medicationRepository.update(medication);
     }
 
-    public LiveData<List<Medication>> getAlarmsLiveData() {
+    public LiveData<List<Medication>> getMedicationsLiveData() {
         return medicationsLiveData;
     }
 

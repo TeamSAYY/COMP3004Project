@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +27,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.drmednotifier.createmedication.CreateMedicationViewModel;
+import com.example.drmednotifier.data.MedActivity;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
 import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -382,6 +386,24 @@ public class Frag_Add extends Fragment {
         );
 
         createMedicationViewModel.insert(medication);
+
+        int days = (mon?1:0) + (tue?1:0) + (wed?1:0) + (thu?1:0) + (fri?1:0) + (sat?1:0) + (sun?1:0);
+
+        int doses = (times>=1?dose1:0) + (times>=2?dose2:0) + (times>=3?dose3:0) + (times>=4?dose4:0);
+
+        int duration = ((stockNum / doses) / days) * 7 + 7;
+
+        ArrayList<MedActivity> medActivities = new ArrayList<>();
+        for(int i=0; i<=duration; i++){
+            Log.d("myTag", "INSERT MED ACTIVITY");
+
+            Date today = new Date(System.currentTimeMillis() + 24*60*60*1000*i);
+
+            MedActivity medActivity = new MedActivity(medId, today);
+
+            medActivities.add(medActivity);
+        }
+        createMedicationViewModel.insertAll(medActivities);
 
         medication.schedule(getContext());
     }
