@@ -47,12 +47,6 @@ public class Dose_Page extends AppCompatActivity {
         int month = incomingIntent.getIntExtra("MONTH", calendar.get(Calendar.MONTH));
         int day = incomingIntent.getIntExtra("DAY", calendar.get(Calendar.DAY_OF_MONTH));
 
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
         String date = (month + 1) + "/" + day + "/" + year;
         theDate.setText(date);
 
@@ -68,7 +62,7 @@ public class Dose_Page extends AppCompatActivity {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
-                    adapter.setDoses(medications, dayOfWeek);
+                    adapter.setDoses(medications, year, month, day);
                 }
             }
         });

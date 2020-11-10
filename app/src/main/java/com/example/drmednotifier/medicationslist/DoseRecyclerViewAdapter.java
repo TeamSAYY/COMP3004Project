@@ -12,6 +12,7 @@ import com.example.drmednotifier.R;
 import com.example.drmednotifier.data.Medication;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -41,11 +42,28 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
         return doses.size();
     }
 
-    public void setDoses(List<Medication> medications, int dayOfWeek) {
+    public void setDoses(List<Medication> medications, int year, int month, int day) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+
+        long millis = calendar.getTimeInMillis();
+
         doses = new ArrayList<>();
         if (medications == null) return;
 
         for (Medication medication : medications) {
+            if (millis < medication.getCreated()) continue;
             if (dayOfWeek == 1 && !medication.isSunday()) continue;
             if (dayOfWeek == 2 && !medication.isMonday()) continue;
             if (dayOfWeek == 3 && !medication.isTuesday()) continue;
