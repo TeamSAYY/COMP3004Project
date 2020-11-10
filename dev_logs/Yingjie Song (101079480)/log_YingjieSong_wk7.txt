@@ -1,0 +1,17 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2hrs)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the medication tracking feature
+
+Implementation of features
+- Created database for the notification setting page (1hr)
+- Updated the notification features to invoke notification settings (3hrs)
+- Updated med list layout (30min)
+- Forced activities to run in portrait mode (15min)
