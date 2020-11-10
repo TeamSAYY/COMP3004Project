@@ -37,6 +37,8 @@ public class MedicationRepository {
     }
 
     public void deleteById(int id) {
-        medicationDao.deleteById(id);
+        MedicationDatabase.databaseWriteExecutor.execute(() -> {
+            medicationDao.deleteById(id);
+        });
     }
 }

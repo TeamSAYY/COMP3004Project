@@ -108,7 +108,7 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -128,16 +128,15 @@ public class Frag_Home extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             medicationRecyclerViewAdapter.notifyItemRemoved(position);    //item removed from recylcerview
-//                            sqldatabase.execSQL("delete from " + TABLE_NAME + " where _id='" + (position + 1) + "'"); //query for delete
-//                            list.remove(position);  //then remove item
-//                            medicationsListViewModel.deleteById();
+                            Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
+                            medication.deschedule(getContext());
+                            medicationsListViewModel.deleteById(medication.getMedId());
                             return;
                         }
                     }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            medicationRecyclerViewAdapter.notifyItemRemoved(position + 1);    //notifies the RecyclerView Adapter that data in adapter has been removed at a particular position.
-                            medicationRecyclerViewAdapter.notifyItemRangeChanged(position, medicationRecyclerViewAdapter.getItemCount());   //notifies the RecyclerView Adapter that positions of element in adapter has been changed from position(removed element index to end of list), please update it.
+                            medicationRecyclerViewAdapter.notifyDataSetChanged();
                             return;
                         }
                     }).show();  //show alert dialog
