@@ -30,6 +30,10 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
 
     private Application application;
 
+    private int year;
+    private int month;
+    private int day;
+
     public DoseRecyclerViewAdapter() {
         doses = new ArrayList<>();
         medActivities = new ArrayList<>();
@@ -76,8 +80,13 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
         return doses.size();
     }
 
-    public void setDoses(List<Medication> medications, int year, int month, int day) {
+    public void setDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
 
+    public void setDoses(List<Medication> medications) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -92,7 +101,6 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
         long millis = calendar.getTimeInMillis();
-        Date date = new Date(millis);
 
         doses = new ArrayList<>();
         if (medications == null) return;
@@ -200,7 +208,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
         notifyDataSetChanged();
     }
 
-    public void setMedActivities(Application application, List<MedActivity> medActivities, int year, int month, int day) {
+    public void setMedActivities(Application application, List<MedActivity> medActivities) {
         Date date = new GregorianCalendar(year, month, day).getTime();
         if (medActivities == null) {
             Log.d("myTag", "MED ACTIVITIES EMPTY");
@@ -220,8 +228,6 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
             }
         }
         this.application = application;
-
-        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -244,7 +250,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
             medTime.setText(String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1()));
             medName.setText(medication.getName());
             medDose.setText(String.format("%d", medication.getDose_1()));
-            checkBox.setChecked(false);
+            checkBox.setEnabled(false);
         }
 
         public void bind(Medication medication, MedActivity medActivity, int numOfAlarm) {
@@ -254,17 +260,34 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
             medName.setText(medication.getName());
             medDose.setText(String.format("%d", medication.getDose_1()));
 
-            checkBox.setChecked(medActivity.getMedStatus(numOfAlarm));
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(System.currentTimeMillis());
 
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.d("myTag", "CHECKBOX CLICKED");
-                    medActivity.setMedStatus(numOfAlarm, isChecked);
-                    MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
-                    medActivitiesListViewModel.update(medActivity);
-                }
-            });
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, month);
+            calendar.set(Calendar.DAY_OF_MONTH, day);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+
+            long millis = calendar.getTimeInMillis();
+
+            if (millis > System.currentTimeMillis()) {
+                checkBox.setEnabled(false);
+            } else {
+                checkBox.setEnabled(true);
+                checkBox.setChecked(medActivity.getMedStatus(numOfAlarm));
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        Log.d("myTag", "CHECKBOX CLICKED");
+                        medActivity.setMedStatus(numOfAlarm, isChecked);
+                        MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
+                        medActivitiesListViewModel.update(medActivity);
+                    }
+                });
+            }
         }
     }
 }

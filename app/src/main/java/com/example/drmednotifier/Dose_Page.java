@@ -60,12 +60,13 @@ public class Dose_Page extends AppCompatActivity {
         });
 
         DoseRecyclerViewAdapter adapter = new DoseRecyclerViewAdapter();
+        adapter.setDate(year, month, day);
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
-                    adapter.setDoses(medications, year, month, day);
+                    adapter.setDoses(medications);
                 }
             }
         });
@@ -74,7 +75,7 @@ public class Dose_Page extends AppCompatActivity {
             @Override
             public void onChanged(List<MedActivity> medActivities) {
                 if (medActivities != null) {
-                    adapter.setMedActivities(getApplication(), medActivities, year, month, day);
+                    adapter.setMedActivities(getApplication(), medActivities);
                 }
             }
         });
