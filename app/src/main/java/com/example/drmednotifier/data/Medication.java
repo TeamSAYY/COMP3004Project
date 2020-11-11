@@ -52,18 +52,6 @@ public class Medication {
 
     private long created;
 
-    @Ignore
-    private AlarmManager alarmManager_1;
-
-    @Ignore
-    private AlarmManager alarmManager_2;
-
-    @Ignore
-    private AlarmManager alarmManager_3;
-
-    @Ignore
-    private AlarmManager alarmManager_4;
-
     public Medication(int medId, String name, String description, int quantity, int shape_id, long created,
                       boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday,
                       int times, int hour_1, int minute_1, int dose_1, int hour_2, int minute_2, int dose_2, int hour_3, int minute_3, int dose_3, int hour_4, int minute_4, int dose_4) {
@@ -244,12 +232,10 @@ public class Medication {
         Log.d("myTag", "SCHEDULE");
         Log.d("myTag", String.format("TIMES: %d", times));
 
-        if (alarmManager_1 == null || alarmManager_2 == null || alarmManager_3 == null || alarmManager_4 == null) {
-            alarmManager_1 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmManager_2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmManager_3 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            alarmManager_4 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        }
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        AlarmManager alarmManager_2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        AlarmManager alarmManager_3 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+//        AlarmManager alarmManager_4 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra(MED_ID, medId);
@@ -291,8 +277,8 @@ public class Medication {
 //                    AlarmManager.INTERVAL_DAY,
 //                    alarmPendingIntent
 //            );
-            alarmManager_1.cancel(alarmPendingIntent);
-            alarmManager_1.setExact(
+            alarmManager.cancel(alarmPendingIntent);
+            alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_1.getTimeInMillis(),
                     alarmPendingIntent
@@ -329,8 +315,8 @@ public class Medication {
 //                    AlarmManager.INTERVAL_DAY,
 //                    alarmPendingIntent
 //            );
-            alarmManager_2.cancel(alarmPendingIntent);
-            alarmManager_2.setExact(
+            alarmManager.cancel(alarmPendingIntent);
+            alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_2.getTimeInMillis(),
                     alarmPendingIntent
@@ -339,7 +325,7 @@ public class Medication {
             Log.d("myTag", String.format("ALARM 2 CREATED: %02d:%02d", hour_2, minute_2));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
-            alarmManager_2.cancel(alarmPendingIntent);
+            alarmManager.cancel(alarmPendingIntent);
         }
 
         if (times >= 3) {
@@ -370,8 +356,8 @@ public class Medication {
 //                    AlarmManager.INTERVAL_DAY,
 //                    alarmPendingIntent
 //            );
-            alarmManager_3.cancel(alarmPendingIntent);
-            alarmManager_3.setExact(
+            alarmManager.cancel(alarmPendingIntent);
+            alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_3.getTimeInMillis(),
                     alarmPendingIntent
@@ -380,7 +366,7 @@ public class Medication {
             Log.d("myTag", String.format("ALARM 3 CREATED: %02d:%02d", hour_3, minute_3));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
-            alarmManager_3.cancel(alarmPendingIntent);
+            alarmManager.cancel(alarmPendingIntent);
         }
 
         if (times >= 4) {
@@ -411,8 +397,8 @@ public class Medication {
 //                    AlarmManager.INTERVAL_DAY,
 //                    alarmPendingIntent
 //            );
-            alarmManager_4.cancel(alarmPendingIntent);
-            alarmManager_4.setExact(
+            alarmManager.cancel(alarmPendingIntent);
+            alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_4.getTimeInMillis(),
                     alarmPendingIntent
@@ -421,29 +407,27 @@ public class Medication {
             Log.d("myTag", String.format("ALARM 4 CREATED: %02d:%02d", hour_4, minute_4));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
-            alarmManager_4.cancel(alarmPendingIntent);
+            alarmManager.cancel(alarmPendingIntent);
         }
     }
 
     public void deschedule(Context context) {
         Log.d("myTag", String.format("ALARMS REMOVED: %s", name));
 
-        if (alarmManager_1 == null || alarmManager_2 == null || alarmManager_3 == null || alarmManager_4 == null) {
-            return;
-        }
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
 
         PendingIntent alarmPendingIntent_1 = PendingIntent.getBroadcast(context, medId + 1, intent, 0);
-        alarmManager_1.cancel(alarmPendingIntent_1);
+        alarmManager.cancel(alarmPendingIntent_1);
 
         PendingIntent alarmPendingIntent_2 = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
-        alarmManager_2.cancel(alarmPendingIntent_2);
+        alarmManager.cancel(alarmPendingIntent_2);
 
         PendingIntent alarmPendingIntent_3 = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
-        alarmManager_3.cancel(alarmPendingIntent_3);
+        alarmManager.cancel(alarmPendingIntent_3);
 
         PendingIntent alarmPendingIntent_4 = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
-        alarmManager_4.cancel(alarmPendingIntent_4);
+        alarmManager.cancel(alarmPendingIntent_4);
     }
 }

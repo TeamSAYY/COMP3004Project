@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.drmednotifier.data.MedActivity;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.medicationslist.DoseRecyclerViewAdapter;
+import com.example.drmednotifier.medicationslist.MedActivitiesListViewModel;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.Calendar;
@@ -26,6 +28,7 @@ public class Dose_Page extends AppCompatActivity {
     private RecyclerView doseRecyclerView;
 
     private MedicationsListViewModel medicationsListViewModel;
+    private MedActivitiesListViewModel medActivitiesListViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +50,6 @@ public class Dose_Page extends AppCompatActivity {
         int month = incomingIntent.getIntExtra("MONTH", calendar.get(Calendar.MONTH));
         int day = incomingIntent.getIntExtra("DAY", calendar.get(Calendar.DAY_OF_MONTH));
 
-        calendar.set(Calendar.YEAR, year);
-        calendar.set(Calendar.MONTH, month);
-        calendar.set(Calendar.DAY_OF_MONTH, day);
-
-        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-
         String date = (month + 1) + "/" + day + "/" + year;
         theDate.setText(date);
 
@@ -63,12 +60,22 @@ public class Dose_Page extends AppCompatActivity {
         });
 
         DoseRecyclerViewAdapter adapter = new DoseRecyclerViewAdapter();
+        adapter.setDate(year, month, day);
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-        medicationsListViewModel.getAlarmsLiveData().observe(this, new Observer<List<Medication>>() {
+        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
                 if (medications != null) {
-                    adapter.setDoses(medications, dayOfWeek);
+                    adapter.setDoses(medications);
+                }
+            }
+        });
+        medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
+        medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, new Observer<List<MedActivity>>() {
+            @Override
+            public void onChanged(List<MedActivity> medActivities) {
+                if (medActivities != null) {
+                    adapter.setMedActivities(getApplication(), medActivities);
                 }
             }
         });
