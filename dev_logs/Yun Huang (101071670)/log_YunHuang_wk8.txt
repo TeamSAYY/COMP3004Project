@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2hrs)
+
+Plannings
+- Fix bug code and redesign the layout and shape for each page
+
+Research
+- how to make better layout and mordern design(3hrs)
+
+Implementation of features
+- Working on coding redesign(4hrs)
+- fix previous problem code(0.5hrs)
