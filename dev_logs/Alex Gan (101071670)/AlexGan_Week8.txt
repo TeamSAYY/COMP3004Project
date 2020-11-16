@@ -1,0 +1,20 @@
+Name: Alex Gan
+Student Number: 101071670
+Team Name: Team SAYY
+Project: Dr. Med. Notifier
+
+Group Discussion/Meetings
+- Reviewed current work, completed features, and progress towards goals (30 min.)
+- Discussed current progress on incomplete features and potential next steps (15 min.)
+- Discussed future division of tasks with rest of group (15 min.)
+
+Plannings
+- Practiced presenting demo for professor, TAs, and rest of class (1 hr)
+- Revised script for D2 demo (20 min.)
+- Revised D3 qualifications and prepared questions to ask TAs (30 min.)
+
+Research
+
+
+Implementation of Features
+- Tested newly implemented features for upcoming weeks (20 min.)
