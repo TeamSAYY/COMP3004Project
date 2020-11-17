@@ -1,0 +1,18 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (30min)
+- Helped team member to practice presentation (1hr)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the medication tracking feature
+
+Implementation of features
+- Created onSwipe function on med list so that the user can remove existing med item (2hrs)
+- Changed the logic of dose list so that it won't generate content if date is before Created (30min)
+- Created the database for med activity (1hr)
+- Implemented the draft of tracking feature (4hrs)

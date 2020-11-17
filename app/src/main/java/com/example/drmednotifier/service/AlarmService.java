@@ -1,6 +1,8 @@
 package com.example.drmednotifier.service;
 
+import android.app.ActivityManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -22,6 +24,7 @@ import com.example.drmednotifier.data.NotifSettingDatabase;
 
 import static com.example.drmednotifier.application.App.CHANNEL_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.TITLE;
 
@@ -53,6 +56,8 @@ public class AlarmService extends Service {
         Log.d("myTag", "ALARM STARTED");
 
         Intent notificationIntent = new Intent(this, RingActivity.class);
+        int medId = intent.getIntExtra(MED_ID, 1);
+        notificationIntent.putExtra(MED_ID, medId);
         notificationIntent.putExtra(TITLE, intent.getStringExtra(TITLE));
         notificationIntent.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         notificationIntent.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));
@@ -61,7 +66,7 @@ public class AlarmService extends Service {
 
         Log.d("myTag", String.format("NOTIF DOSE: %d", intent.getIntExtra(MED_DOSE, 0)));
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, medId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String alarmTitle = intent.getStringExtra(TITLE);
 
@@ -104,7 +109,15 @@ public class AlarmService extends Service {
         };
         timer.start();
 
-        startForeground(1, notification);
+        if (isServiceRunningInForeground(this, AlarmService.class)) {
+            NotificationManager manager =
+                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(medId, notification);
+        } else {
+            startForeground(medId, notification);
+        }
+
+        Log.d("myTag", "NOTIF_ID: " + medId);
 
         return START_STICKY;
     }
@@ -121,5 +134,18 @@ public class AlarmService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    public static boolean isServiceRunningInForeground(Context context, Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                if (service.foreground) {
+                    return true;
+                }
+
+            }
+        }
+        return false;
     }
 }

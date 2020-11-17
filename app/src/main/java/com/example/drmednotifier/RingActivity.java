@@ -2,6 +2,8 @@ package com.example.drmednotifier;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_DOSE;
+import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_ID;
 import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver.MED_NAME;
 
 public class RingActivity extends AppCompatActivity {
@@ -53,6 +56,7 @@ public class RingActivity extends AppCompatActivity {
         notifSettingDao = notifSettingDatabase.notifSettingDao();
         notifSetting = notifSettingDao.getNotifSettings().get(0);
 
+        int medID = getIntent().getIntExtra(MED_ID, 0);
         String medName = getIntent().getStringExtra(MED_NAME);
         int medDose = getIntent().getIntExtra(MED_DOSE, 0);
 
@@ -65,8 +69,14 @@ public class RingActivity extends AppCompatActivity {
         dismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-                getApplicationContext().stopService(intentService);
+                NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                int len0 = manager.getActiveNotifications().length;
+                manager.cancel(medID);
+                int len1 = manager.getActiveNotifications().length;
+                if (len0 == len1) {
+                    Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                    getApplicationContext().stopService(intentService);
+                }
                 finish();
             }
         });
@@ -101,8 +111,14 @@ public class RingActivity extends AppCompatActivity {
 
                     medication.schedule(getApplicationContext());
 
-                    Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-                    getApplicationContext().stopService(intentService);
+                    NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                    int len0 = manager.getActiveNotifications().length;
+                    manager.cancel(medID);
+                    int len1 = manager.getActiveNotifications().length;
+                    if (len0 == len1) {
+                        Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                        getApplicationContext().stopService(intentService);
+                    }
                     finish();
                 }
             });

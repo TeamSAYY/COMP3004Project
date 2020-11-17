@@ -116,6 +116,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     private void startAlarmService(Context context, Intent intent) {
         Intent intentService = new Intent(context, AlarmService.class);
+        intentService.putExtra(MED_ID, intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)));
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
         intentService.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         intentService.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));
