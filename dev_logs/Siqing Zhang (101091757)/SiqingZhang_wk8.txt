@@ -1,0 +1,15 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meetings
+- Attended the group meeting to discuss the workflow (1 hr)
+- Joined the meeting with team member to practiced the presentation (1 hr)
+
+Plannings
+- N/A
+
+Research
+- Did the online research about app notifications (2 hr)
+
+Implementation of Features
+- Tested the implemented functions and features (2 hrs)
