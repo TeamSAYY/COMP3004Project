@@ -1,0 +1,589 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+class MainActivity {
+    # onCreate(Bundle) : void
+    + launchActivity(View) : void
+    - existingUserInfo() : boolean
+    - initNotifSettings() : void
+}
+
+class Second_page_get_personaldata {
+    - editTextFirstName : EditText
+    - editTextLastName : EditText
+    - editTextAge : EditText
+    - mTextWatcher : TextWatcher
+
+    # onCreate(Bundle) : void
+    + launchActivists(View) : void
+    + launchActivistswithnovalue(View) : void
+    - checkFieldsForEmptyValues() : void
+    - saveUser() : void
+}
+
+class Nav_page {
+    - mOnNavigationItemSelectedListener : BottomNavigationView.OnNavigationItemSelectedListener
+
+    # onCreate(Bundle) : void
+    + onCreateOptionsMenu(Menu) : boolean
+    + onOptionsItemSelected(MenuItem) : boolean
+    # onActivityResult(int, int, Intent) : void
+    + click_User_Profile(View) : void
+}
+
+class Frag_Home {
+    - medicationRecyclerViewAdapter : MedicationRecyclerViewAdapter
+    - medicationsListViewModel : MedicationsListViewModel
+
+    + Frag_Home()
+    + onCreate(Bundle) : void
+    + onCreateView(LayoutInflater, ViewGroup, Bundle) : View
+    - getUserInfo(View) : void
+}
+
+class Frag_Add {
+    # name : EditText
+    # description : EditText
+    # quantity : EditText
+    # shape_radioBtnGroup : RadioGroup
+    # dose_1 : EditText
+    # dose_2 : EditText
+    # dose_3 : EditText
+    # dose_4 : EditText
+    # button_hide_med_info : Button
+    # med_info_view : View
+    # button_hide_schedule : Button
+    # med_schedule_view : View
+    # dropdown_freq : Spinner
+    # specificDays_view_1 : View
+    # specificDays_view_2 : View
+    # checkBox_Mon : CheckBox
+    # checkBox_Tue : CheckBox
+    # checkBox_Wed : CheckBox
+    # checkBox_Thu : CheckBox
+    # checkBox_Fri : CheckBox
+    # checkBox_Sat : CheckBox
+    # checkBox_Sun : CheckBox
+    # dropdown_timesPerDay : Spinner
+    # text_time_dose_1 : TextView
+    # time_dose_view_1 : View
+    # timePicker_1 : TimePicker
+    # text_time_dose_2 : TextView
+    # time_dose_view_2 : View
+    # timePicker_2 : TimePicker
+    # text_time_dose_3 : TextView
+    # time_dose_view_3 : View
+    # timePicker_3 : TimePicker
+    # text_time_dose_4 : TextView
+    # time_dose_view_4 : View
+    # timePicker_4 : TimePicker
+    # button_save : Button
+    - createMedicationViewModel : CreateMedicationViewModel
+    - notifSettingDao : NotifSettingDao
+
+    + Frag_Add()
+    + onCreate(Bundle) : void
+    + onCreateView(LayoutInflater, ViewGroup, Bundle) : View
+    - buttonHideView(Button, View) : void
+    - generateTimeAndDose(TextView, View, TimePicker, int, int) : void
+    - setMandatoryTextListener() : void
+    - decideSaveButtonStatus() : void
+    - populateExistingInfo() : void
+    - scheduleMedication() : void
+    - updateMedication() : void
+}
+
+class Frag_Selfreport {
+    + Frag_Selfreport()
+    + onCreateView(LayoutInflater, ViewGroup, Bundle) : View
+}
+
+class Frag_Notification {
+    - switch_noti : Switch
+    - layout_noti : View
+    - dropdown_noti_type : Spinner
+    - dropdown_noti_remind : Spinner
+    - edit_noti_msg : EditText
+    - switch_renew_pre : Switch
+    - layout_renew_pre : View
+    - dropdown_renew_time : Spinner
+    - edit_noti__renew_msg : EditText
+    - notifSettingDao : NotifSettingDao
+    - notifSetting : NotifSetting
+    - notif_switchListener : CompoundButton.OnCheckedChangeListener
+    - refill_switchListener : CompoundButton.OnCheckedChangeListener
+    - dropdownListener : AdapterView.OnItemSelectedListener
+    - textWatcher : TextWatcher
+
+    + Frag_Notification()
+    + onCreate(Bundle) : void
+    + onCreateView(LayoutInflater, ViewGroup, Bundle) : View
+    - startDescheduleAlarmsService(Context) : void
+    - startRescheduleAlarmsService(Context) : void
+    - setNotifSettings() : void
+    - saveNotifSetting() : void
+}
+
+class New_User_Profile {
+    - userDao : UserDao
+    - users : List<User>
+    - editTextFirstName : EditText
+    - editTextLastName : EditText
+    - editTextAge  : EditText
+    - mTextWatcher : TextWatcher
+
+    # onCreate(Bundle) : void
+    - checkFieldsForEmptyValues() : void
+    - setUserProperties() : void
+    - saveUser() : void
+}
+
+class Setting_Page {
+    - image : int[]
+    - headline : String[]
+    - bottomline : String[]
+
+    # onCreate(Bundle) : void
+    + CheckboxClickCheck(View) : void
+    + click_name_tag(View) : void
+    + avatar_click(View) : void
+    + onActivityResult(int, int, Intent) : void
+    - setUserProperties() : void
+}
+
+class Popup_Window {
+    - userDao : UserDao
+    - users : List<User>
+
+    # onCreate(Bundle) : void
+    + avatar_change(View view) : void
+    + avatar_change1(View view) : void
+}
+
+class Medicine_List {
+    # onCreate(Bundle) : void
+}
+
+class Dose_Page {
+    # onCreate(Bundle) : void
+}
+
+class Edit_Medication {
+    # onCreate(Bundle) : void
+}
+
+class RingActivity {
+    # dismiss : Button
+    # snooze : Button
+    # clock : ImageView
+    # message : TextView
+
+    # onCreate(Bundle) : void
+    - animateClock() : void
+}
+
+'application
+class App {
+    + CHANNEL_ID : String
+
+    + onCreate() : void
+    - createNotificationChannel() : void
+}
+
+'broadcastreceiver
+class AlarmBroadcastReceiver {
+    {static} + MED_ID : String
+    {static} + MONDAY : String
+    {static} + TUESDAY : String
+    {static} + WEDNESDAY : String
+    {static} + THURSDAY : String
+    {static} + FRIDAY : String
+    {static} + SATURDAY : String
+    {static} + SUNDAY : String
+    {static} + RECURRING : String
+    {static} + TITLE : String
+    {static} + MED_NAME : String
+    {static} + MED_DOSE : String
+    {static} + HOUR : String
+    {static} + MINUTE : String
+
+    + onReceive(Context, Intent) : void
+    - alarmIsToday(Intent) : boolean
+    - startAlarmService(Context, Intent) : void
+    - startRescheduleAlarmsService(Context) : void
+}
+
+'createmedication
+class CreateMedicationViewModel {
+    - medicationRepository : MedicationRepository
+    - medActivityRepository : MedActivityRepository
+
+    + CreateMedicationViewModel(Application)
+    + insert(Medication) : void
+    + update(Medication) : void
+    + insert(MedActivity) : void
+    + insertAll(List<MedActivity>) : void
+    + update(MedActivity) : void
+}
+
+'data
+abstract class UserDatabase {
+    {static} - INSTANCE : UserDatabase
+
+    {abstract} + UserDao()
+    {static} + getDatabase(Context) : UserDatabase
+}
+
+interface UserDao {
+    + insert(User) : void
+    + deleteAll() : void
+    + getUser() : List<User>
+    + update(User) : void
+}
+
+class User {
+    - userId : int
+    - firstName : String
+    - lastName : String
+    - age : int
+    - avatar : String
+    - gender : int
+    - created : long
+
+    + User(int, String, String, int, int, long)
+    + getUserId() : int
+    + setUserId(int) : void
+    + getFirstName() : String
+    + getLastName() : String
+    + getAge() : int
+    + getAvatar() : String
+    + setAvatar() : void
+    + getGender() : int
+    + isMale() : boolean
+    + isFemale() : boolean
+    + isOthers() : boolean
+    + getCreated() : long
+    + setCreated(long) : void
+}
+
+abstract class NotifSettingDatabase {
+    {static} - INSTANCE : NotifSettingDatabase
+
+    {abstract} + NotifSettingDao()
+    {static} + getDatabase(Context) : NotifSettingDatabase
+}
+
+interface NotifSettingDao {
+    + insert(NotifSetting) : void
+    + deleteAll() : void
+    + getNotifSettings() : List<NotifSetting>
+    + update(NotifSetting) : void
+}
+
+class NotifSetting {
+    - notifSettingId : int
+    - enableNotif : boolean
+    - notifTypeId : int
+    - remindInMinutesId : int
+    - notifMessage : String
+    - enableRefillNotif : boolean
+    - daysBeforeRefillId : int
+    - refillNotifMessage : String
+    - notifSoundId : int
+    - snoozeMinutes : int
+    - snoozeTimes = {0, 2, 5, 10, 30, 60} : int[]
+
+    + NotifSetting()
+    + getNotifSettingId() : int
+    + setNotifSettingId(int) : void
+    + isEnableNotif() : boolean
+    + setEnableNotif(boolean) : void
+    + getNotifTypeId() : int
+    + setNotifTypeId(int) : void
+    + getRemindInMinutesId() : int
+    + setRemindInMinutesId(int) : void
+    + getNotifMessage() : String
+    + setNotifMessage(String) : void
+    + isEnableRefillNotif() : boolean
+    + setEnableRefillNotif(boolean) : void
+    + getDaysBeforeRefillId() : int
+    + setDaysBeforeRefillId(int) : void
+    + getRefillNotifMessage() : String
+    + setRefillNotifMessage(String) : void
+    + getNotifSoundId() : int
+    + setNotifSoundId(int) : void
+    + getSnoozeMinutes() : int
+    + setSnoozeMinutes(int) : void
+}
+
+class MedicationRepository {
+    - medicationDao : MedicationDao
+    - medicationsLiveData : LiveData<List<Medication>>
+
+    + MedicationRepository(Application)
+    + insert(Medication) : void
+    + update(Medication) : void
+    + getMedicationsLiveData() : LiveData<List<Medication>>
+    + loadSingle(int) : Medication
+    + deleteById(int) : void
+}
+
+abstract class MedicationDatabase {
+    {static} - INSTANCE : MedicationDatabase
+    {static} - NUMBER_OF_THREADS : int
+    {static} + databaseWriteExecutor : ExecutorService
+
+    {abstract} + medicationDao()
+    {static} + getDatabase(Context) : MedicationDatabase
+}
+
+interface MedicationDao {
+    insert(Medication) : void
+    deleteAll() : void
+    getMedications() : LiveData<List<Medication>>
+    loadSingle(int) : Medication
+    deleteById(long) : void
+    update(Medication) : void
+}
+
+class Medication {
+    - medId : int
+    - name : String
+    - description : String
+    - quantity : int
+    - shape_id : int
+    - monday : boolean
+    - tuesday : boolean
+    - wednesday : boolean
+    - thursday : boolean
+    - friday : boolean
+    - saturday : boolean
+    - sunday : boolean
+    - times : int
+    - hour_1 : int
+    - minute_1 : int
+    - dose_1 : int
+    - hour_2 : int
+    - minute_2 : int
+    - dose_2 : int
+    - hour_3 : int
+    - minute_3 : int
+    - dose_3 : int
+    - hour_4 : int
+    - minute_4 : int
+    - dose_4 : int
+    - created : long
+    
+    + Medication(int, String, String, int, int, long, boolean, boolean, boolean, boolean, boolean, boolean, boolean, int, int, int, int, int, int, int, int, int, int, int, int, int)
+    + Medication(int, String, String, int, int, long, boolean, boolean, boolean, boolean, boolean, boolean, boolean, int, int, int)
+    + getQuantity() : int
+    + getShape_id() : int
+    + getTimes() : int
+    + getHour_1() : int
+    + getMinute_1() : int
+    + getDose_1() : int
+    + getHour_2() : int
+    + getMinute_2() : int
+    + getDose_2() : int
+    + getHour_3() : int
+    + getMinute_3() : int
+    + getDose_3() : int
+    + getHour_4() : int
+    + getMinute_4() : int
+    + getDose_4() : int
+    + getMedId() : int
+    + setMedId(int) : void
+    + isMonday() : boolean
+    + isTuesday() : boolean
+    + isWednesday() : boolean
+    + isThursday() : boolean
+    + isFriday() : boolean
+    + isSaturday() : boolean
+    + isSunday() : boolean
+    + getName() : String
+    + getDescription() : String
+    + getCreated() : long
+    + setCreated(long) : void
+    + schedule(Context) : void
+    + deschedule(Context) : void
+}
+
+class Converters {
+    {static} + fromTimestamp(Long) : Date
+    {static} + dateToTimestamp(Date) : Long
+}
+
+class MedActivityRepository {
+    - medActivityDao : MedActivityDao
+    - medActivitiesLiveData : LiveData<List<MedActivity>>
+
+    + MedActivityRepository(Application)
+    + insert(MedActivity) : void
+    + insertAll(List<MedActivity>) : void
+    + update(MedActivity) : void
+    + getMedActivitiesLiveData() : LiveData<List<MedActivity>>
+    + loadSingle(int) : MedActivity
+    + loadByMedDate(int, Date) : MedActivity
+}
+
+abstract class MedActivityDatabase{
+    {static} - INSTANCE : MedActivityDatabase
+    {static} - NUMBER_OF_THREADS : int
+    {static} + databaseWriteExecutor : ExecutorService
+
+    {abstract} + medActivityDao() : MedActivityDao
+    {static} + getDatabase(Context) : MedActivityDatabase
+}
+
+class MedActivity {
+    - medActivityId : int
+    - medId : int
+    - date : Date
+    - firstMed : boolean
+    - secondMed : boolean
+    - thirdMed : boolean
+    - fourthMed : boolean
+    
+    + MedActivity(int, Date)
+    + getMedActivityId() : int
+    + setMedActivityId(int) : void
+    + getMedId() : int
+    + setMedId(int) : void
+    + getDate() : Date
+    + setDate(Date) : void
+    + isFirstMed() : boolean
+    + isSecondMed() : boolean
+    + isThirdMed() : boolean
+    + isFourthMed() : boolean
+    + getMedStatus(int) : boolean
+    + setFirstMed(boolean) : void
+    + setSecondMed(boolean) : void
+    + setThirdMed(boolean) : void
+    + setFourthMed(boolean) : void
+    + setMedStatus(int, boolean) : void
+}
+
+'medicationslist
+class MedicationsListViewModel {
+    - medicationRepository : MedicationRepository
+    - medicationsLiveData : LiveData<List<Medication>>
+
+    + MedicationsListViewModel(Application)
+    + update(Medication) : void
+    + getMedicationsLiveData() : LiveData<List<Medication>>
+    + deleteById(int) : void
+}
+
+class MedicationViewHolder {
+    - medName : TextView
+    - medDays : TextView
+    - medTimes : TextView
+
+    + MedicationViewHolder(View)
+    + bind(Medication) : void
+}
+
+class MedicationRecyclerViewAdapter {
+    - medications : List<Medication>
+    
+    + MedicationRecyclerViewAdapter()
+    + onCreateViewHolder(ViewGroup, int) : MedicationViewHolder
+    + onBindViewHolder(MedicationViewHolder, int) : void
+    + getItemCount() : int
+    + setMedications(List<Medication>) : void
+    + getMedByPos(int) : Medication
+    + onViewRecycled(MedicationViewHolder) : void
+}
+
+class MedActivitiesListViewModel {
+    - medActivityRepository : MedActivityRepository
+    - medActivitiesLiveData : LiveData<List<MedActivity>>
+
+    + MedActivitiesListViewModel(Application)
+    + update(MedActivity) : void
+    + getMedActivitiesLiveData() : LiveData<List<MedActivity>>
+}
+
+class DoseViewHolder {
+    - medTime : TextView
+    - medName : TextView
+    - medDose : TextView
+    - checkBox : CheckBox
+    - application : Application
+    - year : int
+    - month : int
+    - day : int
+    
+    + DoseViewHolder(View, Application, int, int, int)
+    + bind(Medication) : void
+    + bind(Medication, MedActivity, int) : void
+}
+
+class DoseRecyclerViewAdapter {
+    - doses : List<Medication>
+    - medActivities : List<MedActivity>
+    - application : Application
+    - year : int
+    - month : int
+    - day : int
+    
+    + DoseRecyclerViewAdapter()
+    + onCreateViewHolder(ViewGroup, int) : DoseViewHolder
+    + onBindViewHolder(DoseViewHolder, int) : void
+    + getItemCount() : int
+    + setDate(int, int, int) : void
+    + setDoses(List<Medication>) : void
+    + setMedActivities(Application, List<MedActivity>) : void
+}
+
+'service
+class AlarmService {
+    - mediaPlayer : MediaPlayer
+    - vibrator : Vibrator
+    
+    + onCreate() : void
+    + onStartCommand(Intent, int, int) : int
+    + onDestroy() : void
+    + onBind(Intent) : IBinder
+    {static} + isServiceRunningInForeground(Context, Class<?>) : boolean
+}
+
+class RescheduleAlarmsService {
+    + onCreate() : void
+    + onStartCommand(Intent, int, int) : int
+    + onDestroy() : void
+    + onBind(Intent) : IBinder
+}
+
+class DescheduleAlarmsService {
+    + onCreate() : void
+    + onStartCommand(Intent, int, int) : int
+    + onDestroy() : void
+    + onBind(Intent) : IBinder
+}
+
+@enduml

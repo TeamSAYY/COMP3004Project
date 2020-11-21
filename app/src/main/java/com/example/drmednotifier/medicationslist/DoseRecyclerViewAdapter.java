@@ -5,9 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +21,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerViewAdapter.ViewHolder> {
+public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder> {
     private List<Medication> doses;
     private List<MedActivity> medActivities;
 
@@ -41,13 +38,13 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DoseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dose, parent, false);
-        return new ViewHolder(itemView);
+        return new DoseViewHolder(itemView, application, year, month, day);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DoseViewHolder holder, int position) {
         Medication medication = doses.get(position);
         boolean bound = false;
         for (MedActivity medActivity : medActivities) {
@@ -228,66 +225,5 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseRecyclerVi
             }
         }
         this.application = application;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView medTime;
-        private TextView medName;
-        private TextView medDose;
-        private CheckBox checkBox;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            medTime = itemView.findViewById(R.id.item_dose_time);
-            medName = itemView.findViewById(R.id.item_dose_medication_name);
-            medDose = itemView.findViewById(R.id.item_dose_medication_dose);
-            checkBox = itemView.findViewById(R.id.item_dose_status);
-        }
-
-        public void bind(Medication medication) {
-            Log.d("myTag", "BIND DOSE ITEM VIEW 1");
-
-            medTime.setText(String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1()));
-            medName.setText(medication.getName());
-            medDose.setText(String.format("%d", medication.getDose_1()));
-            checkBox.setEnabled(false);
-        }
-
-        public void bind(Medication medication, MedActivity medActivity, int numOfAlarm) {
-            Log.d("myTag", "BIND DOSE ITEM VIEW 2");
-
-            medTime.setText(String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1()));
-            medName.setText(medication.getName());
-            medDose.setText(String.format("%d", medication.getDose_1()));
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTimeInMillis(System.currentTimeMillis());
-
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, month);
-            calendar.set(Calendar.DAY_OF_MONTH, day);
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-            calendar.set(Calendar.MILLISECOND, 0);
-
-            long millis = calendar.getTimeInMillis();
-
-            if (millis > System.currentTimeMillis()) {
-                checkBox.setEnabled(false);
-            } else {
-                checkBox.setEnabled(true);
-                checkBox.setChecked(medActivity.getMedStatus(numOfAlarm));
-                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        Log.d("myTag", "CHECKBOX CLICKED");
-                        medActivity.setMedStatus(numOfAlarm, isChecked);
-                        MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
-                        medActivitiesListViewModel.update(medActivity);
-                    }
-                });
-            }
-        }
     }
 }

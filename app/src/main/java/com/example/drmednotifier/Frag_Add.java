@@ -42,48 +42,46 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class Frag_Add extends Fragment {
-    @BindView(R.id.edit_med_name) EditText name;
-    @BindView(R.id.edit_med_desc) EditText description;
-    @BindView(R.id.edit_med_stock) EditText quantity;
-    @BindView(R.id.radio_group_1) RadioGroup shape_radioBtnGroup;
-    @BindView(R.id.edit_med_dose_1) EditText dose_1;
-    @BindView(R.id.edit_med_dose_2) EditText dose_2;
-    @BindView(R.id.edit_med_dose_3) EditText dose_3;
-    @BindView(R.id.edit_med_dose_4) EditText dose_4;
-    @BindView(R.id.button_hide_med_info) Button button_hide_med_info;
-    @BindView(R.id.llayout_medinfo) View med_info_view;
-    @BindView(R.id.button_hide_schedule) Button button_hide_schedule;
-    @BindView(R.id.llayout_schedule) View med_schedule_view;
-    @BindView(R.id.spinner_med_freq) Spinner dropdown_freq;
-    @BindView(R.id.llayout_specificDays_1) View specificDays_view_1;
-    @BindView(R.id.llayout_specificDays_2) View specificDays_view_2;
-    @BindView(R.id.add_med_checkMon) CheckBox checkBox_Mon;
-    @BindView(R.id.add_med_checkTue) CheckBox checkBox_Tue;
-    @BindView(R.id.add_med_checkWed) CheckBox checkBox_Wed;
-    @BindView(R.id.add_med_checkThu) CheckBox checkBox_Thu;
-    @BindView(R.id.add_med_checkFri) CheckBox checkBox_Fri;
-    @BindView(R.id.add_med_checkSat) CheckBox checkBox_Sat;
-    @BindView(R.id.add_med_checkSun) CheckBox checkBox_Sun;
-    @BindView(R.id.spinner_med_timesPerDay) Spinner dropdown_timesPerDay;
-    @BindView(R.id.text_time_dose_1) TextView text_time_dose_1;
-    @BindView(R.id.llayout_time_dose_1) View time_dose_view_1;
-    @BindView(R.id.timePicker_med_time_1) TimePicker timePicker_1;
-    @BindView(R.id.text_time_dose_2) TextView text_time_dose_2;
-    @BindView(R.id.llayout_time_dose_2) View time_dose_view_2;
-    @BindView(R.id.timePicker_med_time_2) TimePicker timePicker_2;
-    @BindView(R.id.text_time_dose_3) TextView text_time_dose_3;
-    @BindView(R.id.llayout_time_dose_3) View time_dose_view_3;
-    @BindView(R.id.timePicker_med_time_3) TimePicker timePicker_3;
-    @BindView(R.id.text_time_dose_4) TextView text_time_dose_4;
-    @BindView(R.id.llayout_time_dose_4) View time_dose_view_4;
-    @BindView(R.id.timePicker_med_time_4) TimePicker timePicker_4;
-    @BindView(R.id.button_med_save) Button button_save;
+    @BindView(R.id.edit_med_name) protected EditText name;
+    @BindView(R.id.edit_med_desc) protected EditText description;
+    @BindView(R.id.edit_med_stock) protected EditText quantity;
+    @BindView(R.id.radio_group_1) protected RadioGroup shape_radioBtnGroup;
+    @BindView(R.id.edit_med_dose_1) protected EditText dose_1;
+    @BindView(R.id.edit_med_dose_2) protected EditText dose_2;
+    @BindView(R.id.edit_med_dose_3) protected EditText dose_3;
+    @BindView(R.id.edit_med_dose_4) protected EditText dose_4;
+    @BindView(R.id.button_hide_med_info) protected Button button_hide_med_info;
+    @BindView(R.id.llayout_medinfo) protected View med_info_view;
+    @BindView(R.id.button_hide_schedule) protected Button button_hide_schedule;
+    @BindView(R.id.llayout_schedule) protected View med_schedule_view;
+    @BindView(R.id.spinner_med_freq) protected Spinner dropdown_freq;
+    @BindView(R.id.llayout_specificDays_1) protected View specificDays_view_1;
+    @BindView(R.id.llayout_specificDays_2) protected View specificDays_view_2;
+    @BindView(R.id.add_med_checkMon) protected CheckBox checkBox_Mon;
+    @BindView(R.id.add_med_checkTue) protected CheckBox checkBox_Tue;
+    @BindView(R.id.add_med_checkWed) protected CheckBox checkBox_Wed;
+    @BindView(R.id.add_med_checkThu) protected CheckBox checkBox_Thu;
+    @BindView(R.id.add_med_checkFri) protected CheckBox checkBox_Fri;
+    @BindView(R.id.add_med_checkSat) protected CheckBox checkBox_Sat;
+    @BindView(R.id.add_med_checkSun) protected CheckBox checkBox_Sun;
+    @BindView(R.id.spinner_med_timesPerDay) protected Spinner dropdown_timesPerDay;
+    @BindView(R.id.text_time_dose_1) protected TextView text_time_dose_1;
+    @BindView(R.id.llayout_time_dose_1) protected View time_dose_view_1;
+    @BindView(R.id.timePicker_med_time_1) protected TimePicker timePicker_1;
+    @BindView(R.id.text_time_dose_2) protected TextView text_time_dose_2;
+    @BindView(R.id.llayout_time_dose_2) protected View time_dose_view_2;
+    @BindView(R.id.timePicker_med_time_2) protected TimePicker timePicker_2;
+    @BindView(R.id.text_time_dose_3) protected TextView text_time_dose_3;
+    @BindView(R.id.llayout_time_dose_3) protected View time_dose_view_3;
+    @BindView(R.id.timePicker_med_time_3) protected TimePicker timePicker_3;
+    @BindView(R.id.text_time_dose_4) protected TextView text_time_dose_4;
+    @BindView(R.id.llayout_time_dose_4) protected View time_dose_view_4;
+    @BindView(R.id.timePicker_med_time_4) protected TimePicker timePicker_4;
+    @BindView(R.id.button_med_save) protected Button button_save;
 
     private CreateMedicationViewModel createMedicationViewModel;
 
-    private NotifSettingDatabase notifSettingDatabase;
     private NotifSettingDao notifSettingDao;
-    private NotifSetting notifSetting;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,7 +89,7 @@ public class Frag_Add extends Fragment {
 
         createMedicationViewModel = ViewModelProviders.of(this).get(CreateMedicationViewModel.class);
 
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
         notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
@@ -616,7 +614,7 @@ public class Frag_Add extends Fragment {
 
         createMedicationViewModel.update(medication);
 
-        notifSetting = notifSettingDao.getNotifSettings().get(0);
+        NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
         boolean enableNotif = notifSetting.isEnableNotif();
 
         if (enableNotif) {

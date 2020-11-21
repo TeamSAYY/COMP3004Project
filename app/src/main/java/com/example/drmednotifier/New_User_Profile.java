@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
 
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
@@ -22,13 +21,12 @@ import java.util.Random;
 
 public class New_User_Profile extends AppCompatActivity {
 
-    private UserDatabase userDatabase;
     private UserDao userDao;
-    private List<User> usersLiveData;
+    private List<User> users;
 
     private EditText editTextFirstName, editTextLastName, editTextAge;
     //  create a textWatcher member
-    private TextWatcher mTextWatcher = new TextWatcher() {
+    private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
         }
@@ -44,7 +42,7 @@ public class New_User_Profile extends AppCompatActivity {
         }
     };
 
-    void checkFieldsForEmptyValues(){
+    private void checkFieldsForEmptyValues(){
         Button btnSave = (Button) findViewById(R.id.btnSaveChanges);
 
         String firstName = editTextFirstName.getText().toString();
@@ -84,7 +82,11 @@ public class New_User_Profile extends AppCompatActivity {
         editTextAge.addTextChangedListener(mTextWatcher);
 
         checkFieldsForEmptyValues();
-
+        
+        // May need a better implementation of accessing database - YS
+        UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
+        userDao = userDatabase.userDao();
+        
         setUserProperties();
 
         Button btnSave = findViewById(R.id.btnSaveChanges);
@@ -122,15 +124,15 @@ public class New_User_Profile extends AppCompatActivity {
 
         User user;
 
-        usersLiveData = userDao.getUser();
+        users = userDao.getUser();
 
-        if (usersLiveData.isEmpty()) {
+        if (users.isEmpty()) {
             userId = new Random().nextInt(Integer.MAX_VALUE);
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
             userDao.insert(user);
         } else {
-            userId = usersLiveData.get(0).getUserId();
-            String avatar = usersLiveData.get(0).getAvatar();
+            userId = users.get(0).getUserId();
+            String avatar = users.get(0).getAvatar();
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
             user.setAvatar(avatar);
             userDao.update(user);
@@ -138,13 +140,10 @@ public class New_User_Profile extends AppCompatActivity {
     }
 
     private void setUserProperties () {
-        // May need a better implementation of accessing database - YS
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        users = userDao.getUser();
 
-        if (!usersLiveData.isEmpty()) {
-            User user = usersLiveData.get(0);
+        if (!users.isEmpty()) {
+            User user = users.get(0);
 
             if (user.getFirstName().length() != 0) {
                 editTextFirstName.setText(user.getFirstName());

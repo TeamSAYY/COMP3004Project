@@ -37,15 +37,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public static final String HOUR = "HOUR";
     public static final String MINUTE = "MINUTE";
 
-    private NotifSettingDatabase notifSettingDatabase;
-    private NotifSettingDao notifSettingDao;
-    private NotifSetting notifSetting;
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(context);
-        notifSettingDao = notifSettingDatabase.notifSettingDao();
-        notifSetting = notifSettingDao.getNotifSettings().get(0);
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(context);
+        NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
+        NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         if (!notifSetting.isEnableNotif()) {
             return;

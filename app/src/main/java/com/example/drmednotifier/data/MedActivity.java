@@ -2,7 +2,6 @@ package com.example.drmednotifier.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -29,17 +28,6 @@ public class MedActivity {
     private boolean secondMed;
     private boolean thirdMed;
     private boolean fourthMed;
-
-    @Ignore
-    public MedActivity(int medActivityId, int medId, Date date, boolean firstMed, boolean secondMed, boolean thirdMed, boolean fourthMed) {
-        this.medActivityId = medActivityId;
-        this.medId = medId;
-        this.date = date;
-        this.firstMed = firstMed;
-        this.secondMed = secondMed;
-        this.thirdMed = thirdMed;
-        this.fourthMed = fourthMed;
-    }
 
     public MedActivity(int medId, Date date) {
         this.medActivityId = new Random().nextInt(Integer.MAX_VALUE);

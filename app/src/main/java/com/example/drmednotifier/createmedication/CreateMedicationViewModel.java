@@ -13,9 +13,9 @@ import com.example.drmednotifier.data.MedicationRepository;
 import java.util.List;
 
 public class CreateMedicationViewModel extends AndroidViewModel {
-    private MedicationRepository medicationRepository;
+    private final MedicationRepository medicationRepository;
 
-    private MedActivityRepository medActivityRepository;
+    private final MedActivityRepository medActivityRepository;
 
     public CreateMedicationViewModel(@NonNull Application application) {
         super(application);

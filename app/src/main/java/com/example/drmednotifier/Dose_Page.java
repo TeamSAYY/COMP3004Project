@@ -22,22 +22,14 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Dose_Page extends AppCompatActivity {
-
-    private TextView theDate;
-    private Toolbar theToolbar;
-    private RecyclerView doseRecyclerView;
-
-    private MedicationsListViewModel medicationsListViewModel;
-    private MedActivitiesListViewModel medActivitiesListViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dose__page);
 
-        theDate = (TextView) findViewById(R.id.dose_date);
-        theToolbar =  (Toolbar) findViewById(R.id.toolbar_Dose);
-        doseRecyclerView = (RecyclerView) findViewById(R.id.dose_recyclerView);
+        TextView theDate = (TextView) findViewById(R.id.dose_date);
+        Toolbar theToolbar = (Toolbar) findViewById(R.id.toolbar_Dose);
+        RecyclerView doseRecyclerView = (RecyclerView) findViewById(R.id.dose_recyclerView);
 
         doseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -61,7 +53,7 @@ public class Dose_Page extends AppCompatActivity {
 
         DoseRecyclerViewAdapter adapter = new DoseRecyclerViewAdapter();
         adapter.setDate(year, month, day);
-        medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
+        MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
@@ -70,7 +62,7 @@ public class Dose_Page extends AppCompatActivity {
                 }
             }
         });
-        medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
+        MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
         medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, new Observer<List<MedActivity>>() {
             @Override
             public void onChanged(List<MedActivity> medActivities) {

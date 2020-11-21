@@ -18,18 +18,15 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Nav_page extends AppCompatActivity{
 
-    private Toolbar toolbar;
-    BottomNavigationView navView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nav_page);
 
-        toolbar = findViewById(R.id.Toolbar);
+        Toolbar toolbar = findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
 
-        navView = findViewById(R.id.bottomNavigationView);
+        BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
         navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -56,7 +53,7 @@ public class Nav_page extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
@@ -80,7 +77,7 @@ public class Nav_page extends AppCompatActivity{
         }
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override

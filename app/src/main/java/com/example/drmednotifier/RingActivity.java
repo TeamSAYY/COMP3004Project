@@ -33,17 +33,13 @@ import static com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver
 
 public class RingActivity extends AppCompatActivity {
     @BindView(R.id.activity_ring_dismiss)
-    Button dismiss;
+    protected Button dismiss;
     @BindView(R.id.activity_ring_snooze)
-    Button snooze;
+    protected Button snooze;
     @BindView(R.id.activity_ring_clock)
-    ImageView clock;
+    protected ImageView clock;
     @BindView(R.id.textView)
-    TextView message;
-
-    private NotifSettingDatabase notifSettingDatabase;
-    private NotifSettingDao notifSettingDao;
-    private NotifSetting notifSetting;
+    protected TextView message;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,9 +48,9 @@ public class RingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
-        notifSettingDao = notifSettingDatabase.notifSettingDao();
-        notifSetting = notifSettingDao.getNotifSettings().get(0);
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
+        NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         int medID = getIntent().getIntExtra(MED_ID, 0);
         String medName = getIntent().getStringExtra(MED_NAME);

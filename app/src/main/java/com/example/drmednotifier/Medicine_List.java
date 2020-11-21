@@ -20,12 +20,6 @@ import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 import java.util.List;
 
 public class Medicine_List extends AppCompatActivity {
-
-    private Toolbar toolbar;
-    private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
-    private MedicationsListViewModel medicationsListViewModel;
-    private RecyclerView medicationsRecyclerView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +34,8 @@ public class Medicine_List extends AppCompatActivity {
             }
         });
 
-        medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter();
-        medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
+        MedicationRecyclerViewAdapter medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter();
+        MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
@@ -51,7 +45,7 @@ public class Medicine_List extends AppCompatActivity {
             }
         });
 
-        medicationsRecyclerView = findViewById(R.id.med_list_recylerView);
+        RecyclerView medicationsRecyclerView = findViewById(R.id.med_list_recylerView);
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 

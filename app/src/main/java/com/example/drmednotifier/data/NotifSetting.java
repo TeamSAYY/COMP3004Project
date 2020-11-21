@@ -31,23 +31,7 @@ public class NotifSetting {
     private int snoozeMinutes;
 
     @Ignore
-    private int snoozeTimes[] = {0, 2, 5, 10, 30, 60};
-
-    @Ignore
-    public NotifSetting(int notifSettingId, boolean enableNotif, int notifTypeId, int remindInMinutesId, String notifMessage,
-                        boolean enableRefillNotif, int daysBeforeRefillId, String refillNotifMessage,
-                        int notifSoundId, int snoozeMinutes) {
-        this.notifSettingId = notifSettingId;
-        this.enableNotif = enableNotif;
-        this.notifTypeId = notifTypeId;
-        this.remindInMinutesId = remindInMinutesId;
-        this.notifMessage = notifMessage;
-        this.enableRefillNotif = enableRefillNotif;
-        this.daysBeforeRefillId = daysBeforeRefillId;
-        this.refillNotifMessage = refillNotifMessage;
-        this.notifSoundId = notifSoundId;
-        this.snoozeMinutes = snoozeMinutes;
-    }
+    private final int[] snoozeTimes = {0, 2, 5, 10, 30, 60};
 
     // Default notification setting constructor
     public NotifSetting() {

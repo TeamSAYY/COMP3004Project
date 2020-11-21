@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
-import androidx.room.Room;
-
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
@@ -15,17 +13,16 @@ import java.util.List;
 import java.util.Random;
 
 public class Popup_Window extends Setting_Page{
-    private UserDatabase userDatabase;
     private UserDao userDao;
-    private List<User> usersLiveData;
+    private List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
+        UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
         userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        users = userDao.getUser();
 
         setContentView(R.layout.popup_window_layout);
 
@@ -38,18 +35,17 @@ public class Popup_Window extends Setting_Page{
         getWindow().setLayout((int)(width*.8),(int) (height*.6));
     }
 
-
     public void avatar_change(View view) {
         Intent intent = new Intent();
 
         User user;
-        if (usersLiveData.isEmpty()) {
+        if (users.isEmpty()) {
             int userId = new Random().nextInt(Integer.MAX_VALUE);
             user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
             user.setAvatar("a1");
             userDao.insert(user);
         } else {
-            user = usersLiveData.get(0);
+            user = users.get(0);
             user.setAvatar("a1");
             userDao.update(user);
         }
@@ -58,18 +54,17 @@ public class Popup_Window extends Setting_Page{
         finish();
     }
 
-
     public void avatar_change1(View view) {
         Intent intent = new Intent();
 
         User user;
-        if (usersLiveData.isEmpty()) {
+        if (users.isEmpty()) {
             int userId = new Random().nextInt(Integer.MAX_VALUE);
             user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
             user.setAvatar("a2");
             userDao.insert(user);
         } else {
-            user = usersLiveData.get(0);
+            user = users.get(0);
             user.setAvatar("a2");
             userDao.update(user);
         }
