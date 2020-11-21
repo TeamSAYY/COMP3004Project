@@ -18,7 +18,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.User;
@@ -37,24 +36,15 @@ import java.util.List;
 public class Frag_Home extends Fragment {
     private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
     private MedicationsListViewModel medicationsListViewModel;
-    private RecyclerView medicationsRecyclerView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private CalendarView theCalendarView;
-    private UserDatabase userDatabase;
-    private UserDao userDao;
-    private List<User> usersLiveData;
-
-    String avatar;
-
+//    private String mParam1;
+//    private String mParam2;
 
     public Frag_Home() {
         // Required empty public constructor
@@ -69,22 +59,22 @@ public class Frag_Home extends Fragment {
      * @return A new instance of fragment Frag_Home.
      */
     // TODO: Rename and change types and number of parameters
-    public static Frag_Home newInstance(String param1, String param2) {
-        Frag_Home fragment = new Frag_Home();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+//    public static Frag_Home newInstance(String param1, String param2) {
+//        Frag_Home fragment = new Frag_Home();
+//        Bundle args = new Bundle();
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
 
         medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter();
         medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
@@ -104,7 +94,7 @@ public class Frag_Home extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_frag__home, container, false);
 
-        medicationsRecyclerView = view.findViewById(R.id.home_listmed_recylerView);
+        RecyclerView medicationsRecyclerView = view.findViewById(R.id.home_listmed_recylerView);
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
@@ -151,7 +141,7 @@ public class Frag_Home extends Fragment {
         getUserInfo(view);
 
         // Get the date info from the Calendar
-        theCalendarView = view.findViewById(R.id.calendarView);
+        CalendarView theCalendarView = view.findViewById(R.id.calendarView);
         theCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -167,9 +157,9 @@ public class Frag_Home extends Fragment {
     }
 
     private void getUserInfo(View view) {
-        userDatabase = Room.databaseBuilder(getContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        UserDatabase userDatabase = UserDatabase.getDatabase(getContext());
+        UserDao userDao = userDatabase.userDao();
+        List<User> usersLiveData = userDao.getUser();
 
         if (!usersLiveData.isEmpty()) {
             String fullName = "";
@@ -187,7 +177,7 @@ public class Frag_Home extends Fragment {
             ((TextView) view.findViewById(R.id.txtViewUserName)).setText(fullName);
 
             ImageView z = view.findViewById(R.id.home_avatar);
-            avatar = user.getAvatar();
+            String avatar = user.getAvatar();
             if (avatar.equals("a1")) {
                 z.setImageResource(R.drawable.a1);
             }

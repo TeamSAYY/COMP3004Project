@@ -18,7 +18,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
-import androidx.room.Room;
 
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
@@ -29,20 +28,12 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Setting_Page extends AppCompatActivity {
-    int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
-    String[] headline = new String[]{"Medicine List","Today's Dose"};
-    String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
-    SwitchCompat switchCompat;
-    String current_avatar;
-    String avatar_T;
-    String default_avatar;
-    int  count;
-
-    private UserDatabase userDatabase;
-    private UserDao userDao;
-    private List<User> usersLiveData;
-    String name,g,age_gender;
-    int gender;
+    private final int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
+    private final String[] headline = new String[]{"Medicine List","Today's Dose"};
+    private final String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
+//    private String current_avatar;
+//    private String avatar_T;
+//    private int  count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +84,7 @@ public class Setting_Page extends AppCompatActivity {
         });
 
         /*switch */
-        switchCompat = (SwitchCompat)  findViewById(R.id.Switch);
+        SwitchCompat switchCompat = (SwitchCompat) findViewById(R.id.Switch);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -190,18 +181,20 @@ public class Setting_Page extends AppCompatActivity {
     }
 
     private void setUserProperties () {
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
+        UserDao userDao = userDatabase.userDao();
+        List<User> usersLiveData = userDao.getUser();
 
         ImageView z = findViewById(R.id.home_avatar);
+
+        String g = "";
 
         if (!usersLiveData.isEmpty()) {
             User user = usersLiveData.get(0);
 
             if (user.getFirstName().length() != 0) {
-                name = user.getFirstName() + " " + user.getLastName();
-                gender = user.getGender();
+                String name = user.getFirstName() + " " + user.getLastName();
+                int gender = user.getGender();
                 if (gender == 0) {
                     g = "Male";
                 } else if (gender == 1) {
@@ -210,6 +203,7 @@ public class Setting_Page extends AppCompatActivity {
                     g = "Others";
                 }
 
+                String age_gender;
                 if (gender == -1) age_gender = user.getAge() + " years old";
                 else age_gender = user.getAge() + " years old, " + g;
 
@@ -217,7 +211,7 @@ public class Setting_Page extends AppCompatActivity {
                 ((TextView) findViewById(R.id.bottomline_age)).setText(age_gender);
             }
 
-            default_avatar = user.getAvatar();
+            String default_avatar = user.getAvatar();
             if (default_avatar.equals("a1")) {
                 z.setImageResource(R.drawable.a1);
             }

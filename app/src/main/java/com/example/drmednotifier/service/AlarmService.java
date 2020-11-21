@@ -32,10 +32,6 @@ public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
     private Vibrator vibrator;
 
-    private NotifSettingDatabase notifSettingDatabase;
-    private NotifSettingDao notifSettingDao;
-    private NotifSetting notifSetting;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,14 +40,13 @@ public class AlarmService extends Service {
         mediaPlayer.setLooping(true);
 
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
-        notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        notifSetting = notifSettingDao.getNotifSettings().get(0);
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
+        NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         Log.d("myTag", "ALARM STARTED");
 

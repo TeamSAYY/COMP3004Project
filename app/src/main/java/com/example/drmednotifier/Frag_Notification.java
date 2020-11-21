@@ -28,20 +28,19 @@ import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 public class Frag_Notification extends Fragment {
 
-    private NotifSettingDatabase notifSettingDatabase;
     private NotifSettingDao notifSettingDao;
     private NotifSetting notifSetting;
 
-    Switch switch_noti;
-    View layout_noti;
-    Spinner dropdown_noti_type;
-    Spinner dropdown_noti_remind;
-    EditText edit_noti_msg;
+    private Switch switch_noti;
+    private View layout_noti;
+    private Spinner dropdown_noti_type;
+    private Spinner dropdown_noti_remind;
+    private EditText edit_noti_msg;
 
-    Switch switch_renew_pre;
-    View layout_renew_pre;
-    Spinner dropdown_renew_time;
-    EditText edit_noti__renew_msg;
+    private Switch switch_renew_pre;
+    private View layout_renew_pre;
+    private Spinner dropdown_renew_time;
+    private EditText edit_noti__renew_msg;
 
 
     public Frag_Notification() {
@@ -52,7 +51,7 @@ public class Frag_Notification extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(getContext());
         notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
@@ -106,7 +105,7 @@ public class Frag_Notification extends Fragment {
         return view;
     }
 
-    private CompoundButton.OnCheckedChangeListener notif_switchListener = new CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener notif_switchListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             saveNotifSetting();
@@ -120,7 +119,7 @@ public class Frag_Notification extends Fragment {
         }
     };
 
-    private CompoundButton.OnCheckedChangeListener refill_switchListener = new CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener refill_switchListener = new CompoundButton.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             saveNotifSetting();
@@ -132,7 +131,7 @@ public class Frag_Notification extends Fragment {
         }
     };
 
-    private AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             saveNotifSetting();
@@ -144,7 +143,7 @@ public class Frag_Notification extends Fragment {
         }
     };
 
-    private TextWatcher textWatcher = new TextWatcher() {
+    private final TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

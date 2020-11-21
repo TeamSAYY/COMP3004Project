@@ -1,27 +1,17 @@
 package com.example.drmednotifier;
 
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import androidx.fragment.app.Fragment;
 
 
 public class Frag_Selfreport extends Fragment {
 
 
-    private String[] ListElements = { "Fabian", "Carlos", "Alex", "Andrea", "Karla"};
+//    private String[] ListElements = { "Fabian", "Carlos", "Alex", "Andrea", "Karla"};
 
 
     public Frag_Selfreport() {

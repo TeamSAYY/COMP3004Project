@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
@@ -28,20 +27,6 @@ import java.util.List;
 //import android.support.v7.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    Animation topAnim, bottomAnim;
-    ImageView text;
-    TextView logo;
-    Button TB1;
-
-    private UserDatabase userDatabase;
-    private UserDao userDao;
-    private List<User> usersLiveData;
-
-    private NotifSettingDatabase notifSettingDatabase;
-    private NotifSettingDao notifSettingDao;
-    private List<NotifSetting> notifSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.test)).setText(message);*/
 
          /*load animation*/
-        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_anime);
-        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anime);
+        Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.top_anime);
+        Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anime);
 
-        text = findViewById(R.id.logotext);
-        logo = findViewById(R.id.welcome);
-        TB1= findViewById(R.id.Tbutton1);
+        ImageView text = findViewById(R.id.logotext);
+        TextView logo = findViewById(R.id.welcome);
+        Button TB1 = findViewById(R.id.Tbutton1);
 
         /*insert animation*/
         text.setAnimation(topAnim);
@@ -92,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean existingUserInfo() {
-        userDatabase = Room.databaseBuilder(this, UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
+        UserDao userDao = userDatabase.userDao();
+        List<User> usersLiveData = userDao.getUser();
 
         if (!usersLiveData.isEmpty()) {
             if (usersLiveData.get(0).getFirstName().length() != 0) {
@@ -111,9 +96,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNotifSettings() {
-        notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
-        notifSettingDao = notifSettingDatabase.notifSettingDao();
-        notifSettings = notifSettingDao.getNotifSettings();
+        NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
+        NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
+        List<NotifSetting> notifSettings = notifSettingDao.getNotifSettings();
 
         if (notifSettings.isEmpty()) {
             NotifSetting notifSetting = new NotifSetting();

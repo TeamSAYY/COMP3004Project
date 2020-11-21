@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
@@ -24,11 +23,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
 
     private EditText editTextFirstName, editTextLastName, editTextAge;
 
-    private UserDatabase userDatabase;
-    private UserDao userDao;
-    private List<User> usersLiveData;
-
-    private TextWatcher mTextWatcher = new TextWatcher() {
+    private final TextWatcher mTextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
         }
@@ -44,7 +39,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         }
     };
 
-    void checkFieldsForEmptyValues() {
+    private void checkFieldsForEmptyValues() {
         Button btnConfirm = (Button) findViewById(R.id.btnConfirm);
 
         String firstName = editTextFirstName.getText().toString();
@@ -95,9 +90,9 @@ public class Second_page_get_personaldata extends AppCompatActivity {
 
         User user;
 
-        userDatabase = Room.databaseBuilder(getApplicationContext(), UserDatabase.class, "user_database").allowMainThreadQueries().build();
-        userDao = userDatabase.userDao();
-        usersLiveData = userDao.getUser();
+        UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
+        UserDao userDao = userDatabase.userDao();
+        List<User> usersLiveData = userDao.getUser();
 
         if (usersLiveData.isEmpty()) {
             userId = new Random().nextInt(Integer.MAX_VALUE);
