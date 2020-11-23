@@ -1,38 +1,174 @@
 @startuml
 hide circle
 skinparam classAttributeIconSize 0
+skinparam legendBackgroundColor white
+skinparam legendFontSize 50
+skinparam noteFontSize 30
+skinparam noteBorderColor black
+skinparam linetype polyline
+'skinparam linetype ortho
+skinparam class {
+    BackgroundColor white
+    ArrowColor black
+    BorderColor black
+}
+left to right direction
 
-'abstract class AbstractList
-'abstract AbstractCollection
-'interface List
-'interface Collection
+legend left
+ <back:lightpink>   </back> MVC
+ <back:lightblue>   </back> Singleton
+ <back:wheat>   </back> Observer
+endlegend
 
-'List <|-- AbstractList
-'Collection <|-- AbstractCollection
+note as N1 #lightpink
+    MVC
+    Model:
 
-'Collection <|- List
-'AbstractCollection <|- AbstractList
-'AbstractList <|-- ArrayList
+    UserDatabase
+    UserDao
+    User
+    NotifSettingDatabase
+    NotifSettingDao
+    NotifSetting
+    MedicationRepository
+    MedicationDatabase
+    MedicationDao
+    Medication
+    MedActivityRepository
+    MedActivityDatabase
+    MedActivityDao
+    MedActivity
+    CreateMedicationViewModel
+    MedicationsListViewModel
+    MedActivitiesListViewModel
+endnote
 
-'class ArrayList {
-'Object[] elementData
-'size()
-'}
+note as N2 #lightpink
+    MVC
+    View: xml files
+endnote
 
-'enum TimeUnit {
-'DAYS
-'HOURS
-'MINUTES
-'}
+note as N3 #lightpink
+    MVC
+    Controller:
 
-class MainActivity {
+    Frag_Home
+    Frag_Add
+    Frag_Selfreport
+    Frag_Notification
+    Medicine_List
+    Dose_Page
+    Popup_Window
+    New_User_Profile
+endnote
+
+note as N4 #lightblue
+    Singleton
+
+    UserDatabase
+    NotifSettingDatabase
+    MedicationDatabase
+    MedActivityDatabase
+endnote
+
+note as N5 #wheat
+    Observer
+
+    MainActivity
+    Second_page_get_personaldata
+    Nav_page
+    Frag_Home
+    Frag_Add
+    Frag_Selfreport
+    Frag_Notification
+    Setting_Page
+    Edit_Medication
+    Medicine_List
+    Dose_Page
+    Popup_Window
+    New_User_Profile
+    RingActivity
+endnote
+
+package data #lightpink {
+    UserDatabase "1 " *-- "1 " UserDao : composition
+    UserDao "1 " o-- "0..1 " User : aggregation
+
+    NotifSettingDatabase "1 " *-- "1 " NotifSettingDao : composition
+    NotifSettingDao "1 " o-- "0..1 " NotifSetting : aggregation
+
+    MedicationRepository "1 " o-- "1 " MedicationDatabase : aggregation
+    MedicationDatabase "1 " *-- "1 " MedicationDao : composition
+    MedicationDao "1 " o-- "0..* " Medication : aggregation
+
+    MedActivityDatabase "1 " *-- "1 " Converters : composition
+    MedActivityRepository "1 " o-- "1 " MedActivityDatabase : aggregation
+    MedActivityDatabase "1 " *-- "1 " MedActivityDao : composition
+    MedActivityDao "1 " o-- "0..* " MedActivity : aggregation
+}
+
+MainActivity .right.> Second_page_get_personaldata : intent
+Second_page_get_personaldata .right.> Nav_page : intent
+
+Nav_page "1 " *-- "0..1 " Frag_Home : composition
+Nav_page "1 " *-- "0..1 " Frag_Add : composition
+Nav_page "1 " *-- "0..1 " Frag_Selfreport : composition
+Nav_page "1 " *-- "0..1 " Frag_Notification : composition
+
+Nav_page ..> New_User_Profile : intent
+Nav_page ..> Setting_Page : intent
+
+Setting_Page ..> Popup_Window : intent
+Setting_Page ..> Medicine_List : intent
+Setting_Page ..> Dose_Page : intent
+
+Frag_Home ..> Dose_Page : intent
+Frag_Home ..> Edit_Medication : intent
+
+Frag_Home "1 " o-- "1 " medicationslist.MedicationsListViewModel : aggregation
+Frag_Home "1 " o-- "1 " medicationslist.MedicationRecyclerViewAdapter : aggregation
+Medicine_List "1 " o-- "1 " medicationslist.MedicationsListViewModel : aggregation
+Medicine_List "1 " o-- "1 " medicationslist.MedicationRecyclerViewAdapter : aggregation
+Dose_Page "1 " o-- "1 " medicationslist.MedicationsListViewModel : aggregation
+Dose_Page "1 " o-- "1 " medicationslist.MedActivitiesListViewModel : aggregation
+Dose_Page "1 " o-- "1 " medicationslist.DoseRecyclerViewAdapter : aggregation
+medicationslist.DoseViewHolder "1 " o-up- "1 " medicationslist.MedActivitiesListViewModel : aggregation
+
+Frag_Add "1 " o-- "1 " createmedication.CreateMedicationViewModel : aggregation
+
+Edit_Medication "1 " *-- "1 " Frag_Add : composition
+
+Medication "0..* " o-up- "1 " AlarmManager : aggregation
+AlarmManager ..> broadcastreceiver.AlarmBroadcastReceiver : intent
+broadcastreceiver.AlarmBroadcastReceiver ..> service.AlarmService : intent
+service.AlarmService ..> RingActivity : intent
+
+Frag_Notification ..> service.RescheduleAlarmsService : intent
+Frag_Notification ..> service.DescheduleAlarmsService : intent
+
+service.AlarmService ..> application.App : dependency
+service.RescheduleAlarmsService ..> application.App : dependency
+service.DescheduleAlarmsService ..> application.App : dependency
+
+medicationslist.MedicationRecyclerViewAdapter "1 " *-- "1 " medicationslist.MedicationViewHolder : composition
+medicationslist.DoseRecyclerViewAdapter "1 " *-- "1 " medicationslist.DoseViewHolder : composition
+
+Second_page_get_personaldata ..> UserDatabase : dependency
+New_User_Profile ..> UserDatabase : dependency
+Popup_Window ..> UserDatabase : dependency
+createmedication.CreateMedicationViewModel ..> MedicationRepository : dependency
+Frag_Notification ..> NotifSettingDatabase : dependency
+medicationslist.MedicationsListViewModel ..> MedicationRepository : dependency
+medicationslist.MedActivitiesListViewModel ..> MedActivityRepository : dependency
+
+class MainActivity #wheat {
     # onCreate(Bundle) : void
     + launchActivity(View) : void
     - existingUserInfo() : boolean
     - initNotifSettings() : void
 }
 
-class Second_page_get_personaldata {
+class Second_page_get_personaldata #wheat {
     - editTextFirstName : EditText
     - editTextLastName : EditText
     - editTextAge : EditText
@@ -45,7 +181,7 @@ class Second_page_get_personaldata {
     - saveUser() : void
 }
 
-class Nav_page {
+class Nav_page #wheat {
     - mOnNavigationItemSelectedListener : BottomNavigationView.OnNavigationItemSelectedListener
 
     # onCreate(Bundle) : void
@@ -55,7 +191,7 @@ class Nav_page {
     + click_User_Profile(View) : void
 }
 
-class Frag_Home {
+class Frag_Home #wheat|lightpink {
     - medicationRecyclerViewAdapter : MedicationRecyclerViewAdapter
     - medicationsListViewModel : MedicationsListViewModel
 
@@ -65,7 +201,7 @@ class Frag_Home {
     - getUserInfo(View) : void
 }
 
-class Frag_Add {
+class Frag_Add #wheat|lightpink {
     # name : EditText
     # description : EditText
     # quantity : EditText
@@ -117,12 +253,12 @@ class Frag_Add {
     - updateMedication() : void
 }
 
-class Frag_Selfreport {
+class Frag_Selfreport #wheat|lightpink {
     + Frag_Selfreport()
     + onCreateView(LayoutInflater, ViewGroup, Bundle) : View
 }
 
-class Frag_Notification {
+class Frag_Notification #wheat|lightpink {
     - switch_noti : Switch
     - layout_noti : View
     - dropdown_noti_type : Spinner
@@ -148,7 +284,7 @@ class Frag_Notification {
     - saveNotifSetting() : void
 }
 
-class New_User_Profile {
+class New_User_Profile #wheat|lightpink {
     - userDao : UserDao
     - users : List<User>
     - editTextFirstName : EditText
@@ -162,7 +298,7 @@ class New_User_Profile {
     - saveUser() : void
 }
 
-class Setting_Page {
+class Setting_Page #wheat {
     - image : int[]
     - headline : String[]
     - bottomline : String[]
@@ -175,7 +311,7 @@ class Setting_Page {
     - setUserProperties() : void
 }
 
-class Popup_Window {
+class Popup_Window #wheat|lightpink {
     - userDao : UserDao
     - users : List<User>
 
@@ -184,19 +320,19 @@ class Popup_Window {
     + avatar_change1(View view) : void
 }
 
-class Medicine_List {
+class Medicine_List #wheat|lightpink {
     # onCreate(Bundle) : void
 }
 
-class Dose_Page {
+class Dose_Page #wheat|lightpink {
     # onCreate(Bundle) : void
 }
 
-class Edit_Medication {
+class Edit_Medication #wheat {
     # onCreate(Bundle) : void
 }
 
-class RingActivity {
+class RingActivity #wheat {
     # dismiss : Button
     # snooze : Button
     # clock : ImageView
@@ -207,7 +343,7 @@ class RingActivity {
 }
 
 'application
-class App {
+class application.App {
     + CHANNEL_ID : String
 
     + onCreate() : void
@@ -215,7 +351,7 @@ class App {
 }
 
 'broadcastreceiver
-class AlarmBroadcastReceiver {
+class broadcastreceiver.AlarmBroadcastReceiver {
     {static} + MED_ID : String
     {static} + MONDAY : String
     {static} + TUESDAY : String
@@ -238,7 +374,7 @@ class AlarmBroadcastReceiver {
 }
 
 'createmedication
-class CreateMedicationViewModel {
+class createmedication.CreateMedicationViewModel #lightpink {
     - medicationRepository : MedicationRepository
     - medActivityRepository : MedActivityRepository
 
@@ -251,14 +387,14 @@ class CreateMedicationViewModel {
 }
 
 'data
-abstract class UserDatabase {
+abstract class UserDatabase #lightblue {
     {static} - INSTANCE : UserDatabase
 
     {abstract} + UserDao()
     {static} + getDatabase(Context) : UserDatabase
 }
 
-interface UserDao {
+interface UserDao << interface >> {
     + insert(User) : void
     + deleteAll() : void
     + getUser() : List<User>
@@ -290,14 +426,14 @@ class User {
     + setCreated(long) : void
 }
 
-abstract class NotifSettingDatabase {
+abstract class NotifSettingDatabase #lightblue {
     {static} - INSTANCE : NotifSettingDatabase
 
     {abstract} + NotifSettingDao()
     {static} + getDatabase(Context) : NotifSettingDatabase
 }
 
-interface NotifSettingDao {
+interface NotifSettingDao << interface >> {
     + insert(NotifSetting) : void
     + deleteAll() : void
     + getNotifSettings() : List<NotifSetting>
@@ -315,7 +451,7 @@ class NotifSetting {
     - refillNotifMessage : String
     - notifSoundId : int
     - snoozeMinutes : int
-    - snoozeTimes = {0, 2, 5, 10, 30, 60} : int[]
+    - snoozeTimes : int[]
 
     + NotifSetting()
     + getNotifSettingId() : int
@@ -352,7 +488,7 @@ class MedicationRepository {
     + deleteById(int) : void
 }
 
-abstract class MedicationDatabase {
+abstract class MedicationDatabase #lightblue {
     {static} - INSTANCE : MedicationDatabase
     {static} - NUMBER_OF_THREADS : int
     {static} + databaseWriteExecutor : ExecutorService
@@ -361,7 +497,7 @@ abstract class MedicationDatabase {
     {static} + getDatabase(Context) : MedicationDatabase
 }
 
-interface MedicationDao {
+interface MedicationDao << interface >> {
     insert(Medication) : void
     deleteAll() : void
     getMedications() : LiveData<List<Medication>>
@@ -450,13 +586,23 @@ class MedActivityRepository {
     + loadByMedDate(int, Date) : MedActivity
 }
 
-abstract class MedActivityDatabase{
+abstract class MedActivityDatabase #lightblue {
     {static} - INSTANCE : MedActivityDatabase
     {static} - NUMBER_OF_THREADS : int
     {static} + databaseWriteExecutor : ExecutorService
 
     {abstract} + medActivityDao() : MedActivityDao
     {static} + getDatabase(Context) : MedActivityDatabase
+}
+
+interface MedActivityDao << interface >> {
+    insert(MedActivity) : void
+    insertAll(List<MedActivity>) : void
+    deleteAll() : void
+    getMedications() : LiveData<List<MedActivity>>
+    loadSingle(int) : MedActivity
+    loadByMedDate(int, Date) : MedActivity
+    update(MedActivity) : void
 }
 
 class MedActivity {
@@ -488,7 +634,7 @@ class MedActivity {
 }
 
 'medicationslist
-class MedicationsListViewModel {
+class medicationslist.MedicationsListViewModel #lightpink {
     - medicationRepository : MedicationRepository
     - medicationsLiveData : LiveData<List<Medication>>
 
@@ -498,7 +644,7 @@ class MedicationsListViewModel {
     + deleteById(int) : void
 }
 
-class MedicationViewHolder {
+class medicationslist.MedicationViewHolder {
     - medName : TextView
     - medDays : TextView
     - medTimes : TextView
@@ -507,7 +653,7 @@ class MedicationViewHolder {
     + bind(Medication) : void
 }
 
-class MedicationRecyclerViewAdapter {
+class medicationslist.MedicationRecyclerViewAdapter {
     - medications : List<Medication>
     
     + MedicationRecyclerViewAdapter()
@@ -519,7 +665,7 @@ class MedicationRecyclerViewAdapter {
     + onViewRecycled(MedicationViewHolder) : void
 }
 
-class MedActivitiesListViewModel {
+class medicationslist.MedActivitiesListViewModel #lightpink {
     - medActivityRepository : MedActivityRepository
     - medActivitiesLiveData : LiveData<List<MedActivity>>
 
@@ -528,7 +674,7 @@ class MedActivitiesListViewModel {
     + getMedActivitiesLiveData() : LiveData<List<MedActivity>>
 }
 
-class DoseViewHolder {
+class medicationslist.DoseViewHolder {
     - medTime : TextView
     - medName : TextView
     - medDose : TextView
@@ -543,7 +689,7 @@ class DoseViewHolder {
     + bind(Medication, MedActivity, int) : void
 }
 
-class DoseRecyclerViewAdapter {
+class medicationslist.DoseRecyclerViewAdapter {
     - doses : List<Medication>
     - medActivities : List<MedActivity>
     - application : Application
@@ -561,7 +707,7 @@ class DoseRecyclerViewAdapter {
 }
 
 'service
-class AlarmService {
+class service.AlarmService {
     - mediaPlayer : MediaPlayer
     - vibrator : Vibrator
     
@@ -572,14 +718,14 @@ class AlarmService {
     {static} + isServiceRunningInForeground(Context, Class<?>) : boolean
 }
 
-class RescheduleAlarmsService {
+class service.RescheduleAlarmsService {
     + onCreate() : void
     + onStartCommand(Intent, int, int) : int
     + onDestroy() : void
     + onBind(Intent) : IBinder
 }
 
-class DescheduleAlarmsService {
+class service.DescheduleAlarmsService {
     + onCreate() : void
     + onStartCommand(Intent, int, int) : int
     + onDestroy() : void
