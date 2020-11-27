@@ -56,6 +56,7 @@
         <service android:name=".service.AlarmService" />
         <service android:name=".service.RescheduleAlarmsService" />
         <service android:name=".service.DescheduleAlarmsService" />
+        <service android:name=".service.RefillReminderService" />
     </application>
 
 </manifest>

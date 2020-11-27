@@ -16,6 +16,7 @@ import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
 import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.example.drmednotifier.service.AlarmService;
+import com.example.drmednotifier.service.RefillReminderService;
 import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 import java.util.Calendar;
@@ -42,6 +43,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(context);
         NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
         NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
+
+        if(intent.getBooleanExtra("REFILL", false)) {
+            String toastText = String.format("Refill Reminder Received");
+            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+            startRefillReminderService(context);
+        }
 
         if (!notifSetting.isEnableNotif()) {
             return;
@@ -79,33 +86,19 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
         switch(today) {
             case Calendar.MONDAY:
-                if (intent.getBooleanExtra(MONDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(MONDAY, false);
             case Calendar.TUESDAY:
-                if (intent.getBooleanExtra(TUESDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(TUESDAY, false);
             case Calendar.WEDNESDAY:
-                if (intent.getBooleanExtra(WEDNESDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(WEDNESDAY, false);
             case Calendar.THURSDAY:
-                if (intent.getBooleanExtra(THURSDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(THURSDAY, false);
             case Calendar.FRIDAY:
-                if (intent.getBooleanExtra(FRIDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(FRIDAY, false);
             case Calendar.SATURDAY:
-                if (intent.getBooleanExtra(SATURDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(SATURDAY, false);
             case Calendar.SUNDAY:
-                if (intent.getBooleanExtra(SUNDAY, false))
-                    return true;
-                return false;
+                return intent.getBooleanExtra(SUNDAY, false);
         }
         return false;
     }
@@ -130,6 +123,15 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     private void startRescheduleAlarmsService(Context context) {
         Intent intentService = new Intent(context, RescheduleAlarmsService.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(intentService);
+        } else {
+            context.startService(intentService);
+        }
+    }
+
+    private void startRefillReminderService(Context context) {
+        Intent intentService = new Intent(context, RefillReminderService.class);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);
         } else {

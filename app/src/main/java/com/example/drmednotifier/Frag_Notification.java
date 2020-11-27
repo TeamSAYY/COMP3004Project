@@ -1,12 +1,15 @@
 package com.example.drmednotifier;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +22,14 @@ import android.widget.Switch;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver;
 import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
 import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.example.drmednotifier.service.DescheduleAlarmsService;
 import com.example.drmednotifier.service.RescheduleAlarmsService;
+
+import java.util.Calendar;
 
 
 public class Frag_Notification extends Fragment {
@@ -125,11 +131,41 @@ public class Frag_Notification extends Fragment {
             saveNotifSetting();
             if (isChecked) {
                 layout_renew_pre.setVisibility(View.VISIBLE);
+                setRefillReminder();
             } else {
                 layout_renew_pre.setVisibility(View.GONE);
+                cancelRefillReminder();
             }
         }
     };
+    
+    private void setRefillReminder() {
+        Log.d("myTag", "Set Refill Reminder");
+        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        intent.putExtra("REFILL", true);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                alarmPendingIntent
+        );
+    }
+
+    private void cancelRefillReminder() {
+        Log.d("myTag", "Cancel Refill Reminder");
+        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(alarmPendingIntent);
+    }
 
     private final AdapterView.OnItemSelectedListener dropdownListener = new AdapterView.OnItemSelectedListener() {
         @Override
