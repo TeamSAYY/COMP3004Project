@@ -1,0 +1,16 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members (30min)
+- Discussed about deliverable 3 (30min)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the medication report feature
+
+Implementation of features
+- Fixed the issue of displaying multiple notifications (1hr)
+- Created class diagram (6hrs)
