@@ -50,9 +50,9 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
     public void bind(Medication medication, MedActivity medActivity, int numOfAlarm) {
         Log.d("myTag", "BIND DOSE ITEM VIEW 2");
 
-        medTime.setText(String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1()));
+        medTime.setText(String.format("%02d:%02d", medication.getHour(numOfAlarm), medication.getMinute(numOfAlarm)));
         medName.setText(medication.getName());
-        medDose.setText(String.format("%d", medication.getDose_1()));
+        medDose.setText(String.format("%d", medication.getDose(numOfAlarm)));
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
@@ -76,6 +76,11 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     Log.d("myTag", "CHECKBOX CLICKED");
+
+                    medication.setQuantity(medication.getQuantity() + (isChecked?-1:1) * medication.getDose(numOfAlarm));
+                    MedicationsListViewModel medicationsListViewModel = new MedicationsListViewModel(application);
+                    medicationsListViewModel.update(medication);
+
                     medActivity.setMedStatus(numOfAlarm, isChecked);
                     MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
                     medActivitiesListViewModel.update(medActivity);
