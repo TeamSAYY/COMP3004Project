@@ -1,11 +1,13 @@
 package com.example.drmednotifier;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -105,7 +108,7 @@ public class Frag_Add extends Fragment {
 
         ButterKnife.bind(this, view);
 
-        Boolean editExisting = getActivity().getIntent().hasExtra("MED_ID");
+        boolean editExisting = getActivity().getIntent().hasExtra("MED_ID");
 
         // Buttons hide views
         buttonHideView(button_hide_med_info, med_info_view) ;
@@ -233,6 +236,36 @@ public class Frag_Add extends Fragment {
 
         decideSaveButtonStatus();
         setMandatoryTextListener();
+
+//        view.setFocusableInTouchMode(true);
+//        view.requestFocus();
+//        view.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                Log.d("myTag", "keyCode: " + keyCode);
+//                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+//                    Log.i("myTag", "onKey Back listener is working!!!");
+//
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //alert for confirm to delete
+//                    builder.setMessage("Are you sure to leave?");    //set message
+//
+//                    builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() { //when click on DELETE
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            getActivity().onBackPressed();
+//                        }
+//                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    }).show();  //show alert dialog
+//
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
 
         // Inflate the layout for this fragment
         return view;

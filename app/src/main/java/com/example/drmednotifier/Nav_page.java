@@ -1,6 +1,7 @@
 package com.example.drmednotifier;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -84,29 +86,29 @@ public class Nav_page extends AppCompatActivity{
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
 
-
+            String tag = "";
             switch (item.getItemId()) {
                 case R.id.home:
                     selectedFragment = new Frag_Home();
-
+                    tag = "HOME_FRAGMENT";
                     break;
                 case R.id.add_product:
                     selectedFragment = new Frag_Add();
-
+                    tag = "ADD_FRAGMENT";
                     break;
                 case R.id.self_report:
                     selectedFragment = new Frag_Selfreport();
-
+                    tag = "REPORT_FRAGMENT";
                     break;
                 case R.id.notification:
                     selectedFragment = new Frag_Notification();
-
+                    tag = "NOTIF_FRAGMENT";
                     break;
 
             }
             item.setChecked(true);
             assert selectedFragment != null;
-            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, selectedFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, selectedFragment, tag).commit();
 
             return false;
         }
@@ -115,5 +117,29 @@ public class Nav_page extends AppCompatActivity{
     public void click_User_Profile(View view) {
         Intent i = new Intent(this, New_User_Profile.class);
         startActivityForResult(i, 2);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment addFragment = getSupportFragmentManager().findFragmentByTag("ADD_FRAGMENT");
+        if (addFragment != null && addFragment.isVisible()) {
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this); //alert for confirm to delete
+            builder.setMessage("Are you sure to leave?");    //set message
+
+            builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() { //when click on DELETE
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Nav_page.super.onBackPressed();
+                }
+            }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).show();  //show alert dialog
+        } else {
+            super.onBackPressed();
+        }
     }
 }
