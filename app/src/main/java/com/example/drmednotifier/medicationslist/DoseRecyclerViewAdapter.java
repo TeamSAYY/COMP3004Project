@@ -24,6 +24,7 @@ import java.util.List;
 public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder> {
     private List<Medication> doses;
     private List<MedActivity> medActivities;
+    private List<Medication> medications;
 
     private Application application;
 
@@ -34,6 +35,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
     public DoseRecyclerViewAdapter() {
         doses = new ArrayList<>();
         medActivities = new ArrayList<>();
+        medications = new ArrayList<>();
     }
 
     @NonNull
@@ -45,30 +47,25 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull DoseViewHolder holder, int position) {
-        Medication medication = doses.get(position);
+        Medication dose = doses.get(position);
+        int doseMedId = dose.getMedId();
         boolean bound = false;
         for (MedActivity medActivity : medActivities) {
-            switch (medication.getMedId() - medActivity.getMedId()) {
-                case 1:
-                    holder.bind(medication, medActivity, 1);
-                    bound = true;
-                    break;
-                case 2:
-                    holder.bind(medication, medActivity, 2);
-                    bound = true;
-                    break;
-                case 3:
-                    holder.bind(medication, medActivity, 3);
-                    bound = true;
-                    break;
-                case 4:
-                    holder.bind(medication, medActivity, 4);
-                    bound = true;
-                    break;
+            int medActivityMedId = medActivity.getMedId();
+            int numOfAlarm = doseMedId - medActivityMedId;
+            if (numOfAlarm >= 1 && numOfAlarm <= 4) {
+                for (Medication medication : medications) {
+                    if (medication.getMedId() == medActivity.getMedId()) {
+                        holder.bind(medication, medActivity, numOfAlarm);
+                        bound = true;
+                        break;
+                    }
+                }
+                break;
             }
         }
         if (!bound) {
-            holder.bind(medication);
+            holder.bind(dose);
         }
     }
 
@@ -84,6 +81,8 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
     }
 
     public void setDoses(List<Medication> medications) {
+        this.medications = medications;
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
 
@@ -209,6 +208,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
         Date date = new GregorianCalendar(year, month, day).getTime();
         if (medActivities == null) {
             Log.d("myTag", "MED ACTIVITIES EMPTY");
+            return;
         } else {
             Log.d("myTag", "MED ACTIVITIES NOT EMPTY");
         }

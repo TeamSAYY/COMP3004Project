@@ -128,6 +128,10 @@ public class Medication {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public int getShape_id() {
         return shape_id;
     }
@@ -175,6 +179,48 @@ public class Medication {
     }
 
     public int getDose_4() {return dose_4;}
+
+    public int getHour(int num) {
+        switch (num) {
+            case 1:
+                return hour_1;
+            case 2:
+                return hour_2;
+            case 3:
+                return hour_3;
+            case 4:
+                return hour_4;
+        }
+        return 0;
+    }
+
+    public int getMinute(int num) {
+        switch (num) {
+            case 1:
+                return minute_1;
+            case 2:
+                return minute_2;
+            case 3:
+                return minute_3;
+            case 4:
+                return minute_4;
+        }
+        return 0;
+    }
+
+    public int getDose(int num) {
+        switch (num) {
+            case 1:
+                return dose_1;
+            case 2:
+                return dose_2;
+            case 3:
+                return dose_3;
+            case 4:
+                return dose_4;
+        }
+        return 0;
+    }
 
     public int getMedId() {
         return medId;
