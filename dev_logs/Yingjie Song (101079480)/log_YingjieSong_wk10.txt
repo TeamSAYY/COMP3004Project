@@ -1,0 +1,16 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members to review D3 (3hrs)
+- Practiced D3 presentation (30min)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the medication report feature
+
+Implementation of features
+- Implemented the refill reminder feature (2hrs)
+- Updated the med activity report feature (4hrs)
