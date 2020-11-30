@@ -10,12 +10,12 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
-import java.util.Random;
 
 //import android.support.v7.app.AppCompatActivity;
 
@@ -95,7 +95,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         List<User> usersLiveData = userDao.getUser();
 
         if (usersLiveData.isEmpty()) {
-            userId = new Random().nextInt(Integer.MAX_VALUE);
+            userId = GenerateRandomInt.get();
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
             userDao.insert(user);
         } else { //Will need to remove this later as user can only access this page if they have no user information saved

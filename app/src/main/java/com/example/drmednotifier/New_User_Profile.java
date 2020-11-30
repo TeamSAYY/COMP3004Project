@@ -12,12 +12,12 @@ import android.widget.RadioButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
-import java.util.Random;
 
 public class New_User_Profile extends AppCompatActivity {
 
@@ -127,7 +127,7 @@ public class New_User_Profile extends AppCompatActivity {
         users = userDao.getUser();
 
         if (users.isEmpty()) {
-            userId = new Random().nextInt(Integer.MAX_VALUE);
+            userId = GenerateRandomInt.get();
             user = new User(userId, firstName, lastName, age, gender, System.currentTimeMillis());
             userDao.insert(user);
         } else {

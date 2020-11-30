@@ -5,8 +5,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Random;
-
 @Entity(tableName = "notifsetting_table")
 public class NotifSetting {
     @PrimaryKey
@@ -36,7 +34,7 @@ public class NotifSetting {
 
     // Default notification setting constructor
     public NotifSetting() {
-        this.notifSettingId = new Random().nextInt(Integer.MAX_VALUE);;
+        this.notifSettingId = GenerateRandomInt.get();
         this.enableNotif = true;
         this.notifTypeId = 2;
         this.remindInMinutesId = 0;

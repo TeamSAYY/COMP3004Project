@@ -225,5 +225,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
             }
         }
         this.application = application;
+
+        notifyDataSetChanged();
     }
 }

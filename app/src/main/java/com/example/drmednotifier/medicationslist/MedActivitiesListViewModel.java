@@ -14,12 +14,18 @@ import java.util.List;
 public class MedActivitiesListViewModel extends AndroidViewModel {
     private MedActivityRepository medActivityRepository;
     private LiveData<List<MedActivity>> medActivitiesLiveData;
+    private LiveData<List<MedActivity>> medActivitiesLiveDataLastWeek;
 
     public MedActivitiesListViewModel(@NonNull Application application) {
         super(application);
 
         medActivityRepository = new MedActivityRepository(application);
         medActivitiesLiveData = medActivityRepository.getMedActivitiesLiveData();
+        medActivitiesLiveDataLastWeek = medActivityRepository.getMedActivitiesLiveDataLastWeek();
+    }
+
+    public void deleteByMedId(int medId) {
+        medActivityRepository.deleteByMedId(medId);
     }
 
     public void update(MedActivity medActivity) {
@@ -28,5 +34,9 @@ public class MedActivitiesListViewModel extends AndroidViewModel {
 
     public LiveData<List<MedActivity>> getMedActivitiesLiveData() {
         return medActivitiesLiveData;
+    }
+
+    public LiveData<List<MedActivity>> getMedActivitiesLiveDataLastWeek() {
+        return medActivitiesLiveDataLastWeek;
     }
 }
