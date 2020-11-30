@@ -6,7 +6,6 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
-import java.util.Random;
 
 //        foreignKeys = @ForeignKey(entity = Medication.class,
 //        parentColumns = "medId",
@@ -30,7 +29,7 @@ public class MedActivity {
     private boolean fourthMed;
 
     public MedActivity(int medId, Date date) {
-        this.medActivityId = new Random().nextInt(Integer.MAX_VALUE);
+        this.medActivityId = GenerateRandomInt.get();
         this.medId = medId;
         this.date = date;
         this.firstMed = false;

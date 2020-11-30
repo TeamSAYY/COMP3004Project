@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.room.Room;
 
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.MedicationDao;
 import com.example.drmednotifier.data.MedicationDatabase;
@@ -20,7 +21,6 @@ import com.example.drmednotifier.service.RefillReminderService;
 import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 import java.util.Calendar;
-import java.util.Random;
 
 public class AlarmBroadcastReceiver extends BroadcastReceiver {
     public static final String MED_ID = "MED_ID";
@@ -68,7 +68,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             MedicationDatabase medicationDatabase = Room.databaseBuilder(context.getApplicationContext(), MedicationDatabase.class, "medication_database").allowMainThreadQueries().build();
             MedicationDao medicationDao = medicationDatabase.medicationDao();
 
-            Medication m = medicationDao.loadSingle(intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)));
+            Medication m = medicationDao.loadSingle(intent.getIntExtra(MED_ID, GenerateRandomInt.get()));
 
             try {
                 m.schedule(context);
@@ -105,7 +105,7 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     private void startAlarmService(Context context, Intent intent) {
         Intent intentService = new Intent(context, AlarmService.class);
-        intentService.putExtra(MED_ID, intent.getIntExtra(MED_ID, new Random().nextInt(Integer.MAX_VALUE)));
+        intentService.putExtra(MED_ID, intent.getIntExtra(MED_ID, GenerateRandomInt.get()));
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
         intentService.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         intentService.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));

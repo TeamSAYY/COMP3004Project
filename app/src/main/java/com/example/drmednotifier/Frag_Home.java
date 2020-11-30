@@ -23,6 +23,7 @@ import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
+import com.example.drmednotifier.medicationslist.MedActivitiesListViewModel;
 import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
@@ -36,6 +37,7 @@ import java.util.List;
 public class Frag_Home extends Fragment {
     private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
     private MedicationsListViewModel medicationsListViewModel;
+    private MedActivitiesListViewModel medActivitiesListViewModel;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +88,7 @@ public class Frag_Home extends Fragment {
                 }
             }
         });
+        medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
     }
 
     @Override
@@ -121,6 +124,7 @@ public class Frag_Home extends Fragment {
                             Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
                             medication.deschedule(getContext());
                             medicationsListViewModel.deleteById(medication.getMedId());
+                            medActivitiesListViewModel.deleteByMedId(medication.getMedId());
                             return;
                         }
                     }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done

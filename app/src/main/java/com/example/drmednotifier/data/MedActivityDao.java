@@ -20,8 +20,14 @@ public interface MedActivityDao {
     @Query("DELETE FROM medactivity_table")
     void deleteAll();
 
+    @Query("DELETE FROM medactivity_table WHERE medId =:medId")
+    void deleteByMedId(int medId);
+
     @Query("SELECT * FROM medactivity_table ORDER BY date ASC")
     LiveData<List<MedActivity>> getMedActivity();
+
+    @Query("SELECT * FROM medactivity_table WHERE date BETWEEN :dayst AND :dayet")
+    LiveData<List<MedActivity>> getMedActivityLastWeek(long dayst, long dayet);
 
     @Query("SELECT * FROM medactivity_table WHERE medActivityId =:id")
     MedActivity loadSingle(int id);

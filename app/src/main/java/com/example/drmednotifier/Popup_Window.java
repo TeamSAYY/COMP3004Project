@@ -5,12 +5,12 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
-import java.util.Random;
 
 public class Popup_Window extends Setting_Page{
     private UserDao userDao;
@@ -40,7 +40,7 @@ public class Popup_Window extends Setting_Page{
 
         User user;
         if (users.isEmpty()) {
-            int userId = new Random().nextInt(Integer.MAX_VALUE);
+            int userId = GenerateRandomInt.get();
             user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
             user.setAvatar("a1");
             userDao.insert(user);
@@ -59,7 +59,7 @@ public class Popup_Window extends Setting_Page{
 
         User user;
         if (users.isEmpty()) {
-            int userId = new Random().nextInt(Integer.MAX_VALUE);
+            int userId = GenerateRandomInt.get();
             user = new User(userId, "", "", -1, -1, System.currentTimeMillis());
             user.setAvatar("a2");
             userDao.insert(user);

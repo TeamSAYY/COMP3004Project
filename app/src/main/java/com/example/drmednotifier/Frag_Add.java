@@ -1,13 +1,11 @@
 package com.example.drmednotifier;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +23,11 @@ import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.drmednotifier.createmedication.CreateMedicationViewModel;
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.MedActivity;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.NotifSetting;
@@ -39,7 +37,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -331,7 +328,7 @@ public class Frag_Add extends Fragment {
     }
 
     private void scheduleMedication() {
-        int medId = new Random().nextInt(Integer.MAX_VALUE);
+        int medId = GenerateRandomInt.get();
 
         int stockNum, times, dose1, dose2, dose3, dose4;
 
@@ -424,11 +421,21 @@ public class Frag_Add extends Fragment {
 
         int duration = ((stockNum / doses) / days) * 7 + 7;
 
+        long timeMillis = System.currentTimeMillis();
+        long DAY = 24*60*60*1000;
+
+        Log.d("myTag", "stock: " + stockNum);
+        Log.d("myTag", "days: " + days);
+        Log.d("myTag", "doses: " + doses);
+        Log.d("myTag", "duration: " + duration);
+
         ArrayList<MedActivity> medActivities = new ArrayList<>();
         for(int i=0; i<=duration; i++){
             Log.d("myTag", "INSERT MED ACTIVITY");
 
-            Date today = new Date(System.currentTimeMillis() + 24*60*60*1000*i);
+            Date today = new Date(timeMillis + i * DAY);
+
+            Log.d("myTag", today.toString());
 
             MedActivity medActivity = new MedActivity(medId, today);
 
@@ -560,7 +567,7 @@ public class Frag_Add extends Fragment {
     private void updateMedication() {
         Intent intent = getActivity().getIntent();
 
-        int medId = intent.getIntExtra("MED_ID", new Random().nextInt(Integer.MAX_VALUE));
+        int medId = intent.getIntExtra("MED_ID", GenerateRandomInt.get());
 
         int stockNum, times, dose1, dose2, dose3, dose4;
 

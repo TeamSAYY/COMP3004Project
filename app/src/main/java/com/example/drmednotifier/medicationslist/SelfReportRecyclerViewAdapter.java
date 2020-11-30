@@ -38,6 +38,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
         this.taken = taken;
         doses = new ArrayList<>();
         medActivities = new ArrayList<>();
+        medications = new ArrayList<>();
     }
 
     @NonNull
@@ -118,9 +119,13 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
 
             MedActivity medActivity = null;
             for (MedActivity m : medActivities) {
+                Log.d("myTag", "mmm med act id: " + m.getMedActivityId());
+                Log.d("myTag", "mmm med id: " + m.getMedId());
+                Log.d("myTag", "mmm med status: " + m.getMedStatus(1));
+                Log.d("myTag", "mmm med date: " + m.getDate().toString());
                 if (medication.getMedId() == m.getMedId()) {
                     medActivity = m;
-                    break;
+//                    break;
                 }
             }
 
@@ -128,7 +133,13 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
 
             int times = medication.getTimes();
             if (times >= 1) {
-                if (medActivity==null || medActivity.getMedStatus(1) && !taken || !medActivity.getMedStatus(1) && taken) {
+                Log.d("myTag", "med id: " + medication.getMedId());
+                Log.d("myTag", "med name: " + medication.getName());
+                Log.d("myTag", "bbb med act id: " + medActivity.getMedActivityId());
+                Log.d("myTag", "bbb med id: " + medActivity.getMedId());
+                Log.d("myTag", "med status: " + (medActivity.getMedStatus(1)?"true":"false"));
+                Log.d("myTag", "med date: " + medActivity.getDate().toString());
+                if (medActivity.getMedStatus(1) && taken || !medActivity.getMedStatus(1) && !taken) {
                     doses.add(new Medication(
                             medication.getMedId() + 1,
                             medication.getName(),
@@ -150,7 +161,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
                 }
             }
             if (times >= 2) {
-                if (medActivity==null || medActivity.getMedStatus(2) && !taken || !medActivity.getMedStatus(2) && taken) {
+                if (medActivity.getMedStatus(2) && taken || !medActivity.getMedStatus(2) && !taken) {
                     doses.add(new Medication(
                             medication.getMedId() + 2,
                             medication.getName(),
@@ -172,7 +183,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
                 }
             }
             if (times >= 3) {
-                if (medActivity==null || medActivity.getMedStatus(3) && !taken || !medActivity.getMedStatus(3) && taken) {
+                if (medActivity.getMedStatus(3) && taken || !medActivity.getMedStatus(3) && !taken) {
                     doses.add(new Medication(
                             medication.getMedId() + 3,
                             medication.getName(),
@@ -194,7 +205,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
                 }
             }
             if (times >= 4) {
-                if (medActivity==null || medActivity.getMedStatus(4) && !taken || !medActivity.getMedStatus(4) && taken) {
+                if (medActivity.getMedStatus(4) && taken || !medActivity.getMedStatus(4) && !taken) {
                     doses.add(new Medication(
                             medication.getMedId() + 4,
                             medication.getName(),
@@ -238,7 +249,14 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
 
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date);
+
+        Log.d("myTag", "cal1: " + date.toString());
+
         for (MedActivity medActivity : medActivities) {
+//            Log.d("myTag", "aaa med act id: " + medActivity.getMedActivityId());
+//            Log.d("myTag", "aaa med id: " + medActivity.getMedId());
+//            Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
+
             Calendar cal2 = Calendar.getInstance();
             cal2.setTime(medActivity.getDate());
             if (cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
@@ -246,16 +264,25 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
                 Log.d("myTag", "ACTIVITY ADDED");
                 this.medActivities.add(medActivity);
 
-                List<Medication> found = new ArrayList<>();
-                for (Medication m : doses) {
-                    int numOfAlarm = m.getMedId() - medActivity.getMedId();
-                    if (numOfAlarm >= 1 && numOfAlarm <=4) {
-                        if (medActivity.getMedStatus(numOfAlarm) && !taken || !medActivity.getMedStatus(numOfAlarm) && taken) {
-                            found.add(m);
-                        }
-                    }
+//                Log.d("myTag", "aaa med status: " + (medActivity.getMedStatus(1)?"true":"false"));
+//                Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
+
+                if (medActivity.getMedStatus(1)) {
+                    Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
+                    Log.d("myTag", "aaa med id: " + medActivity.getMedId());
+                    Log.d("myTag", "aaa med act id: " + medActivity.getMedActivityId());
                 }
-                doses.removeAll(found);
+
+//                List<Medication> found = new ArrayList<>();
+//                for (Medication m : doses) {
+//                    int numOfAlarm = m.getMedId() - medActivity.getMedId();
+//                    if (numOfAlarm >= 1 && numOfAlarm <=4) {
+//                        if (medActivity.getMedStatus(numOfAlarm) && !taken || !medActivity.getMedStatus(numOfAlarm) && taken) {
+//                            found.add(m);
+//                        }
+//                    }
+//                }
+//                doses.removeAll(found);
             }
         }
 

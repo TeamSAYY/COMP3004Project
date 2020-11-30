@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.drmednotifier.data.GenerateRandomInt;
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.NotifSetting;
 import com.example.drmednotifier.data.NotifSettingDao;
@@ -22,7 +23,6 @@ import com.example.drmednotifier.data.NotifSettingDatabase;
 import com.example.drmednotifier.service.AlarmService;
 
 import java.util.Calendar;
-import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +87,7 @@ public class RingActivity extends AppCompatActivity {
                     calendar.add(Calendar.MINUTE, snoozeMinutes);
 
                     Medication medication = new Medication(
-                            new Random().nextInt(Integer.MAX_VALUE),
+                            GenerateRandomInt.get(),
                             medName,
                             "",
                             0,

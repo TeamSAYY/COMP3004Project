@@ -1,6 +1,7 @@
 package com.example.drmednotifier;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,6 +56,8 @@ public class Frag_Selfreport extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Fragment fragment = this;
 
         Calendar calendar = Calendar.getInstance();
 
@@ -142,33 +145,11 @@ public class Frag_Selfreport extends Fragment {
         adapter_taken_7 = new SelfReportRecyclerViewAdapter(true);
         adapter_taken_7.setTimeMillis(currentTimeMillis - 7*DAY);
 
-        MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-
-        medicationsListViewModel.getMedicationsLiveData().observe(this , new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications != null) {
-                    adapter_missed_1.setMedications(medications);
-                    adapter_missed_2.setMedications(medications);
-                    adapter_missed_3.setMedications(medications);
-                    adapter_missed_4.setMedications(medications);
-                    adapter_missed_5.setMedications(medications);
-                    adapter_missed_6.setMedications(medications);
-                    adapter_missed_7.setMedications(medications);
-                    adapter_taken_1.setMedications(medications);
-                    adapter_taken_2.setMedications(medications);
-                    adapter_taken_3.setMedications(medications);
-                    adapter_taken_4.setMedications(medications);
-                    adapter_taken_5.setMedications(medications);
-                    adapter_taken_6.setMedications(medications);
-                    adapter_taken_7.setMedications(medications);
-                }
-            }
-        });
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
-        medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, new Observer<List<MedActivity>>() {
+        medActivitiesListViewModel.getMedActivitiesLiveDataLastWeek().observe(this, new Observer<List<MedActivity>>() {
             @Override
             public void onChanged(List<MedActivity> medActivities) {
+                Log.d("myTag", "size: " + medActivities.size());
                 if (medActivities != null) {
                     adapter_missed_1.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_missed_2.setMedActivities(getActivity().getApplication(), medActivities);
@@ -184,10 +165,35 @@ public class Frag_Selfreport extends Fragment {
                     adapter_taken_5.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_taken_6.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_taken_7.setMedActivities(getActivity().getApplication(), medActivities);
+
+                    medActivitiesListViewModel.getMedActivitiesLiveData().removeObserver(this);
+
+                    MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(fragment).get(MedicationsListViewModel.class);
+                    medicationsListViewModel.getMedicationsLiveData().observe(fragment , new Observer<List<Medication>>() {
+                        @Override
+                        public void onChanged(List<Medication> medications) {
+                            if (medications != null) {
+                                adapter_missed_1.setMedications(medications);
+                                adapter_missed_2.setMedications(medications);
+                                adapter_missed_3.setMedications(medications);
+                                adapter_missed_4.setMedications(medications);
+                                adapter_missed_5.setMedications(medications);
+                                adapter_missed_6.setMedications(medications);
+                                adapter_missed_7.setMedications(medications);
+                                adapter_taken_1.setMedications(medications);
+                                adapter_taken_2.setMedications(medications);
+                                adapter_taken_3.setMedications(medications);
+                                adapter_taken_4.setMedications(medications);
+                                adapter_taken_5.setMedications(medications);
+                                adapter_taken_6.setMedications(medications);
+                                adapter_taken_7.setMedications(medications);
+                                medicationsListViewModel.getMedicationsLiveData().removeObserver(this);
+                            }
+                        }
+                    });
                 }
             }
         });
-
     }
 
     @Override
@@ -264,29 +270,29 @@ public class Frag_Selfreport extends Fragment {
 
     private String getStringFromMonth(int month) {
         switch (month){
-            case 1:
+            case 0:
                 return "Jan";
-            case 2:
+            case 1:
                 return "Feb";
-            case 3:
+            case 2:
                 return "Mar";
-            case 4:
+            case 3:
                 return "Apr";
-            case 5:
+            case 4:
                 return "May";
-            case 6:
+            case 5:
                 return "Jun";
-            case 7:
+            case 6:
                 return "Jul";
-            case 8:
+            case 7:
                 return "Aug";
-            case 9:
+            case 8:
                 return "Sep";
-            case 10:
+            case 9:
                 return "Oct";
-            case 11:
+            case 10:
                 return "Nov";
-            case 12:
+            case 11:
                 return "Dec";
         }
         return "";
