@@ -100,68 +100,6 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"></ListView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/Setting_Cat"
-            android:paddingVertical="14dp"
-            android:paddingLeft="10dp"
-            android:text="Notification Settings" />
-
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/Switch"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:text="    Silence Notifications                                                          " />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#E1DFDF"
-        />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingHorizontal="15dp"
-            android:paddingVertical="16dp"
-            android:text="Type of Notification Sound"
-            android:textColor="#000000"
-
-
-            />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:id="@+id/spinner"
-        android:paddingHorizontal="8dp"
-
-
-
-
-
-        />
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/Setting_Cat"
-            android:paddingVertical="14dp"
-            android:paddingLeft="10dp"
-            android:text="Display Settings" />
-
-
-        <CheckBox
-            android:id="@+id/checkbox_top"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:buttonTint="#FF3D00"
-            android:onClick="CheckboxClickCheck"
-            android:text="@string/Title_One" />
 
         <View
         android:layout_width="match_parent"

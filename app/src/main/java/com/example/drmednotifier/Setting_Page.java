@@ -42,7 +42,20 @@ public class Setting_Page extends AppCompatActivity {
 
         setUserProperties();
 
-        /*spinner set up*/
+
+
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent();
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        /*
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         List<String> s_list = new ArrayList<>();
         s_list.add("Default Music");
@@ -83,7 +96,7 @@ public class Setting_Page extends AppCompatActivity {
             }
         });
 
-        /*switch */
+
         SwitchCompat switchCompat = (SwitchCompat) findViewById(R.id.Switch);
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -98,7 +111,7 @@ public class Setting_Page extends AppCompatActivity {
             }
         });
 
-
+*/
 
         /*Hash map for list view*/
         ListView listView= findViewById(R.id.listview);
@@ -137,7 +150,7 @@ public class Setting_Page extends AppCompatActivity {
         });
     }
 
-    /*checkbox*/
+ /*
     public void CheckboxClickCheck(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -160,6 +173,9 @@ public class Setting_Page extends AppCompatActivity {
                 break;
         }
     }
+
+    */
+
     /*transfer to New_User-Profile when click layout bar*/
     public void click_name_tag(View view) {
         Intent i = new Intent(this,New_User_Profile.class);
