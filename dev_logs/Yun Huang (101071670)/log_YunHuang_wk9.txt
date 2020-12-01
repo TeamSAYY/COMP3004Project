@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2h)
+
+Plannings
+working on d3 and information flow diagram and paper work and working on medicine report page
+
+Research
+NA
+
+Implementation of features
+- Working on presentation and disgram and medicine report page (4h) 
+- fix previous problem code(user page code, data base code)(0.5h)

@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2h)
+
+Plannings
+working on the video and upload to the google play, fix some code
+
+Research
+NA
+
+Implementation of features
+- video find and editing(4h)
+- fix previous problem code(user page code, data base code)(0.5h)
