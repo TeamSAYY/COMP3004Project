@@ -26,7 +26,8 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Medicine_List" /> <!-- <activity android:name=".Frag_Notification" /> -->
         <activity android:name=".Nav_page"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:taskAffinity=".NavPageActivity" />
         <activity android:name=".Second_page_get_personaldata"
             android:screenOrientation="portrait" />
         <activity android:name=".Setting_Page"
@@ -37,7 +38,9 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            android:taskAffinity=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +48,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:noHistory="true"
+            android:excludeFromRecents="true" />
 
         <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
             <intent-filter>
