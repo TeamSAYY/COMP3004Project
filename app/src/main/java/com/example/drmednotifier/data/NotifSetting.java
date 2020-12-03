@@ -39,7 +39,7 @@ public class NotifSetting {
         this.notifTypeId = 2;
         this.remindInMinutesId = 0;
         this.notifMessage = "Please take your medication!";
-        this.enableRefillNotif = true;
+        this.enableRefillNotif = false;
         this.daysBeforeRefillId = 0;
         this.refillNotifMessage = "It's time for a medication refill!";
         this.notifSoundId = 0;

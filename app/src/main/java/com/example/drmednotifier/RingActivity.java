@@ -46,6 +46,8 @@ public class RingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring);
 
+        Context context = this;
+
         ButterKnife.bind(this);
 
         NotifSettingDatabase notifSettingDatabase = NotifSettingDatabase.getDatabase(this);
@@ -69,11 +71,13 @@ public class RingActivity extends AppCompatActivity {
                 int len0 = manager.getActiveNotifications().length;
                 manager.cancel(medID);
                 int len1 = manager.getActiveNotifications().length;
-                if (len0 == len1) {
+                if (len0 == len1) { // this is the last active notification, stop the foreground service
                     Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
                     getApplicationContext().stopService(intentService);
                 }
-                finish();
+                Intent i = new Intent(context, Dose_Page.class);
+                startActivity(i);
+//                finish();
             }
         });
 
