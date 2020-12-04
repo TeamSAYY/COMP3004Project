@@ -1,11 +1,15 @@
 package com.example.drmednotifier.medicationslist;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.drmednotifier.Edit_Medication;
@@ -17,9 +21,15 @@ import java.util.List;
 
 public class MedicationRecyclerViewAdapter extends RecyclerView.Adapter<MedicationViewHolder> {
     private List<Medication> medications;
+    Context context;
+    MedicationsListViewModel medicationsListViewModel;
+    MedActivitiesListViewModel medActivitiesListViewModel;
 
-    public MedicationRecyclerViewAdapter() {
+    public MedicationRecyclerViewAdapter(Context context, MedicationsListViewModel medicationsListViewModel, MedActivitiesListViewModel medActivitiesListViewModel) {
         this.medications = new ArrayList<Medication>();
+        this.context = context;
+        this.medicationsListViewModel = medicationsListViewModel;
+        this.medActivitiesListViewModel = medActivitiesListViewModel;
     }
 
     @NonNull
@@ -64,6 +74,36 @@ public class MedicationRecyclerViewAdapter extends RecyclerView.Adapter<Medicati
                 editMedicationIntent.putExtra("MINUTE_4", medication.getMinute_4());
                 editMedicationIntent.putExtra("DOSE_4", medication.getDose_4());
                 holder.itemView.getContext().startActivity(editMedicationIntent);
+            }
+        });
+
+        Button deleteBtn = holder.itemView.findViewById(R.id.item_medication_delete);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final int position = holder.getAdapterPosition(); //get position
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context); //alert for confirm to delete
+                builder.setMessage("Are you sure to delete?");    //set message
+
+                builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() { //when click on DELETE
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notifyItemRemoved(position);    //item removed from recylcerview
+                        Medication medication = getMedByPos(position);
+                        medication.deschedule(context);
+                        medicationsListViewModel.deleteById(medication.getMedId());
+                        medActivitiesListViewModel.deleteByMedId(medication.getMedId());
+                        return;
+                    }
+                }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        notifyDataSetChanged();
+                        return;
+                    }
+                }).show();  //show alert dialog
+
             }
         });
     }

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -47,6 +48,7 @@ public class Frag_Notification extends Fragment {
     private View layout_renew_pre;
     private Spinner dropdown_renew_time;
     private EditText edit_noti__renew_msg;
+    private Button btn_noti_renew;
 
 
     public Frag_Notification() {
@@ -76,6 +78,7 @@ public class Frag_Notification extends Fragment {
         layout_renew_pre = view.findViewById(R.id.layout_renew_pre);
         dropdown_renew_time = view.findViewById(R.id.spinner_renew_time);
         edit_noti__renew_msg = view.findViewById(R.id.edit_noti__renew_msg);
+        btn_noti_renew = view.findViewById(R.id.btn_noti_renew);
 
         // Create a list of items for the spinner.
         String[] items_noti_type = new String[]{"Push Notification", "Push Notification & Vibrate", "Push Notification, Vibrate & Alert"};
@@ -107,6 +110,12 @@ public class Frag_Notification extends Fragment {
         switch_renew_pre.setOnCheckedChangeListener(refill_switchListener);
         dropdown_renew_time.setOnItemSelectedListener(dropdownListener);
         edit_noti__renew_msg.addTextChangedListener(textWatcher);
+        btn_noti_renew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setOneTimeRefillReminder();
+            }
+        });
 
         return view;
     }
@@ -138,6 +147,21 @@ public class Frag_Notification extends Fragment {
             }
         }
     };
+
+    private void setOneTimeRefillReminder() {
+        Log.d("myTag", "Set One-Time Refill Reminder");
+        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        intent.putExtra("REFILL", true);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis() + 5000);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                alarmPendingIntent
+        );
+    }
     
     private void setRefillReminder() {
         Log.d("myTag", "Set Refill Reminder");
