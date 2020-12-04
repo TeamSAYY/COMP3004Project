@@ -37,7 +37,7 @@ public class RefillReminderService extends LifecycleService {
         NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         int days = notifSetting.getDaysBeforeRefill();
-        String message = notifSetting.getNotifMessage();
+        String message = notifSetting.getRefillNotifMessage();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("")
