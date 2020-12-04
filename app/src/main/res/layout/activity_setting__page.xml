@@ -90,7 +90,8 @@
         android:background="@color/Setting_Cat"
         android:paddingLeft="10dp"
         android:paddingVertical="14dp"
-        android:text="Medicine Information"
+        android:text="Medication Information"
+        android:textSize="20sp"
         />
 
 
@@ -115,6 +116,7 @@
             android:paddingLeft="10dp"
             android:paddingVertical="14dp"
             android:text="Others"
+            android:textSize="20sp"
             />
 
         <TextView

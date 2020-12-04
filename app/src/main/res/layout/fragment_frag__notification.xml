@@ -20,7 +20,8 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/text_noti"
@@ -28,7 +29,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Enable Prescription \nNotifications"
-                    android:textSize="24sp"
+                    android:textSize="25sp"
                     android:textStyle="bold" />
 
                 <Switch
@@ -37,7 +38,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
+
             </LinearLayout>
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E1DFDF" />
 
             <LinearLayout
                 android:id="@+id/layout_noti"
@@ -69,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:textSize="20sp"
-                    android:text="Set Prescription Reminder To" />
+                    android:text="Remind to Take My Medication In" />
 
                 <Spinner
                     android:id="@+id/spinner_noti_remind"
@@ -102,14 +111,15 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:id="@+id/text_renew_pre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="24sp"
+                    android:textSize="25sp"
                     android:text="Enable Medication \nRefill Notifications"
                     android:textStyle="bold"/>
 
@@ -120,6 +130,13 @@
                     android:layout_weight="1"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#E1DFDF" />
 
             <LinearLayout
                 android:id="@+id/layout_renew_pre"
@@ -132,10 +149,10 @@
 
                 <TextView
                     android:id="@+id/text_renew_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
-                    android:text="Number of Days before\nMedication Refill Notification is sent" />
+                    android:text="Number of Days before Medication \nRefill Notification is sent" />
 
                 <Spinner
                     android:id="@+id/spinner_renew_time"

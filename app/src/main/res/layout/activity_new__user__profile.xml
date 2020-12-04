@@ -53,10 +53,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="User Information"
-                    android:textSize="40dp" />
+                    android:textSize="40dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lblFullName"
+                    android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Full Name"
@@ -105,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Gender"
+                    android:text="Gender (Optional)"
                     android:textSize="25dp" />
 
                 <RadioGroup

@@ -29,8 +29,8 @@ import java.util.List;
 
 public class Setting_Page extends AppCompatActivity {
     private final int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
-    private final String[] headline = new String[]{"Medicine List","Today's Dose"};
-    private final String[] bottomline = new String[]{"Display Your Medicine List","View Today's Medicine Dose  "};
+    private final String[] headline = new String[]{"Medication List","Today's Medication Dosage"};
+    private final String[] bottomline = new String[]{"View all the Med. you are taking","View the Med. needed to be taken today"};
 //    private String current_avatar;
 //    private String avatar_T;
 //    private int  count;
