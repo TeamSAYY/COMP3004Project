@@ -61,15 +61,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (existingUserInfo()) {
             Intent i = new Intent(this, Nav_page.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            i.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-            finishAndRemoveTask();
+//            finishAndRemoveTask();
         }
         else {
             Intent i = new Intent(this, Second_page_get_personaldata.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            i.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
-            finishAndRemoveTask();
+//            finishAndRemoveTask();
         }
     /*
        String input = ((TextView)findViewById(R.id.source)).getText().toString();
