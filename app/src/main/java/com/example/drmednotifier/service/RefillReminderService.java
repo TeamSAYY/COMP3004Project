@@ -45,40 +45,41 @@ public class RefillReminderService extends LifecycleService {
                 .setSmallIcon(R.drawable.logo);
 
         ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<String> newNameList = new ArrayList<>();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         MedicationRepository medicationRepository = new MedicationRepository(getApplication());
 
         medicationRepository.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
+                newNameList.clear();
                 if (medications == null) return;
                 for (Medication m : medications) {
                     int amount = m.getQuantity();
                     int dosage = m.getDose_1() + (m.getTimes()>1 ? m.getDose_2() : 0) + (m.getTimes()>2 ? m.getDose_3() : 0) + (m.getTimes()>3 ? m.getDose_4() : 0);
                     if(amount / dosage == days) {
-                        nameList.add(m.getName());
+                        newNameList.add(m.getName());
                     }
                 }
-                if(medications.size() == 0) {
-                    stopForeground(true);
-                    stopSelf();
-                } else {
-                    StringBuilder title = new StringBuilder();
-                    for(String name : nameList){
-                        title.append(name);
-                        title.append(' ');
+                if(!nameList.equals(newNameList)) {
+                    nameList.retainAll(newNameList);
+                    if(!nameList.equals(newNameList)) { // newNameList contains element that is not existing in old nameList
+
+                        nameList.clear();
+                        nameList.addAll(newNameList);
+
+                        String title = days + " days left before " +
+                                String.join(", ", newNameList) +
+                                " runs out";
+                        Notification notification = builder.setContentTitle(title).setContentText(message).build();
+                        notification.priority = Notification.PRIORITY_HIGH;
+                        notificationManager.notify(3, notification);
                     }
-                    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                    Notification notification = builder.setContentTitle(title.toString()).setContentText(message).build();
-                    notificationManager.notify(3, notification);
-                    stopForeground(false);
                 }
             }
         });
-
-        Notification notification = builder.build();
-
-        startForeground(3, notification);
 
         return START_STICKY;
     }

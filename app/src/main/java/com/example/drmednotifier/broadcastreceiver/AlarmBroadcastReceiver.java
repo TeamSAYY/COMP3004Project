@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -62,7 +63,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
             String toastText = String.format("Alarm Received");
             Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             if (alarmIsToday(intent)) {
+                Log.d("myTag", "alarm is today");
                 startAlarmService(context, intent);
+            } else {
+                Log.d("myTag", "alarm is not today");
             }
 
             MedicationDatabase medicationDatabase = Room.databaseBuilder(context.getApplicationContext(), MedicationDatabase.class, "medication_database").allowMainThreadQueries().build();
@@ -83,6 +87,15 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         int today = calendar.get(Calendar.DAY_OF_WEEK);
+
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            for (String key : bundle.keySet()) {
+                Log.e("myTag", key + " : " + (bundle.get(key) != null ? bundle.get(key) : "NULL"));
+            }
+        }
+
+//        Log.d("myTag", "MONDAY: " + intent.hasExtra(MONDAY) + intent.getBooleanExtra(MONDAY, false));
 
         switch(today) {
             case Calendar.MONDAY:
@@ -123,19 +136,11 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
 
     private void startRescheduleAlarmsService(Context context) {
         Intent intentService = new Intent(context, RescheduleAlarmsService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
+        context.startService(intentService);
     }
 
     private void startRefillReminderService(Context context) {
         Intent intentService = new Intent(context, RefillReminderService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
+        context.startService(intentService);
     }
 }

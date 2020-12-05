@@ -8,7 +8,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.example.drmednotifier.broadcastreceiver.AlarmBroadcastReceiver;
@@ -302,7 +301,7 @@ public class Medication {
             intent.putExtra(MED_DOSE, dose_1);
             intent.putExtra(HOUR, hour_1);
             intent.putExtra(MINUTE, minute_1);
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 1, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar calendar_1 = Calendar.getInstance();
             calendar_1.setTimeInMillis(System.currentTimeMillis());
@@ -340,7 +339,7 @@ public class Medication {
             intent.putExtra(MED_DOSE, dose_2);
             intent.putExtra(HOUR, hour_2);
             intent.putExtra(MINUTE, minute_2);
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar calendar_2 = Calendar.getInstance();
             calendar_2.setTimeInMillis(System.currentTimeMillis());
@@ -370,7 +369,7 @@ public class Medication {
 
             Log.d("myTag", String.format("ALARM 2 CREATED: %02d:%02d", hour_2, minute_2));
         } else {
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
         }
 
@@ -381,7 +380,7 @@ public class Medication {
             intent.putExtra(MED_DOSE, dose_3);
             intent.putExtra(HOUR, hour_3);
             intent.putExtra(MINUTE, minute_3);
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar calendar_3 = Calendar.getInstance();
             calendar_3.setTimeInMillis(System.currentTimeMillis());
@@ -411,7 +410,7 @@ public class Medication {
 
             Log.d("myTag", String.format("ALARM 3 CREATED: %02d:%02d", hour_3, minute_3));
         } else {
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
         }
 
@@ -422,7 +421,7 @@ public class Medication {
             intent.putExtra(MED_DOSE, dose_4);
             intent.putExtra(HOUR, hour_4);
             intent.putExtra(MINUTE, minute_4);
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Calendar calendar_4 = Calendar.getInstance();
             calendar_4.setTimeInMillis(System.currentTimeMillis());
@@ -452,7 +451,7 @@ public class Medication {
 
             Log.d("myTag", String.format("ALARM 4 CREATED: %02d:%02d", hour_4, minute_4));
         } else {
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
+            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
         }
     }
@@ -464,16 +463,16 @@ public class Medication {
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
 
-        PendingIntent alarmPendingIntent_1 = PendingIntent.getBroadcast(context, medId + 1, intent, 0);
+        PendingIntent alarmPendingIntent_1 = PendingIntent.getBroadcast(context, medId + 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(alarmPendingIntent_1);
 
-        PendingIntent alarmPendingIntent_2 = PendingIntent.getBroadcast(context, medId + 2, intent, 0);
+        PendingIntent alarmPendingIntent_2 = PendingIntent.getBroadcast(context, medId + 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(alarmPendingIntent_2);
 
-        PendingIntent alarmPendingIntent_3 = PendingIntent.getBroadcast(context, medId + 3, intent, 0);
+        PendingIntent alarmPendingIntent_3 = PendingIntent.getBroadcast(context, medId + 3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(alarmPendingIntent_3);
 
-        PendingIntent alarmPendingIntent_4 = PendingIntent.getBroadcast(context, medId + 4, intent, 0);
+        PendingIntent alarmPendingIntent_4 = PendingIntent.getBroadcast(context, medId + 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         alarmManager.cancel(alarmPendingIntent_4);
     }
 }

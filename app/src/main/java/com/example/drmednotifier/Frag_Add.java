@@ -567,6 +567,8 @@ public class Frag_Add extends Fragment {
     private void updateMedication() {
         Intent intent = getActivity().getIntent();
 
+        Log.d("myTag", "update.. get med id " + intent.getIntExtra("MED_ID", GenerateRandomInt.get()));
+
         int medId = intent.getIntExtra("MED_ID", GenerateRandomInt.get());
 
         int stockNum, times, dose1, dose2, dose3, dose4;
@@ -658,6 +660,7 @@ public class Frag_Add extends Fragment {
         boolean enableNotif = notifSetting.isEnableNotif();
 
         if (enableNotif) {
+            medication.deschedule(getContext());
             medication.schedule(getContext());
         }
     }
