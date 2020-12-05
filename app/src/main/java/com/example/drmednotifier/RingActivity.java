@@ -77,7 +77,7 @@ public class RingActivity extends AppCompatActivity {
                 }
                 Intent i = new Intent(context, Dose_Page.class);
                 startActivity(i);
-//                finish();
+                finish();
             }
         });
 

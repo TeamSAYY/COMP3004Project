@@ -76,6 +76,8 @@ public class AlarmService extends Service {
                 .setContentIntent(pendingIntent)
                 .build();
 
+        notification.priority = Notification.PRIORITY_MAX;
+
         int notifTypeId = notifSetting.getNotifTypeId();
 
         if (notifTypeId >= 2) {

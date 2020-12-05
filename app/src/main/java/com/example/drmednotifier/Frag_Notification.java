@@ -110,10 +110,11 @@ public class Frag_Notification extends Fragment {
         switch_renew_pre.setOnCheckedChangeListener(refill_switchListener);
         dropdown_renew_time.setOnItemSelectedListener(dropdownListener);
         edit_noti__renew_msg.addTextChangedListener(textWatcher);
+
         btn_noti_renew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setOneTimeRefillReminder();
+                setOneTimeRefillReminder(getContext());
             }
         });
 
@@ -140,22 +141,23 @@ public class Frag_Notification extends Fragment {
             saveNotifSetting();
             if (isChecked) {
                 layout_renew_pre.setVisibility(View.VISIBLE);
-                setRefillReminder();
+                setOneTimeRefillReminder(getContext());
+                setRefillReminder(getContext());
             } else {
                 layout_renew_pre.setVisibility(View.GONE);
-                cancelRefillReminder();
+                cancelRefillReminder(getContext());
             }
         }
     };
 
-    private void setOneTimeRefillReminder() {
+    public static void setOneTimeRefillReminder(Context context) {
         Log.d("myTag", "Set One-Time Refill Reminder");
-        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra("REFILL", true);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis() + 5000);
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        calendar.setTimeInMillis(System.currentTimeMillis() + 500);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExact(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
@@ -163,18 +165,18 @@ public class Frag_Notification extends Fragment {
         );
     }
     
-    private void setRefillReminder() {
+    public static void setRefillReminder(Context context) {
         Log.d("myTag", "Set Refill Reminder");
-        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
+        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra("REFILL", true);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.setTimeInMillis(System.currentTimeMillis() + 24*60*60*1000);
         calendar.set(Calendar.HOUR_OF_DAY, 12);
         calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
@@ -183,11 +185,11 @@ public class Frag_Notification extends Fragment {
         );
     }
 
-    private void cancelRefillReminder() {
+    public static void cancelRefillReminder(Context context) {
         Log.d("myTag", "Cancel Refill Reminder");
-        Intent intent = new Intent(getContext(), AlarmBroadcastReceiver.class);
-        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
+        PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(alarmPendingIntent);
     }
 
@@ -220,22 +222,14 @@ public class Frag_Notification extends Fragment {
         }
     };
 
-    private void startDescheduleAlarmsService(Context context) {
+    public static void startDescheduleAlarmsService(Context context) {
         Intent intentService = new Intent(context, DescheduleAlarmsService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
+        context.startService(intentService);
     }
 
-    private void startRescheduleAlarmsService(Context context) {
+    public static void startRescheduleAlarmsService(Context context) {
         Intent intentService = new Intent(context, RescheduleAlarmsService.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            context.startForegroundService(intentService);
-        } else {
-            context.startService(intentService);
-        }
+        context.startService(intentService);
     }
 
     private void setNotifSettings() {

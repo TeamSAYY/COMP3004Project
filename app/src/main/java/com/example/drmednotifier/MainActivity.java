@@ -107,6 +107,21 @@ public class MainActivity extends AppCompatActivity {
         if (notifSettings.isEmpty()) {
             NotifSetting notifSetting = new NotifSetting();
             notifSettingDao.insert(notifSetting);
+        } else {
+            NotifSetting notifSetting = notifSettings.get(0);
+            boolean enableNotif = notifSetting.isEnableNotif();
+            if (enableNotif) {
+                Frag_Notification.startRescheduleAlarmsService(this);
+            } else {
+                Frag_Notification.startDescheduleAlarmsService(this);
+            }
+            boolean enableRefillNotif = notifSetting.isEnableRefillNotif();
+            if (enableRefillNotif) {
+                Frag_Notification.setOneTimeRefillReminder(this);
+                Frag_Notification.setRefillReminder(this);
+            } else {
+                Frag_Notification.cancelRefillReminder(this);
+            }
         }
     }
 }

@@ -182,6 +182,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:visibility="gone"
                     android:textSize="20sp"
                     android:text="Today's refill reminder" />
 
@@ -189,6 +190,7 @@
                     android:id="@+id/btn_noti_renew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:text="Check"/>
 
             </LinearLayout>
