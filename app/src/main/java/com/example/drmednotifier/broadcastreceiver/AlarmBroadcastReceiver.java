@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.room.Room;
 
@@ -46,9 +45,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         if(intent.getBooleanExtra("REFILL", false)) {
-            String toastText = String.format("Refill Reminder Received");
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+//            String toastText = String.format("Refill Reminder Received");
+//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRefillReminderService(context);
+            return;
         }
 
         if (!notifSetting.isEnableNotif()) {
@@ -56,12 +56,12 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            String toastText = String.format("Alarm Reboot");
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+//            String toastText = String.format("Alarm Reboot");
+//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRescheduleAlarmsService(context);
         } else {
-            String toastText = String.format("Alarm Received");
-            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
+//            String toastText = String.format("Alarm Received");
+//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             if (alarmIsToday(intent)) {
                 Log.d("myTag", "alarm is today");
                 startAlarmService(context, intent);
