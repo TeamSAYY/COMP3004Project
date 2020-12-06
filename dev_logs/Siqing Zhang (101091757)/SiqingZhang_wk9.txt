@@ -1,0 +1,14 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meetings
+- Attended the group meeting to discuss the deliverable 3 (1 hr)
+
+Plannings
+- N/A
+
+Research
+- Did the online research about app GUIs (2 hr)
+
+Implementation of Features
+- Tested the implemented functions and features (1 hrs)

@@ -1,0 +1,14 @@
+Name: Siqing Zhang
+Student ID: 101091757
+
+Group Discussion/Meetings
+- Attended the group meeting to discuss the delivery 4 (2 hrs)
+
+Plannings
+- N/A
+
+Research
+- N/A
+
+Implementation of Features
+- Tested the implemented functions and features (3 hrs)
