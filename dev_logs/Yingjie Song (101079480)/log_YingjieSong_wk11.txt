@@ -1,0 +1,16 @@
+Yingjie Song
+101079480
+
+Group Discussion/Meetings
+- Joined group meeting with team members to discuss about D4 (1hr)
+
+Plannings
+- N/A
+
+Research
+- Investigated about the refill notification feature
+
+Implementation of features
+- Hided the app from the recent apps list (2hrs)
+- Replaced swipe feature with a delete button (1hr)
+- Fixed the refill notification feature and related issues (5hrs)
