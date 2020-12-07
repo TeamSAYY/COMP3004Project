@@ -1,0 +1,17 @@
+Group Discussion/Meetings
+- Reviewed current work, completed features, and progress towards goals (15 min.)
+- Discussed dividsion of final tasks for last week of design work (15 min.)
+- Discussed what the D4 demo should consist of and what chalenges we faced during our design (30 min.)
+- Discussed plannings for video format and content, including revising previous vidoes and suggesting feedbakc for potentail improvement (1 hr)
+
+Plannings
+- Wrote documentation for D4 and made appropriate changes based on numerous team members' feedback (4 hr)
+- Created script for D4 demo (1 hr)
+- Practiced D4 presentation (3 hr)
+- Reviewed team member's video and provided feedback for visuals and text (1 hr)
+
+Research
+
+Implementation of Features
+- Tested newly implemented features for upcoming weeks (20 min.)
+- Improved User Interface for clarity, consistency, and well-formatted (1 hr 30 min.)
