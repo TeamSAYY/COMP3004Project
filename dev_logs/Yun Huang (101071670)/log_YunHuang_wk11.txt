@@ -1,0 +1,15 @@
+Yun Huang
+101076248
+
+Group Discussion/Meetings
+- Joined group meeting with team members (2h)
+
+Plannings
+working on editing video and update seeting page
+
+Research
+NA
+
+Implementation of features
+- video editing(8h)
+- fix previous problem code(user page code, data base code)(1h)
