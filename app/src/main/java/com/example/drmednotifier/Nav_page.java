@@ -1,6 +1,5 @@
 package com.example.drmednotifier;
 
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,7 +129,7 @@ public class Nav_page extends AppCompatActivity{
             builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() { //when click on DELETE
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-//                    Nav_page.super.onBackPressed();
+                    // Nav_page.super.onBackPressed();
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_MAIN);
                     intent.addCategory(Intent.CATEGORY_HOME);
@@ -143,7 +142,7 @@ public class Nav_page extends AppCompatActivity{
                 }
             }).show();  //show alert dialog
         } else {
-//            super.onBackPressed();
+            // super.onBackPressed();
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);

@@ -1,7 +1,6 @@
 package com.example.drmednotifier;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +20,6 @@ import com.example.drmednotifier.medicationslist.SelfReportRecyclerViewAdapter;
 
 import java.util.Calendar;
 import java.util.List;
-
 
 public class Frag_Selfreport extends Fragment {
 
@@ -113,7 +111,6 @@ public class Frag_Selfreport extends Fragment {
         day_7 = calendar.get(Calendar.DAY_OF_MONTH);
         weekday_7 = calendar.get(Calendar.DAY_OF_WEEK);
 
-
         adapter_missed_1 = new SelfReportRecyclerViewAdapter(false);
         adapter_missed_1.setTimeMillis(currentTimeMillis - DAY);
         adapter_missed_2 = new SelfReportRecyclerViewAdapter(false);
@@ -128,7 +125,6 @@ public class Frag_Selfreport extends Fragment {
         adapter_missed_6.setTimeMillis(currentTimeMillis - 6*DAY);
         adapter_missed_7 = new SelfReportRecyclerViewAdapter(false);
         adapter_missed_7.setTimeMillis(currentTimeMillis - 7*DAY);
-
 
         adapter_taken_1 = new SelfReportRecyclerViewAdapter(true);
         adapter_taken_1.setTimeMillis(currentTimeMillis - DAY);
@@ -149,7 +145,6 @@ public class Frag_Selfreport extends Fragment {
         medActivitiesListViewModel.getMedActivitiesLiveDataLastWeek().observe(this, new Observer<List<MedActivity>>() {
             @Override
             public void onChanged(List<MedActivity> medActivities) {
-                Log.d("myTag", "size: " + medActivities.size());
                 if (medActivities != null) {
                     adapter_missed_1.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_missed_2.setMedActivities(getActivity().getApplication(), medActivities);
@@ -233,7 +228,6 @@ public class Frag_Selfreport extends Fragment {
         textView_date_6.setText(String.format("%s, %s %d", getStringFromWeekday(weekday_6), getStringFromMonth(month_6), day_6));
         textView_date_7.setText(String.format("%s, %s %d", getStringFromWeekday(weekday_7), getStringFromMonth(month_7), day_7));
 
-
         recyclerView_missed_1.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_missed_1.setAdapter(adapter_missed_1);
         recyclerView_missed_2.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -248,7 +242,6 @@ public class Frag_Selfreport extends Fragment {
         recyclerView_missed_6.setAdapter(adapter_missed_6);
         recyclerView_missed_7.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_missed_7.setAdapter(adapter_missed_7);
-
 
         recyclerView_taken_1.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_taken_1.setAdapter(adapter_taken_1);

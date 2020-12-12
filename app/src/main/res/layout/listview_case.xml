@@ -33,7 +33,5 @@
             android:layout_height="wrap_content"
             android:hint="Age"
             android:padding="5dp"/>
-
     </LinearLayout>
-
 </LinearLayout>

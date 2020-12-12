@@ -58,10 +58,6 @@ public class RingActivity extends AppCompatActivity {
         String medName = getIntent().getStringExtra(MED_NAME);
         int medDose = getIntent().getIntExtra(MED_DOSE, 0);
 
-        Log.d("myTag", String.format("RING NAME: %s", medName));
-
-        Log.d("myTag", String.format("RING DOSE: %d", medDose));
-
         message.setText(String.format("Remember to take %d %s", medDose, medName));
 
         dismiss.setOnClickListener(new View.OnClickListener() {

@@ -26,57 +26,19 @@ import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Frag_Home#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Frag_Home extends Fragment {
     private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
-    private MedicationsListViewModel medicationsListViewModel;
-    private MedActivitiesListViewModel medActivitiesListViewModel;
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
 
     public Frag_Home() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Frag_Home.
-     */
-    // TODO: Rename and change types and number of parameters
-//    public static Frag_Home newInstance(String param1, String param2) {
-//        Frag_Home fragment = new Frag_Home();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
 
-        medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-        medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
+        MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
+        MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
 
         medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter(getContext(), medicationsListViewModel, medActivitiesListViewModel);
 
@@ -100,46 +62,49 @@ public class Frag_Home extends Fragment {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-//        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                //Remove swiped item from list and notify the RecyclerView
-//                final int position = viewHolder.getAdapterPosition(); //get position which is swipe
-//
-//                if (swipeDir == ItemTouchHelper.LEFT) {    //if swipe left
-//
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //alert for confirm to delete
-//                    builder.setMessage("Are you sure to delete?");    //set message
-//
-//                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() { //when click on DELETE
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            medicationRecyclerViewAdapter.notifyItemRemoved(position);    //item removed from recylcerview
-//                            Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
-//                            medication.deschedule(getContext());
-//                            medicationsListViewModel.deleteById(medication.getMedId());
-//                            medActivitiesListViewModel.deleteByMedId(medication.getMedId());
-//                            return;
-//                        }
-//                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            medicationRecyclerViewAdapter.notifyDataSetChanged();
-//                            return;
-//                        }
-//                    }).show();  //show alert dialog
-//                }
-//            }
-//        };
-//
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-//
-//        itemTouchHelper.attachToRecyclerView(medicationsRecyclerView);
+/*
+        // TODO: medication list item swipe feature
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                final int position = viewHolder.getAdapterPosition(); //get position which is swipe
+
+                if (swipeDir == ItemTouchHelper.LEFT) {    //if swipe left
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //alert for confirm to delete
+                    builder.setMessage("Are you sure to delete?");    //set message
+
+                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() { //when click on DELETE
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            medicationRecyclerViewAdapter.notifyItemRemoved(position);    //item removed from recylcerview
+                            Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
+                            medication.deschedule(getContext());
+                            medicationsListViewModel.deleteById(medication.getMedId());
+                            medActivitiesListViewModel.deleteByMedId(medication.getMedId());
+                            return;
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            medicationRecyclerViewAdapter.notifyDataSetChanged();
+                            return;
+                        }
+                    }).show();  //show alert dialog
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+
+        itemTouchHelper.attachToRecyclerView(medicationsRecyclerView);
+ */
 
         getUserInfo(view);
 

@@ -156,33 +156,4 @@ public class New_User_Profile extends AppCompatActivity {
             }
         }
     }
-
-    /*@Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-        savedInstanceState.putString("MyString", "Welcome back to Android");
-        // etc.
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-        EditText txtFirstName = (EditText)findViewById(R.id.textFirstName);
-        String myString = savedInstanceState.getString("MyString");
-        Toolbar toolbar =  findViewById(R.id.toolbar_User_Profile);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
-
-        txtFirstName.setText(myString, TextView.BufferType.EDITABLE);
-
-    }*/
 }

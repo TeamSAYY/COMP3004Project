@@ -26,7 +26,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_Edit_Medication">
-    </FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_Edit_Medication" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
