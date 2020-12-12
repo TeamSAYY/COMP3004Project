@@ -1,22 +1,15 @@
 package com.example.drmednotifier;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.drmednotifier.data.User;
@@ -31,9 +24,6 @@ public class Setting_Page extends AppCompatActivity {
     private final int[] image = new int[]{R.drawable.ic_baseline_list_24,R.drawable.ic_dose};
     private final String[] headline = new String[]{"Medication List","Today's Medication Dosage"};
     private final String[] bottomline = new String[]{"View all the Med. you are taking","View the Med. needed to be taken today"};
-//    private String current_avatar;
-//    private String avatar_T;
-//    private int  count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +32,7 @@ public class Setting_Page extends AppCompatActivity {
 
         setUserProperties();
 
-
-
         Toolbar toolbar =  findViewById(R.id.toolbar);
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,76 +42,17 @@ public class Setting_Page extends AppCompatActivity {
                 finish();
             }
         });
-        /*
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        List<String> s_list = new ArrayList<>();
-        s_list.add("Default Music");
-        s_list.add("Light Music");
-        s_list.add("Pop Music");
-        s_list.add("Rock Hard");
-
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,s_list);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-                ((TextView) parent.getChildAt(0)).setTextColor(Color.parseColor("#D81B60"));
-                ((TextView) parent.getChildAt(0)).setTextSize(15);
-                String text = parent.getItemAtPosition(position).toString();
-                if(text=="Default Music"){
-
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-        Toolbar toolbar =  findViewById(R.id.toolbar);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
-
-
-        SwitchCompat switchCompat = (SwitchCompat) findViewById(R.id.Switch);
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
-                    Toast.makeText(getApplicationContext(), "Switch is ON", Toast.LENGTH_SHORT).show();
-
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Switch is OFF", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-*/
 
         /*Hash map for list view*/
         ListView listView= findViewById(R.id.listview);
         List<HashMap<String,String>> list =new ArrayList<>();
         for(int i = 0; i<2;i++){
-
             HashMap<String,String> hashMap = new HashMap<>();
             hashMap.put("image",Integer.toString(image[i]));
             hashMap.put("headline",headline[i]);
             hashMap.put("bottomline",bottomline[i]);
 
             list.add(hashMap);
-
         }
 
         /*bar menu set up*/
@@ -149,32 +77,6 @@ public class Setting_Page extends AppCompatActivity {
             }
         });
     }
-
- /*
-    public void CheckboxClickCheck(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_top:
-                if (checked){
-                    CheckBox x = view.findViewById(R.id.checkbox_top);
-                    x.setText("Checked Thank u!");
-                    ;
-                    // Put some meat on the sandwich
-                }
-                if (!checked ){
-                    CheckBox x = view.findViewById(R.id.checkbox_top);
-                    x.setText("Not checked!! Loser");
-                    ;
-                    // Put some meat on the sandwich
-                }
-                break;
-        }
-    }
-
-    */
 
     /*transfer to New_User-Profile when click layout bar*/
     public void click_name_tag(View view) {

@@ -17,8 +17,6 @@ import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
 
-//import android.support.v7.app.AppCompatActivity;
-
 public class Second_page_get_personaldata extends AppCompatActivity {
 
     private EditText editTextFirstName, editTextLastName, editTextAge;

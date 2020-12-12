@@ -50,44 +50,47 @@ public class Medicine_List extends AppCompatActivity {
         medicationsRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         medicationsRecyclerView.setAdapter(medicationRecyclerViewAdapter);
 
-//        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-//                //Remove swiped item from list and notify the RecyclerView
-//                final int position = viewHolder.getAdapterPosition(); //get position which is swipe
-//
-//                if (swipeDir == ItemTouchHelper.LEFT) {    //if swipe left
-//
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(Medicine_List.this); //alert for confirm to delete
-//                    builder.setMessage("Are you sure to delete?");    //set message
-//
-//                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() { //when click on DELETE
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            medicationRecyclerViewAdapter.notifyItemRemoved(position);    //item removed from recylcerview
-//                            Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
-//                            medication.deschedule(getApplicationContext());
-//                            medicationsListViewModel.deleteById(medication.getMedId());
-//                            return;
-//                        }
-//                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            medicationRecyclerViewAdapter.notifyDataSetChanged();
-//                            return;
-//                        }
-//                    }).show();  //show alert dialog
-//                }
-//            }
-//        };
-//
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-//
-//        itemTouchHelper.attachToRecyclerView(medicationsRecyclerView);
+/*
+        // TODO: medication list item swipe feature
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+                //Remove swiped item from list and notify the RecyclerView
+                final int position = viewHolder.getAdapterPosition(); //get position which is swipe
+
+                if (swipeDir == ItemTouchHelper.LEFT) {    //if swipe left
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Medicine_List.this); //alert for confirm to delete
+                    builder.setMessage("Are you sure to delete?");    //set message
+
+                    builder.setPositiveButton("REMOVE", new DialogInterface.OnClickListener() { //when click on DELETE
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            medicationRecyclerViewAdapter.notifyItemRemoved(position);    //item removed from recylcerview
+                            Medication medication = medicationRecyclerViewAdapter.getMedByPos(position);
+                            medication.deschedule(getApplicationContext());
+                            medicationsListViewModel.deleteById(medication.getMedId());
+                            return;
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            medicationRecyclerViewAdapter.notifyDataSetChanged();
+                            return;
+                        }
+                    }).show();  //show alert dialog
+                }
+            }
+        };
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+
+        itemTouchHelper.attachToRecyclerView(medicationsRecyclerView);
+ */
     }
 }

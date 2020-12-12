@@ -5,464 +5,434 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.example.drmednotifier.Frag_Selfreport">
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Medication Activity\nReport Status"
-            android:textColor="#737373"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/self_report_date_range"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Mar 9, 2018 - Mar 15, 2018"
-                android:textAlignment="center"/>
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:background="#E1DFDF" />
-
-        <TextView
-            android:id="@+id/self_report_date_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Medication Activity\nReport Status"
+                android:textColor="#737373"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/self_report_date_range"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"/>
+            </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/self_report_date_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="2dp"
+                android:background="#E1DFDF" />
 
             <TextView
+                android:id="@+id/self_report_date_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:padding="5sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
+                android:padding="5sp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/self_report_date_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:padding="5sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
+                android:padding="5sp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/self_report_date_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:padding="5sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
+                android:padding="5sp" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <TextView
-            android:id="@+id/self_report_date_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/self_report_date_7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:padding="5sp" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
+                android:orientation="horizontal"
+                android:gravity="center">
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/sad_face"
+                    android:padding="10dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Missed"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-        <TextView
-            android:id="@+id/self_report_date_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_missed_list_7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:gravity="center">
 
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/happy_face"
+                    android:padding="10dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Medication Taken"
+                    android:textColor="#373737"
+                    android:textSize="24sp" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
-
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/self_report_taken_list_7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:id="@+id/self_report_date_7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5sp"
-            android:text="Thursday, Mar 15"/>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/sad_face"
-                android:padding="10dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medication Missed"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-        </LinearLayout>
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_missed_list_7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/happy_face"
-                android:padding="10dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Medication Taken"
-                android:textColor="#373737"
-                android:textSize="24sp" />
-
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/self_report_taken_list_7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-</ScrollView>
-
+    </ScrollView>
 </RelativeLayout>

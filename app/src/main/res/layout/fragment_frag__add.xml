@@ -37,7 +37,6 @@
                     android:layout_weight="0"
                     android:background="#00FFFFFF"
                     android:text="hide" />
-
             </LinearLayout>
 
             <View
@@ -146,10 +145,7 @@
                         android:layout_weight="1"
                         android:text="Other" />
                 </RadioGroup>
-
             </LinearLayout>
-
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -175,7 +171,6 @@
                     android:layout_weight="0"
                     android:background="#00FFFFFF"
                     android:text="hide" />
-
             </LinearLayout>
 
             <View
@@ -238,7 +233,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Thu" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -272,7 +266,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
-
                 </LinearLayout>
 
                 <TextView
@@ -334,7 +327,6 @@
                         android:background="@android:drawable/edit_text"
                         android:hint="Total Amount of Doses"
                         android:inputType="number" />
-
                 </LinearLayout>
 
                 <TextView
@@ -380,7 +372,6 @@
                         android:background="@android:drawable/edit_text"
                         android:hint="Total Amount of Doses"
                         android:inputType="number" />
-
                 </LinearLayout>
 
                 <TextView
@@ -426,7 +417,6 @@
                         android:background="@android:drawable/edit_text"
                         android:hint="Total Amount of Doses"
                         android:inputType="number" />
-
                 </LinearLayout>
 
                 <TextView
@@ -472,9 +462,7 @@
                         android:background="@android:drawable/edit_text"
                         android:hint="Total Amount of Doses"
                         android:inputType="number" />
-
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -492,10 +480,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:textColor="@color/background_default_Color"
                     android:text="Save" />
-
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
-
 </RelativeLayout>

@@ -1,11 +1,9 @@
 package com.example.drmednotifier;
 
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,7 +30,6 @@ import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 import java.util.Calendar;
 
-
 public class Frag_Notification extends Fragment {
 
     private NotifSettingDao notifSettingDao;
@@ -48,8 +45,6 @@ public class Frag_Notification extends Fragment {
     private View layout_renew_pre;
     private Spinner dropdown_renew_time;
     private EditText edit_noti__renew_msg;
-    private Button btn_noti_renew;
-
 
     public Frag_Notification() {
         // Required empty public constructor
@@ -78,7 +73,6 @@ public class Frag_Notification extends Fragment {
         layout_renew_pre = view.findViewById(R.id.layout_renew_pre);
         dropdown_renew_time = view.findViewById(R.id.spinner_renew_time);
         edit_noti__renew_msg = view.findViewById(R.id.edit_noti__renew_msg);
-        btn_noti_renew = view.findViewById(R.id.btn_noti_renew);
 
         // Create a list of items for the spinner.
         String[] items_noti_type = new String[]{"Push Notification", "Push Notification & Vibrate", "Push Notification, Vibrate & Alert"};
@@ -110,13 +104,6 @@ public class Frag_Notification extends Fragment {
         switch_renew_pre.setOnCheckedChangeListener(refill_switchListener);
         dropdown_renew_time.setOnItemSelectedListener(dropdownListener);
         edit_noti__renew_msg.addTextChangedListener(textWatcher);
-
-        btn_noti_renew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setOneTimeRefillReminder(getContext());
-            }
-        });
 
         return view;
     }

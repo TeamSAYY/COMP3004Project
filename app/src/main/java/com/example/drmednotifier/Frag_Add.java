@@ -197,7 +197,7 @@ public class Frag_Add extends Fragment {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                return;
+
             }
         });
 
@@ -233,36 +233,6 @@ public class Frag_Add extends Fragment {
 
         decideSaveButtonStatus();
         setMandatoryTextListener();
-
-//        view.setFocusableInTouchMode(true);
-//        view.requestFocus();
-//        view.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                Log.d("myTag", "keyCode: " + keyCode);
-//                if( keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-//                    Log.i("myTag", "onKey Back listener is working!!!");
-//
-//                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //alert for confirm to delete
-//                    builder.setMessage("Are you sure to leave?");    //set message
-//
-//                    builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() { //when click on DELETE
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            getActivity().onBackPressed();
-//                        }
-//                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//
-//                        }
-//                    }).show();  //show alert dialog
-//
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
 
         // Inflate the layout for this fragment
         return view;
