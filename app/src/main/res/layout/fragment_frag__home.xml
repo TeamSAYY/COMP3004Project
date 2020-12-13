@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.drmednotifier.Nav_page">
+    tools:context="com.teamsayy.drmednotifier.Nav_page">
 
     <LinearLayout
         android:layout_width="match_parent"
