@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.drmednotifier.Frag_Add">
+    tools:context="com.teamsayy.drmednotifier.Frag_Add">
 
     <ScrollView
         android:layout_width="match_parent"
