@@ -43,27 +43,19 @@ public class MedActivityRepository {
     }
 
     public void deleteByMedId(int medId) {
-        MedActivityDatabase.databaseWriteExecutor.execute(() -> {
-            medActivityDao.deleteByMedId(medId);
-        });
+        MedActivityDatabase.databaseWriteExecutor.execute(() -> medActivityDao.deleteByMedId(medId));
     }
 
     public void insert(final MedActivity medActivity) {
-        MedActivityDatabase.databaseWriteExecutor.execute(() -> {
-            medActivityDao.insert(medActivity);
-        });
+        MedActivityDatabase.databaseWriteExecutor.execute(() -> medActivityDao.insert(medActivity));
     }
 
     public void insertAll(final List<MedActivity> medActivities) {
-        MedActivityDatabase.databaseWriteExecutor.execute(() -> {
-            medActivityDao.insertAll(medActivities);
-        });
+        MedActivityDatabase.databaseWriteExecutor.execute(() -> medActivityDao.insertAll(medActivities));
     }
 
     public void update(final MedActivity medActivity) {
-        MedActivityDatabase.databaseWriteExecutor.execute(() -> {
-            medActivityDao.update(medActivity);
-        });
+        MedActivityDatabase.databaseWriteExecutor.execute(() -> medActivityDao.update(medActivity));
     }
 
     public LiveData<List<MedActivity>> getMedActivitiesLiveData() {

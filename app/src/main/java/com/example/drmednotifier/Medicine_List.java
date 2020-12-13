@@ -1,21 +1,16 @@
 package com.example.drmednotifier;
 
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.medicationslist.MedActivitiesListViewModel;
 import com.example.drmednotifier.medicationslist.MedicationRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
-
-import java.util.List;
 
 public class Medicine_List extends AppCompatActivity {
     @Override
@@ -25,24 +20,16 @@ public class Medicine_List extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar_Medicine_list);
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
 
         MedicationRecyclerViewAdapter medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter(this, medicationsListViewModel, medActivitiesListViewModel);
 
-        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications != null) {
-                    medicationRecyclerViewAdapter.setMedications(medications);
-                }
+        medicationsListViewModel.getMedicationsLiveData().observe(this, medications -> {
+            if (medications != null) {
+                medicationRecyclerViewAdapter.setMedications(medications);
             }
         });
 

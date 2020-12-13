@@ -17,15 +17,11 @@ public class MedicationRepository {
     }
 
     public void insert(final Medication medication) {
-        MedicationDatabase.databaseWriteExecutor.execute(() -> {
-            medicationDao.insert(medication);
-        });
+        MedicationDatabase.databaseWriteExecutor.execute(() -> medicationDao.insert(medication));
     }
 
     public void update(final Medication medication) {
-        MedicationDatabase.databaseWriteExecutor.execute(() -> {
-            medicationDao.update(medication);
-        });
+        MedicationDatabase.databaseWriteExecutor.execute(() -> medicationDao.update(medication));
     }
 
     public LiveData<List<Medication>> getMedicationsLiveData() {
@@ -37,8 +33,6 @@ public class MedicationRepository {
     }
 
     public void deleteById(int id) {
-        MedicationDatabase.databaseWriteExecutor.execute(() -> {
-            medicationDao.deleteById(id);
-        });
+        MedicationDatabase.databaseWriteExecutor.execute(() -> medicationDao.deleteById(id));
     }
 }

@@ -15,7 +15,6 @@ import com.example.drmednotifier.data.Medication;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -211,12 +210,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
             }
         }
 
-        Collections.sort(doses, new Comparator<Medication>() {
-            @Override
-            public int compare(Medication o1, Medication o2) {
-                return (o1.getHour_1() - o2.getHour_1()) * 60 + (o1.getMinute_1() - o2.getMinute_1());
-            }
-        });
+        Collections.sort(doses, (o1, o2) -> (o1.getHour_1() - o2.getHour_1()) * 60 + (o1.getMinute_1() - o2.getMinute_1()));
 
         notifyDataSetChanged();
     }

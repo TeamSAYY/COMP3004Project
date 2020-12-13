@@ -222,24 +222,18 @@ public class Frag_Add extends Fragment {
         if (editExisting) {
             populateExistingInfo();
             /* Code to update current medication */
-            button_save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    updateMedication();
-                    getActivity().finish();
-                }
+            button_save.setOnClickListener(v -> {
+                updateMedication();
+                getActivity().finish();
             });
         } else {
             BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottomNavigationView);
 
             // Save button
-            button_save.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    scheduleMedication();
-                    getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
-                    bottomNavigationView.setSelectedItemId(R.id.home);
-                }
+            button_save.setOnClickListener(v -> {
+                scheduleMedication();
+                getFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home()).commit();
+                bottomNavigationView.setSelectedItemId(R.id.home);
             });
         }
 
@@ -254,19 +248,16 @@ public class Frag_Add extends Fragment {
         button.setTag(1);
         button.setText("hide");
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final int status = (Integer) v.getTag();
-                if (status == 1) {
-                    button.setText("show");
-                    view.setVisibility(View.GONE);
-                    v.setTag(0);
-                } else {
-                    button.setText("hide");
-                    view.setVisibility(View.VISIBLE);
-                    v.setTag(1);
-                }
+        button.setOnClickListener(v -> {
+            final int status = (Integer) v.getTag();
+            if (status == 1) {
+                button.setText("show");
+                view.setVisibility(View.GONE);
+                v.setTag(0);
+            } else {
+                button.setText("hide");
+                view.setVisibility(View.VISIBLE);
+                v.setTag(1);
             }
         });
     }
@@ -279,34 +270,26 @@ public class Frag_Add extends Fragment {
         timePicker.setMinute(defaultMinute);
 
         text_time_dose.setText(String.format("%02d:%02d", defaultHour, defaultMinute));
-        text_time_dose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final int status = (Integer) view.getTag();
-                if (status == 1) {
-                    time_dose_view_1.setVisibility(View.GONE);
-                    text_time_dose_1.setTag(1);
-                    time_dose_view_2.setVisibility(View.GONE);
-                    text_time_dose_2.setTag(1);
-                    time_dose_view_3.setVisibility(View.GONE);
-                    text_time_dose_3.setTag(1);
-                    time_dose_view_4.setVisibility(View.GONE);
-                    text_time_dose_4.setTag(1);
-                    time_dose_view.setVisibility(View.VISIBLE);
-                    view.setTag(0);
-                } else {
-                    time_dose_view.setVisibility(View.GONE);
-                    view.setTag(1);
-                }
+        text_time_dose.setOnClickListener(view -> {
+            final int status = (Integer) view.getTag();
+            if (status == 1) {
+                time_dose_view_1.setVisibility(View.GONE);
+                text_time_dose_1.setTag(1);
+                time_dose_view_2.setVisibility(View.GONE);
+                text_time_dose_2.setTag(1);
+                time_dose_view_3.setVisibility(View.GONE);
+                text_time_dose_3.setTag(1);
+                time_dose_view_4.setVisibility(View.GONE);
+                text_time_dose_4.setTag(1);
+                time_dose_view.setVisibility(View.VISIBLE);
+                view.setTag(0);
+            } else {
+                time_dose_view.setVisibility(View.GONE);
+                view.setTag(1);
             }
         });
 
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                text_time_dose.setText(String.format("%02d:%02d", hourOfDay, minute));
-            }
-        });
+        timePicker.setOnTimeChangedListener((view, hourOfDay, minute) -> text_time_dose.setText(String.format("%02d:%02d", hourOfDay, minute)));
     }
 
     private void scheduleMedication() {
@@ -434,19 +417,9 @@ public class Frag_Add extends Fragment {
             }
         };
 
-        RadioGroup.OnCheckedChangeListener radioGroupListener = new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                decideSaveButtonStatus();
-            }
-        };
+        RadioGroup.OnCheckedChangeListener radioGroupListener = (group, checkedId) -> decideSaveButtonStatus();
 
-        CompoundButton.OnCheckedChangeListener checkBoxListener = new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                decideSaveButtonStatus();
-            }
-        };
+        CompoundButton.OnCheckedChangeListener checkBoxListener = (buttonView, isChecked) -> decideSaveButtonStatus();
 
         name.addTextChangedListener(textWatcher);
         quantity.addTextChangedListener(textWatcher);

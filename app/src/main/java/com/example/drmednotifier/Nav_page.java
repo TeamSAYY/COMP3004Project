@@ -1,7 +1,6 @@
 package com.example.drmednotifier;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -175,20 +174,16 @@ public class Nav_page extends AppCompatActivity{
         if (addFragment != null && addFragment.isVisible()) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this); //alert for confirm to delete
             builder.setMessage("Are you sure to leave?");    //set message
-            builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() { //when click on DELETE
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // Nav_page.super.onBackPressed();
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_MAIN);
-                    intent.addCategory(Intent.CATEGORY_HOME);
-                    startActivity(intent);
-                }
-            }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            //not removing items if cancel is done
+//when click on DELETE
+            builder.setPositiveButton("LEAVE", (dialog, which) -> {
+                // Nav_page.super.onBackPressed();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(intent);
+            }).setNegativeButton("CANCEL", (dialog, which) -> {
 
-                }
             }).show();  // show alert dialog
         } else {
             // super.onBackPressed();

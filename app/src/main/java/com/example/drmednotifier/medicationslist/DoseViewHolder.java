@@ -1,10 +1,8 @@
 package com.example.drmednotifier.medicationslist;
 
 import android.app.Application;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -68,17 +66,14 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
         } else {
             checkBox.setEnabled(true);
             checkBox.setChecked(medActivity.getMedStatus(numOfAlarm));
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    medication.setQuantity(medication.getQuantity() + (isChecked?-1:1) * medication.getDose(numOfAlarm));
-                    MedicationsListViewModel medicationsListViewModel = new MedicationsListViewModel(application);
-                    medicationsListViewModel.update(medication);
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                medication.setQuantity(medication.getQuantity() + (isChecked?-1:1) * medication.getDose(numOfAlarm));
+                MedicationsListViewModel medicationsListViewModel = new MedicationsListViewModel(application);
+                medicationsListViewModel.update(medication);
 
-                    medActivity.setMedStatus(numOfAlarm, isChecked);
-                    MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
-                    medActivitiesListViewModel.update(medActivity);
-                }
+                medActivity.setMedStatus(numOfAlarm, isChecked);
+                MedActivitiesListViewModel medActivitiesListViewModel = new MedActivitiesListViewModel(application);
+                medActivitiesListViewModel.update(medActivity);
             });
         }
     }

@@ -89,21 +89,21 @@ public class Frag_Notification extends Fragment {
         // Create a list of items for the spinner.
         String[] items_noti_type = new String[]{"Push Notification", "Push Notification & Vibrate", "Push Notification, Vibrate & Alert"};
         // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        ArrayAdapter<String> adapter_noti_type = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_type);
+        ArrayAdapter<String> adapter_noti_type = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_type);
         // Set the spinners adapter to the previously created one.
         dropdown_noti_type.setAdapter(adapter_noti_type);
 
         // Create a list of items for the spinner.
         String[] items_noti_remind = new String[]{"None", "2 min", "5 min", "10 min", "30 min", "60 min"};
         // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        ArrayAdapter<String> adapter_noti_remind = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_remind);
+        ArrayAdapter<String> adapter_noti_remind = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_noti_remind);
         // Set the spinners adapter to the previously created one.
         dropdown_noti_remind.setAdapter(adapter_noti_remind);
 
         // Create a list of items for the spinner.
         String[] items_renew_time = new String[]{"1 day before", "2 days before", "7 days before", "14 days before", "31 days before"};
         // Create an adapter to describe how the items are displayed, adapters are used in several places in android.
-        ArrayAdapter<String> adapter_renew_time = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_renew_time);
+        ArrayAdapter<String> adapter_renew_time = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, items_renew_time);
         // Set the spinners adapter to the previously created one.
         dropdown_renew_time.setAdapter(adapter_renew_time);
 
