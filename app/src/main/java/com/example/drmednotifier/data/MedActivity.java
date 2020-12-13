@@ -7,10 +7,6 @@ import androidx.room.PrimaryKey;
 
 import java.util.Date;
 
-//        foreignKeys = @ForeignKey(entity = Medication.class,
-//        parentColumns = "medId",
-//        childColumns = "medId",
-//        onDelete = ForeignKey.CASCADE),
 @Entity(tableName = "medactivity_table",
         indices = {@Index(value = {"medId", "date"}, unique = true)})
 public class MedActivity {

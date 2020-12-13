@@ -17,8 +17,10 @@ import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
 
+/**
+ * Activity that requests the user's profile information
+ */
 public class Second_page_get_personaldata extends AppCompatActivity {
-
     private EditText editTextFirstName, editTextLastName, editTextAge;
 
     private final TextWatcher mTextWatcher = new TextWatcher() {
@@ -107,7 +109,11 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         }
     }
 
-    public void launchActivity(View x){
+    /**
+     * Saves user input and launches the next activity
+     * @param v The Save button
+     */
+    public void launchActivity(View v){
         saveUser();
 
         Intent i = new Intent(this,Nav_page.class);
@@ -115,7 +121,11 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         startActivity(i);
     }
 
-    public void launchActivitywithnovalue(View x){
+    /**
+     * Launches the next activity
+     * @param v The Skip button
+     */
+    public void launchActivitywithnovalue(View v){
         Intent i = new Intent(this,Nav_page.class);
         finish();
         startActivity(i);

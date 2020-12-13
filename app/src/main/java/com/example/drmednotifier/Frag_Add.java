@@ -1,11 +1,9 @@
 package com.example.drmednotifier;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -41,7 +38,11 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * Fragment to receive user input
+ */
 public class Frag_Add extends Fragment {
+    // Bind fields to the views for the specified ID
     @BindView(R.id.edit_med_name) protected EditText name;
     @BindView(R.id.edit_med_desc) protected EditText description;
     @BindView(R.id.edit_med_stock) protected EditText quantity;
@@ -83,6 +84,15 @@ public class Frag_Add extends Fragment {
 
     private NotifSettingDao notifSettingDao;
 
+    /**
+     * Required empty public constructor
+     */
+    public Frag_Add() {}
+
+    /**
+     * Called to do initial creation of the Add Medication fragment
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,11 +103,13 @@ public class Frag_Add extends Fragment {
         notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
-    public Frag_Add() {
-        // Required empty public constructor
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    /**
+     * Called to have the Add Medication fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container  The parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -392,23 +404,13 @@ public class Frag_Add extends Fragment {
         int duration = ((stockNum / doses) / days) * 7 + 7;
 
         long timeMillis = System.currentTimeMillis();
-        long DAY = 24*60*60*1000;
-
-        Log.d("myTag", "stock: " + stockNum);
-        Log.d("myTag", "days: " + days);
-        Log.d("myTag", "doses: " + doses);
-        Log.d("myTag", "duration: " + duration);
+        final long DAY = 24*60*60*1000;
 
         ArrayList<MedActivity> medActivities = new ArrayList<>();
         for(int i=0; i<=duration; i++){
-            Log.d("myTag", "INSERT MED ACTIVITY");
-
             Date today = new Date(timeMillis + i * DAY);
 
-            Log.d("myTag", today.toString());
-
             MedActivity medActivity = new MedActivity(medId, today);
-
             medActivities.add(medActivity);
         }
         createMedicationViewModel.insertAll(medActivities);
@@ -536,8 +538,6 @@ public class Frag_Add extends Fragment {
 
     private void updateMedication() {
         Intent intent = getActivity().getIntent();
-
-        Log.d("myTag", "update.. get med id " + intent.getIntExtra("MED_ID", GenerateRandomInt.get()));
 
         int medId = intent.getIntExtra("MED_ID", GenerateRandomInt.get());
 

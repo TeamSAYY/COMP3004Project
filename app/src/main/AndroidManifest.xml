@@ -18,18 +18,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Edit_Medication"
+        <activity
+            android:name=".Edit_Medication"
             android:screenOrientation="portrait" />
-        <activity android:name=".New_User_Profile"
-            android:screenOrientation="portrait" /> <!-- <activity android:name=".Frag_Setting"></activity> -->
-        <activity android:name=".Dose_Page"
+        <activity
+            android:name=".New_User_Profile"
             android:screenOrientation="portrait" />
-        <activity android:name=".Medicine_List" /> <!-- <activity android:name=".Frag_Notification" /> -->
-        <activity android:name=".Nav_page"
+        <activity
+            android:name=".Dose_Page"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Medicine_List" />
+        <activity
+            android:name=".Nav_page"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Second_page_get_personaldata"
+        <activity
+            android:name=".Second_page_get_personaldata"
             android:screenOrientation="portrait" />
-        <activity android:name=".Setting_Page"
+        <activity
+            android:name=".Setting_Page"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Popup_Window"
@@ -42,16 +49,17 @@
             android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RingActivity"
+        <activity
+            android:name=".RingActivity"
             android:screenOrientation="portrait"
             android:noHistory="true"
             android:excludeFromRecents="true" />
 
-        <receiver android:name=".broadcastreceiver.AlarmBroadcastReceiver">
+        <receiver
+            android:name=".broadcastreceiver.AlarmBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>

@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.util.Log;
 
 import androidx.room.Room;
 
@@ -45,8 +43,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
         if(intent.getBooleanExtra("REFILL", false)) {
-//            String toastText = String.format("Refill Reminder Received");
-//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRefillReminderService(context);
             return;
         }
@@ -56,17 +52,10 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         }
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-//            String toastText = String.format("Alarm Reboot");
-//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             startRescheduleAlarmsService(context);
         } else {
-//            String toastText = String.format("Alarm Received");
-//            Toast.makeText(context, toastText, Toast.LENGTH_SHORT).show();
             if (alarmIsToday(intent)) {
-                Log.d("myTag", "alarm is today");
                 startAlarmService(context, intent);
-            } else {
-                Log.d("myTag", "alarm is not today");
             }
 
             MedicationDatabase medicationDatabase = Room.databaseBuilder(context.getApplicationContext(), MedicationDatabase.class, "medication_database").allowMainThreadQueries().build();
@@ -78,7 +67,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
                 m.schedule(context);
             } catch (NullPointerException e) {
                 // m is null, which means it's not an alarm in the database
-                Log.d("myTag", "Snooze Alarm Received");
             }
         }
     }
@@ -87,15 +75,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         int today = calendar.get(Calendar.DAY_OF_WEEK);
-
-        Bundle bundle = intent.getExtras();
-        if (bundle != null) {
-            for (String key : bundle.keySet()) {
-                Log.e("myTag", key + " : " + (bundle.get(key) != null ? bundle.get(key) : "NULL"));
-            }
-        }
-
-//        Log.d("myTag", "MONDAY: " + intent.hasExtra(MONDAY) + intent.getBooleanExtra(MONDAY, false));
 
         switch(today) {
             case Calendar.MONDAY:
@@ -122,10 +101,6 @@ public class AlarmBroadcastReceiver extends BroadcastReceiver {
         intentService.putExtra(TITLE, intent.getStringExtra(TITLE));
         intentService.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         intentService.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));
-
-        Log.d("myTag", String.format("ALARM NAME: %s", intent.getStringExtra(MED_NAME)));
-
-        Log.d("myTag", String.format("ALARM DOSE: %d", intent.getIntExtra(MED_DOSE, 0)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(intentService);

@@ -1,7 +1,6 @@
 package com.example.drmednotifier.medicationslist;
 
 import android.app.Application;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -207,10 +206,7 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
     public void setMedActivities(Application application, List<MedActivity> medActivities) {
         Date date = new GregorianCalendar(year, month, day).getTime();
         if (medActivities == null) {
-            Log.d("myTag", "MED ACTIVITIES EMPTY");
             return;
-        } else {
-            Log.d("myTag", "MED ACTIVITIES NOT EMPTY");
         }
 
         Calendar cal1 = Calendar.getInstance();
@@ -220,7 +216,6 @@ public class DoseRecyclerViewAdapter extends RecyclerView.Adapter<DoseViewHolder
             cal2.setTime(medActivity.getDate());
             if (cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                     cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)) {
-                Log.d("myTag", "ACTIVITY ADDED");
                 this.medActivities.add(medActivity);
             }
         }

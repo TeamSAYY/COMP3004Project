@@ -18,8 +18,7 @@ public class MedActivityRepository {
         medActivityDao = db.medActivityDao();
         medActivitiesLiveData = medActivityDao.getMedActivity();
 
-
-        int DAY = 24 * 60 * 60 * 1000;
+        final int DAY = 24 * 60 * 60 * 1000;
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());

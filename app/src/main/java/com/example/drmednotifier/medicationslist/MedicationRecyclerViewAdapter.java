@@ -94,16 +94,13 @@ public class MedicationRecyclerViewAdapter extends RecyclerView.Adapter<Medicati
                         medication.deschedule(context);
                         medicationsListViewModel.deleteById(medication.getMedId());
                         medActivitiesListViewModel.deleteByMedId(medication.getMedId());
-                        return;
                     }
                 }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {  //not removing items if cancel is done
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         notifyDataSetChanged();
-                        return;
                     }
                 }).show();  //show alert dialog
-
             }
         });
     }
