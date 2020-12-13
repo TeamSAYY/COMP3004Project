@@ -2,24 +2,19 @@ package com.example.drmednotifier;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drmednotifier.data.MedActivity;
-import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.medicationslist.DoseRecyclerViewAdapter;
 import com.example.drmednotifier.medicationslist.MedActivitiesListViewModel;
 import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class Dose_Page extends AppCompatActivity {
     @Override
@@ -27,9 +22,9 @@ public class Dose_Page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dose__page);
 
-        TextView theDate = (TextView) findViewById(R.id.dose_date);
-        Toolbar theToolbar = (Toolbar) findViewById(R.id.toolbar_Dose);
-        RecyclerView doseRecyclerView = (RecyclerView) findViewById(R.id.dose_recyclerView);
+        TextView theDate = findViewById(R.id.dose_date);
+        Toolbar theToolbar = findViewById(R.id.toolbar_Dose);
+        RecyclerView doseRecyclerView = findViewById(R.id.dose_recyclerView);
 
         doseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -45,30 +40,20 @@ public class Dose_Page extends AppCompatActivity {
         String date = (month + 1) + "/" + day + "/" + year;
         theDate.setText(date);
 
-        theToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); }
-        });
+        theToolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         DoseRecyclerViewAdapter adapter = new DoseRecyclerViewAdapter();
         adapter.setDate(year, month, day);
         MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
-        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications != null) {
-                    adapter.setDoses(medications);
-                }
+        medicationsListViewModel.getMedicationsLiveData().observe(this, medications -> {
+            if (medications != null) {
+                adapter.setDoses(medications);
             }
         });
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
-        medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, new Observer<List<MedActivity>>() {
-            @Override
-            public void onChanged(List<MedActivity> medActivities) {
-                if (medActivities != null) {
-                    adapter.setMedActivities(getApplication(), medActivities);
-                }
+        medActivitiesListViewModel.getMedActivitiesLiveData().observe(this, medActivities -> {
+            if (medActivities != null) {
+                adapter.setMedActivities(getApplication(), medActivities);
             }
         });
         doseRecyclerView.setAdapter(adapter);

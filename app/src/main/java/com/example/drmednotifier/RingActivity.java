@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,63 +59,57 @@ public class RingActivity extends AppCompatActivity {
 
         message.setText(String.format("Remember to take %d %s", medDose, medName));
 
-        dismiss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                int len0 = manager.getActiveNotifications().length;
-                manager.cancel(medID);
-                int len1 = manager.getActiveNotifications().length;
-                if (len0 == len1) { // this is the last active notification, stop the foreground service
-                    Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-                    getApplicationContext().stopService(intentService);
-                }
-                Intent i = new Intent(context, Dose_Page.class);
-                startActivity(i);
-                finish();
+        dismiss.setOnClickListener(v -> {
+            NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            int len0 = manager.getActiveNotifications().length;
+            manager.cancel(medID);
+            int len1 = manager.getActiveNotifications().length;
+            if (len0 == len1) { // this is the last active notification, stop the foreground service
+                Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                getApplicationContext().stopService(intentService);
             }
+            Intent i = new Intent(context, Dose_Page.class);
+            startActivity(i);
+            finish();
         });
 
         int snoozeMinutes = notifSetting.getSnoozeMinutes();
         if (snoozeMinutes > 0) {
-            snooze.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.add(Calendar.MINUTE, snoozeMinutes);
+            snooze.setOnClickListener(v -> {
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.add(Calendar.MINUTE, snoozeMinutes);
 
-                    Medication medication = new Medication(
-                            GenerateRandomInt.get(),
-                            medName,
-                            "",
-                            0,
-                            0,
-                            System.currentTimeMillis(),
-                            true,
-                            true,
-                            true,
-                            true,
-                            true,
-                            true,
-                            true,
-                            calendar.get(Calendar.HOUR_OF_DAY),
-                            calendar.get(Calendar.MINUTE),
-                            medDose
-                    );
+                Medication medication = new Medication(
+                        GenerateRandomInt.get(),
+                        medName,
+                        "",
+                        0,
+                        0,
+                        System.currentTimeMillis(),
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        true,
+                        calendar.get(Calendar.HOUR_OF_DAY),
+                        calendar.get(Calendar.MINUTE),
+                        medDose
+                );
 
-                    medication.schedule(getApplicationContext());
+                medication.schedule(getApplicationContext());
 
-                    NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                    int len0 = manager.getActiveNotifications().length;
-                    manager.cancel(medID);
-                    int len1 = manager.getActiveNotifications().length;
-                    if (len0 == len1) {
-                        Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
-                        getApplicationContext().stopService(intentService);
-                    }
-                    finish();
+                NotificationManager manager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                int len0 = manager.getActiveNotifications().length;
+                manager.cancel(medID);
+                int len1 = manager.getActiveNotifications().length;
+                if (len0 == len1) {
+                    Intent intentService = new Intent(getApplicationContext(), AlarmService.class);
+                    getApplicationContext().stopService(intentService);
                 }
+                finish();
             });
         } else {
             snooze.setVisibility(View.GONE);

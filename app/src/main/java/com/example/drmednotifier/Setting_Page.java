@@ -3,7 +3,6 @@ package com.example.drmednotifier;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -33,14 +32,11 @@ public class Setting_Page extends AppCompatActivity {
         setUserProperties();
 
         Toolbar toolbar =  findViewById(R.id.toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        toolbar.setNavigationOnClickListener(v -> {
 
-                Intent intent = new Intent();
-                setResult(RESULT_OK, intent);
-                finish();
-            }
+            Intent intent = new Intent();
+            setResult(RESULT_OK, intent);
+            finish();
         });
 
         /*Hash map for list view*/
@@ -62,18 +58,15 @@ public class Setting_Page extends AppCompatActivity {
         listView.setAdapter(simpleAdapter);
 
         /*list view click*/
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View v, int position, long l) {
-                if(position==0){
-                    Intent intent = new Intent(Setting_Page.this, Medicine_List.class);
-                    startActivity(intent);
-                }
+        listView.setOnItemClickListener((adapterView, v, position, l) -> {
+            if(position==0){
+                Intent intent = new Intent(Setting_Page.this, Medicine_List.class);
+                startActivity(intent);
+            }
 
-                if(position==1){
-                    Intent intent = new Intent(Setting_Page.this, Dose_Page.class);
-                    startActivity(intent);
-                }
+            if(position==1){
+                Intent intent = new Intent(Setting_Page.this, Dose_Page.class);
+                startActivity(intent);
             }
         });
     }

@@ -151,50 +151,44 @@ public class Frag_Selfreport extends Fragment {
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
         MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(fragment).get(MedicationsListViewModel.class);
 
-        Observer<List<Medication>> medicationsListObserver = new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications != null) {
-                    adapter_missed_1.setMedications(medications);
-                    adapter_missed_2.setMedications(medications);
-                    adapter_missed_3.setMedications(medications);
-                    adapter_missed_4.setMedications(medications);
-                    adapter_missed_5.setMedications(medications);
-                    adapter_missed_6.setMedications(medications);
-                    adapter_missed_7.setMedications(medications);
-                    adapter_taken_1.setMedications(medications);
-                    adapter_taken_2.setMedications(medications);
-                    adapter_taken_3.setMedications(medications);
-                    adapter_taken_4.setMedications(medications);
-                    adapter_taken_5.setMedications(medications);
-                    adapter_taken_6.setMedications(medications);
-                    adapter_taken_7.setMedications(medications);
-                }
+        Observer<List<Medication>> medicationsListObserver = medications -> {
+            if (medications != null) {
+                adapter_missed_1.setMedications(medications);
+                adapter_missed_2.setMedications(medications);
+                adapter_missed_3.setMedications(medications);
+                adapter_missed_4.setMedications(medications);
+                adapter_missed_5.setMedications(medications);
+                adapter_missed_6.setMedications(medications);
+                adapter_missed_7.setMedications(medications);
+                adapter_taken_1.setMedications(medications);
+                adapter_taken_2.setMedications(medications);
+                adapter_taken_3.setMedications(medications);
+                adapter_taken_4.setMedications(medications);
+                adapter_taken_5.setMedications(medications);
+                adapter_taken_6.setMedications(medications);
+                adapter_taken_7.setMedications(medications);
             }
         };
 
-        Observer<List<MedActivity>> medActivitiesListObserver = new Observer<List<MedActivity>>() {
-            @Override
-            public void onChanged(List<MedActivity> medActivities) {
-                if (medActivities != null) {
-                    adapter_missed_1.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_2.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_3.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_4.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_5.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_6.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_missed_7.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_1.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_2.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_3.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_4.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_5.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_6.setMedActivities(getActivity().getApplication(), medActivities);
-                    adapter_taken_7.setMedActivities(getActivity().getApplication(), medActivities);
-                    medicationsListViewModel.getMedicationsLiveData().observe(fragment, medicationsListObserver);
-                } else {
-                    medicationsListViewModel.getMedicationsLiveData().removeObserver(medicationsListObserver);
-                }
+        Observer<List<MedActivity>> medActivitiesListObserver = medActivities -> {
+            if (medActivities != null) {
+                adapter_missed_1.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_2.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_3.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_4.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_5.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_6.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_missed_7.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_1.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_2.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_3.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_4.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_5.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_6.setMedActivities(getActivity().getApplication(), medActivities);
+                adapter_taken_7.setMedActivities(getActivity().getApplication(), medActivities);
+                medicationsListViewModel.getMedicationsLiveData().observe(fragment, medicationsListObserver);
+            } else {
+                medicationsListViewModel.getMedicationsLiveData().removeObserver(medicationsListObserver);
             }
         };
 

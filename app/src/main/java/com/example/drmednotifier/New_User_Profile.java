@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -43,7 +42,7 @@ public class New_User_Profile extends AppCompatActivity {
     };
 
     private void checkFieldsForEmptyValues(){
-        Button btnSave = (Button) findViewById(R.id.btnSaveChanges);
+        Button btnSave = findViewById(R.id.btnSaveChanges);
 
         String firstName = editTextFirstName.getText().toString();
         String lastName = editTextLastName.getText().toString();
@@ -66,16 +65,11 @@ public class New_User_Profile extends AppCompatActivity {
         setContentView(R.layout.activity_new__user__profile);
 
         Toolbar toolbar = findViewById(R.id.toolbar_User_Profile);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
-        editTextFirstName = (EditText) findViewById(R.id.textFirstName);
-        editTextLastName = (EditText) findViewById(R.id.textLastName);
-        editTextAge = (EditText) findViewById(R.id.textAge);
+        editTextFirstName = findViewById(R.id.textFirstName);
+        editTextLastName = findViewById(R.id.textLastName);
+        editTextAge = findViewById(R.id.textAge);
 
         editTextFirstName.addTextChangedListener(mTextWatcher);
         editTextLastName.addTextChangedListener(mTextWatcher);
@@ -90,16 +84,13 @@ public class New_User_Profile extends AppCompatActivity {
         setUserProperties();
 
         Button btnSave = findViewById(R.id.btnSaveChanges);
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveUser();
+        btnSave.setOnClickListener(v -> {
+            saveUser();
 
-                Intent returnIntent = new Intent();
-                setResult(RESULT_OK, returnIntent);
+            Intent returnIntent = new Intent();
+            setResult(RESULT_OK, returnIntent);
 
-                finish();
-            }
+            finish();
         });
     }
 

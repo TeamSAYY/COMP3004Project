@@ -9,14 +9,11 @@ import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.User;
 import com.example.drmednotifier.data.UserDao;
 import com.example.drmednotifier.data.UserDatabase;
@@ -48,12 +45,9 @@ public class Frag_Home extends Fragment {
         MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
         medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter(getContext(), medicationsListViewModel, medActivitiesListViewModel);
-        medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications != null) {
-                    medicationRecyclerViewAdapter.setMedications(medications);
-                }
+        medicationsListViewModel.getMedicationsLiveData().observe(this, medications -> {
+            if (medications != null) {
+                medicationRecyclerViewAdapter.setMedications(medications);
             }
         });
     }
@@ -123,15 +117,12 @@ public class Frag_Home extends Fragment {
 
         // Get the date info from the Calendar
         CalendarView theCalendarView = view.findViewById(R.id.calendarView);
-        theCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                Intent intent = new Intent(getActivity(), Dose_Page.class);
-                intent.putExtra("YEAR", year);
-                intent.putExtra("MONTH", month);
-                intent.putExtra("DAY", dayOfMonth);
-                startActivity(intent);
-            }
+        theCalendarView.setOnDateChangeListener((v, year, month, dayOfMonth) -> {
+            Intent intent = new Intent(getActivity(), Dose_Page.class);
+            intent.putExtra("YEAR", year);
+            intent.putExtra("MONTH", month);
+            intent.putExtra("DAY", dayOfMonth);
+            startActivity(intent);
         });
 
         return view;
@@ -144,7 +135,7 @@ public class Frag_Home extends Fragment {
 
         if (!usersLiveData.isEmpty()) {
             String fullName = "";
-            String age = "";
+            String age;
             User user = usersLiveData.get(0);
 
             if (user.getFirstName().length() != 0) {

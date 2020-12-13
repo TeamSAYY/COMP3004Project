@@ -40,7 +40,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
     };
 
     private void checkFieldsForEmptyValues() {
-        Button btnConfirm = (Button) findViewById(R.id.btnConfirm);
+        Button btnConfirm = findViewById(R.id.btnConfirm);
 
         String firstName = editTextFirstName.getText().toString();
         String lastName = editTextLastName.getText().toString();
@@ -62,9 +62,9 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_page_get_personaldata);
 
-        editTextFirstName = (EditText) findViewById(R.id.txtFName);
-        editTextLastName = (EditText) findViewById(R.id.txtLName);
-        editTextAge = (EditText) findViewById(R.id.txtAge);
+        editTextFirstName = findViewById(R.id.txtFName);
+        editTextLastName = findViewById(R.id.txtLName);
+        editTextAge = findViewById(R.id.txtAge);
 
         editTextFirstName.addTextChangedListener(mTextWatcher);
         editTextLastName.addTextChangedListener(mTextWatcher);

@@ -5,12 +5,9 @@ import android.os.IBinder;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleService;
-import androidx.lifecycle.Observer;
 
 import com.example.drmednotifier.data.Medication;
 import com.example.drmednotifier.data.MedicationRepository;
-
-import java.util.List;
 
 public class DescheduleAlarmsService extends LifecycleService {
     @Override
@@ -23,15 +20,12 @@ public class DescheduleAlarmsService extends LifecycleService {
         super.onStartCommand(intent, flags, startId);
 
         MedicationRepository medicationRepository = new MedicationRepository(getApplication());
-        medicationRepository.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
-            @Override
-            public void onChanged(List<Medication> medications) {
-                if (medications == null) return;
-                for (Medication m : medications) {
-                    m.deschedule(getApplicationContext());
-                }
-                stopSelf();
+        medicationRepository.getMedicationsLiveData().observe(this, medications -> {
+            if (medications == null) return;
+            for (Medication m : medications) {
+                m.deschedule(getApplicationContext());
             }
+            stopSelf();
         });
 
         return START_STICKY;
