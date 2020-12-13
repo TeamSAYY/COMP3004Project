@@ -2,7 +2,6 @@ package com.example.drmednotifier.service;
 
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleService;
@@ -24,7 +23,6 @@ public class RescheduleAlarmsService extends LifecycleService {
         super.onStartCommand(intent, flags, startId);
 
         MedicationRepository medicationRepository = new MedicationRepository(getApplication());
-
         medicationRepository.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
@@ -32,19 +30,9 @@ public class RescheduleAlarmsService extends LifecycleService {
                 for (Medication m : medications) {
                     m.schedule(getApplicationContext());
                 }
-                Log.d("myTag", "Reschedule Alarms Service");
-//                stopForeground(true);
                 stopSelf();
             }
         });
-
-//        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-//                .setContentTitle("Notification Enabled")
-//                .setContentText("")
-//                .setSmallIcon(R.drawable.logo)
-//                .build();
-
-//        startForeground(2, notification);
 
         return START_STICKY;
     }

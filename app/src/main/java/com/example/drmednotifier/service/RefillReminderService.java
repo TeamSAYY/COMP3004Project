@@ -3,7 +3,9 @@ package com.example.drmednotifier.service;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.IBinder;
+import android.text.TextUtils;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -50,7 +52,6 @@ public class RefillReminderService extends LifecycleService {
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         MedicationRepository medicationRepository = new MedicationRepository(getApplication());
-
         medicationRepository.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
@@ -66,12 +67,11 @@ public class RefillReminderService extends LifecycleService {
                 if(!nameList.equals(newNameList)) {
                     nameList.retainAll(newNameList);
                     if(!nameList.equals(newNameList)) { // newNameList contains element that is not existing in old nameList
-
                         nameList.clear();
                         nameList.addAll(newNameList);
 
-                        String title = days + " days left before " +
-                                String.join(", ", newNameList) +
+                        String title = days + " day" + (days == 1 ? "" : "s") + " left before " +
+                                (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ? String.join(", ", newNameList) : TextUtils.join(", ", newNameList)) +
                                 " runs out";
                         Notification notification = builder.setContentTitle(title).setContentText(message).build();
                         notification.priority = Notification.PRIORITY_HIGH;

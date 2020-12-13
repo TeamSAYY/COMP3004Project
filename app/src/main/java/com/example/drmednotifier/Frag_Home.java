@@ -26,22 +26,28 @@ import com.example.drmednotifier.medicationslist.MedicationsListViewModel;
 
 import java.util.List;
 
+/**
+ * Fragment that serves as a home page
+ */
 public class Frag_Home extends Fragment {
     private MedicationRecyclerViewAdapter medicationRecyclerViewAdapter;
 
-    public Frag_Home() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public Frag_Home() {}
 
+    /**
+     * Called to do initial creation of the Home fragment
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(this).get(MedicationsListViewModel.class);
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
-
         medicationRecyclerViewAdapter = new MedicationRecyclerViewAdapter(getContext(), medicationsListViewModel, medActivitiesListViewModel);
-
         medicationsListViewModel.getMedicationsLiveData().observe(this, new Observer<List<Medication>>() {
             @Override
             public void onChanged(List<Medication> medications) {
@@ -52,6 +58,13 @@ public class Frag_Home extends Fragment {
         });
     }
 
+    /**
+     * Called to have the Home fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container  The parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

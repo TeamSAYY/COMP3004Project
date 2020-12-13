@@ -274,13 +274,7 @@ public class Medication {
     }
 
     public void schedule(Context context) {
-        Log.d("myTag", "SCHEDULE");
-        Log.d("myTag", String.format("TIMES: %d", times));
-
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        AlarmManager alarmManager_2 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        AlarmManager alarmManager_3 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        AlarmManager alarmManager_4 = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra(MED_ID, medId);
@@ -294,7 +288,6 @@ public class Medication {
         intent.putExtra(SUNDAY, sunday);
 
         intent.putExtra(TITLE, name);
-
         intent.putExtra(MED_NAME, name);
 
         if (times >= 1) {
@@ -315,21 +308,12 @@ public class Medication {
                 calendar_1.set(Calendar.DAY_OF_MONTH, calendar_1.get(Calendar.DAY_OF_MONTH) + 1);
             }
 
-//            final long RUN_DAILY = 24 * 60 * 60 * 1000;
-//            alarmManager_1.setRepeating(
-//                    AlarmManager.RTC_WAKEUP,
-//                    calendar_1.getTimeInMillis(),
-//                    AlarmManager.INTERVAL_DAY,
-//                    alarmPendingIntent
-//            );
             alarmManager.cancel(alarmPendingIntent);
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_1.getTimeInMillis(),
                     alarmPendingIntent
             );
-
-            Log.d("myTag", String.format("ALARM 1 CREATED: %02d:%02d", hour_1, minute_1));
         }
 
         if (times >= 2) {
@@ -353,21 +337,12 @@ public class Medication {
                 calendar_2.set(Calendar.DAY_OF_MONTH, calendar_2.get(Calendar.DAY_OF_MONTH) + 1);
             }
 
-//            final long RUN_DAILY = 24 * 60 * 60 * 1000;
-//            alarmManager_2.setRepeating(
-//                    AlarmManager.RTC_WAKEUP,
-//                    calendar_2.getTimeInMillis(),
-//                    AlarmManager.INTERVAL_DAY,
-//                    alarmPendingIntent
-//            );
             alarmManager.cancel(alarmPendingIntent);
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_2.getTimeInMillis(),
                     alarmPendingIntent
             );
-
-            Log.d("myTag", String.format("ALARM 2 CREATED: %02d:%02d", hour_2, minute_2));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
@@ -393,22 +368,12 @@ public class Medication {
             if (calendar_3.getTimeInMillis() <= System.currentTimeMillis()) {
                 calendar_3.set(Calendar.DAY_OF_MONTH, calendar_3.get(Calendar.DAY_OF_MONTH) + 1);
             }
-
-//            final long RUN_DAILY = 24 * 60 * 60 * 1000;
-//            alarmManager_3.setRepeating(
-//                    AlarmManager.RTC_WAKEUP,
-//                    calendar_3.getTimeInMillis(),
-//                    AlarmManager.INTERVAL_DAY,
-//                    alarmPendingIntent
-//            );
             alarmManager.cancel(alarmPendingIntent);
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_3.getTimeInMillis(),
                     alarmPendingIntent
             );
-
-            Log.d("myTag", String.format("ALARM 3 CREATED: %02d:%02d", hour_3, minute_3));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 3, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
@@ -435,21 +400,12 @@ public class Medication {
                 calendar_4.set(Calendar.DAY_OF_MONTH, calendar_4.get(Calendar.DAY_OF_MONTH) + 1);
             }
 
-//            final long RUN_DAILY = 24 * 60 * 60 * 1000;
-//            alarmManager_4.setRepeating(
-//                    AlarmManager.RTC_WAKEUP,
-//                    calendar_4.getTimeInMillis(),
-//                    AlarmManager.INTERVAL_DAY,
-//                    alarmPendingIntent
-//            );
             alarmManager.cancel(alarmPendingIntent);
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
                     calendar_4.getTimeInMillis(),
                     alarmPendingIntent
             );
-
-            Log.d("myTag", String.format("ALARM 4 CREATED: %02d:%02d", hour_4, minute_4));
         } else {
             PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, medId + 4, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             alarmManager.cancel(alarmPendingIntent);
@@ -457,8 +413,6 @@ public class Medication {
     }
 
     public void deschedule(Context context) {
-        Log.d("myTag", String.format("ALARMS REMOVED: %s", name));
-
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);

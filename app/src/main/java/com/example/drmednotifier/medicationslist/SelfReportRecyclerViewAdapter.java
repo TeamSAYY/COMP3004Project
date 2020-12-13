@@ -1,7 +1,6 @@
 package com.example.drmednotifier.medicationslist;
 
 import android.app.Application;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +26,6 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
     private List<MedActivity> medActivities;
     private List<Medication> medications;
 
-    private Application application;
-
-    private long timeMillis;
     private int year;
     private int month;
     private int day;
@@ -45,7 +41,7 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
     @Override
     public SelfReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_dose, parent, false);
-        return new SelfReportViewHolder(itemView, application, timeMillis);
+        return new SelfReportViewHolder(itemView);
     }
 
     @Override
@@ -78,7 +74,6 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
     }
 
     public void setTimeMillis(long timeMillis) {
-        this.timeMillis = timeMillis;
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(timeMillis);
         year = calendar.get(Calendar.YEAR);
@@ -119,26 +114,14 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
 
             MedActivity medActivity = null;
             for (MedActivity m : medActivities) {
-                Log.d("myTag", "mmm med act id: " + m.getMedActivityId());
-                Log.d("myTag", "mmm med id: " + m.getMedId());
-                Log.d("myTag", "mmm med status: " + m.getMedStatus(1));
-                Log.d("myTag", "mmm med date: " + m.getDate().toString());
                 if (medication.getMedId() == m.getMedId()) {
                     medActivity = m;
-//                    break;
+                    break;
                 }
             }
 
-            Log.d("myTag", "med activity is " + (medActivity==null?"null":"not null"));
-
             int times = medication.getTimes();
             if (times >= 1) {
-                Log.d("myTag", "med id: " + medication.getMedId());
-                Log.d("myTag", "med name: " + medication.getName());
-                Log.d("myTag", "bbb med act id: " + medActivity.getMedActivityId());
-                Log.d("myTag", "bbb med id: " + medActivity.getMedId());
-                Log.d("myTag", "med status: " + (medActivity.getMedStatus(1)?"true":"false"));
-                Log.d("myTag", "med date: " + medActivity.getDate().toString());
                 if (medActivity.getMedStatus(1) && taken || !medActivity.getMedStatus(1) && !taken) {
                     doses.add(new Medication(
                             medication.getMedId() + 1,
@@ -241,52 +224,20 @@ public class SelfReportRecyclerViewAdapter extends RecyclerView.Adapter<SelfRepo
     public void setMedActivities(Application application, List<MedActivity> medActivities) {
         Date date = new GregorianCalendar(year, month, day).getTime();
         if (medActivities == null) {
-            Log.d("myTag", "MED ACTIVITIES EMPTY");
             return;
-        } else {
-            Log.d("myTag", "MED ACTIVITIES NOT EMPTY");
         }
 
         Calendar cal1 = Calendar.getInstance();
         cal1.setTime(date);
 
-        Log.d("myTag", "cal1: " + date.toString());
-
         for (MedActivity medActivity : medActivities) {
-//            Log.d("myTag", "aaa med act id: " + medActivity.getMedActivityId());
-//            Log.d("myTag", "aaa med id: " + medActivity.getMedId());
-//            Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
-
             Calendar cal2 = Calendar.getInstance();
             cal2.setTime(medActivity.getDate());
             if (cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
                     cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR)) {
-                Log.d("myTag", "ACTIVITY ADDED");
                 this.medActivities.add(medActivity);
-
-//                Log.d("myTag", "aaa med status: " + (medActivity.getMedStatus(1)?"true":"false"));
-//                Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
-
-                if (medActivity.getMedStatus(1)) {
-                    Log.d("myTag", "aaa med date: " + medActivity.getDate().toString());
-                    Log.d("myTag", "aaa med id: " + medActivity.getMedId());
-                    Log.d("myTag", "aaa med act id: " + medActivity.getMedActivityId());
-                }
-
-//                List<Medication> found = new ArrayList<>();
-//                for (Medication m : doses) {
-//                    int numOfAlarm = m.getMedId() - medActivity.getMedId();
-//                    if (numOfAlarm >= 1 && numOfAlarm <=4) {
-//                        if (medActivity.getMedStatus(numOfAlarm) && !taken || !medActivity.getMedStatus(numOfAlarm) && taken) {
-//                            found.add(m);
-//                        }
-//                    }
-//                }
-//                doses.removeAll(found);
             }
         }
-
-        this.application = application;
 
         notifyDataSetChanged();
     }

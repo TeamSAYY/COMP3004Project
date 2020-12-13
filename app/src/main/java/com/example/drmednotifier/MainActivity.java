@@ -20,6 +20,9 @@ import com.example.drmednotifier.data.UserDatabase;
 
 import java.util.List;
 
+/**
+ * Activity that start as a main entry point
+ */
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*load animation*/
+        //load animation
         Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.top_anime);
         Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anime);
 
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         TextView logo = findViewById(R.id.welcome);
         Button TB1 = findViewById(R.id.Tbutton1);
 
-        /*insert animation*/
+        //insert animation
         text.setAnimation(topAnim);
         logo.setAnimation(bottomAnim);
         TB1.setAnimation(bottomAnim);
@@ -43,12 +46,15 @@ public class MainActivity extends AppCompatActivity {
         initNotifSettings();
     }
 
-    public void launchActivity(View x){
+    /**
+     * Launches the next activity
+     * @param v The button that calls this method
+     */
+    public void launchActivity(View v){
         if (existingUserInfo()) {
             Intent i = new Intent(this, Nav_page.class);
             startActivity(i);
-        }
-        else {
+        } else {
             Intent i = new Intent(this, Second_page_get_personaldata.class);
             startActivity(i);
         }
@@ -57,14 +63,11 @@ public class MainActivity extends AppCompatActivity {
     private boolean existingUserInfo() {
         UserDatabase userDatabase = UserDatabase.getDatabase(getApplicationContext());
         UserDao userDao = userDatabase.userDao();
-        List<User> usersLiveData = userDao.getUser();
+        List<User> users = userDao.getUser();
 
-        if (!usersLiveData.isEmpty()) {
-            // If the avatar is set but no other information saved, still show the second page
-            return usersLiveData.get(0).getFirstName().length() != 0;
-        } else {
-            return false;
-        }
+        // If the avatar is set but no other information saved, still show the second page
+        return (!users.isEmpty() && users.get(0).getFirstName().length() != 0);
+
     }
 
     private void initNotifSettings() {

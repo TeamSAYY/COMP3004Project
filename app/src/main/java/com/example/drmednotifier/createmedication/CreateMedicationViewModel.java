@@ -14,14 +14,12 @@ import java.util.List;
 
 public class CreateMedicationViewModel extends AndroidViewModel {
     private final MedicationRepository medicationRepository;
-
     private final MedActivityRepository medActivityRepository;
 
     public CreateMedicationViewModel(@NonNull Application application) {
         super(application);
 
         medicationRepository = new MedicationRepository(application);
-
         medActivityRepository = new MedActivityRepository(application);
     }
 

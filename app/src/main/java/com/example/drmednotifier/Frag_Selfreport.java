@@ -21,8 +21,10 @@ import com.example.drmednotifier.medicationslist.SelfReportRecyclerViewAdapter;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * Fragment to show med activity report
+ */
 public class Frag_Selfreport extends Fragment {
-
     int year_1, month_1, day_1, weekday_1;
     int year_2, month_2, day_2, weekday_2;
     int year_3, month_3, day_3, weekday_3;
@@ -47,10 +49,15 @@ public class Frag_Selfreport extends Fragment {
     private SelfReportRecyclerViewAdapter adapter_taken_6;
     private SelfReportRecyclerViewAdapter adapter_taken_7;
 
-    public Frag_Selfreport() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public Frag_Selfreport() {}
 
+    /**
+     * Called to do initial creation of the Med Activity Report fragment
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +66,7 @@ public class Frag_Selfreport extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
 
-        int DAY = 24 * 60 * 60 * 1000;
+        final long DAY = 24 * 60 * 60 * 1000;
         long currentTimeMillis = System.currentTimeMillis() + DAY;
 
         calendar.setTimeInMillis(currentTimeMillis - DAY);
@@ -142,7 +149,31 @@ public class Frag_Selfreport extends Fragment {
         adapter_taken_7.setTimeMillis(currentTimeMillis - 7*DAY);
 
         MedActivitiesListViewModel medActivitiesListViewModel = ViewModelProviders.of(this).get(MedActivitiesListViewModel.class);
-        medActivitiesListViewModel.getMedActivitiesLiveDataLastWeek().observe(this, new Observer<List<MedActivity>>() {
+        MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(fragment).get(MedicationsListViewModel.class);
+
+        Observer<List<Medication>> medicationsListObserver = new Observer<List<Medication>>() {
+            @Override
+            public void onChanged(List<Medication> medications) {
+                if (medications != null) {
+                    adapter_missed_1.setMedications(medications);
+                    adapter_missed_2.setMedications(medications);
+                    adapter_missed_3.setMedications(medications);
+                    adapter_missed_4.setMedications(medications);
+                    adapter_missed_5.setMedications(medications);
+                    adapter_missed_6.setMedications(medications);
+                    adapter_missed_7.setMedications(medications);
+                    adapter_taken_1.setMedications(medications);
+                    adapter_taken_2.setMedications(medications);
+                    adapter_taken_3.setMedications(medications);
+                    adapter_taken_4.setMedications(medications);
+                    adapter_taken_5.setMedications(medications);
+                    adapter_taken_6.setMedications(medications);
+                    adapter_taken_7.setMedications(medications);
+                }
+            }
+        };
+
+        Observer<List<MedActivity>> medActivitiesListObserver = new Observer<List<MedActivity>>() {
             @Override
             public void onChanged(List<MedActivity> medActivities) {
                 if (medActivities != null) {
@@ -160,37 +191,23 @@ public class Frag_Selfreport extends Fragment {
                     adapter_taken_5.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_taken_6.setMedActivities(getActivity().getApplication(), medActivities);
                     adapter_taken_7.setMedActivities(getActivity().getApplication(), medActivities);
-
-                    medActivitiesListViewModel.getMedActivitiesLiveData().removeObserver(this);
-
-                    MedicationsListViewModel medicationsListViewModel = ViewModelProviders.of(fragment).get(MedicationsListViewModel.class);
-                    medicationsListViewModel.getMedicationsLiveData().observe(fragment , new Observer<List<Medication>>() {
-                        @Override
-                        public void onChanged(List<Medication> medications) {
-                            if (medications != null) {
-                                adapter_missed_1.setMedications(medications);
-                                adapter_missed_2.setMedications(medications);
-                                adapter_missed_3.setMedications(medications);
-                                adapter_missed_4.setMedications(medications);
-                                adapter_missed_5.setMedications(medications);
-                                adapter_missed_6.setMedications(medications);
-                                adapter_missed_7.setMedications(medications);
-                                adapter_taken_1.setMedications(medications);
-                                adapter_taken_2.setMedications(medications);
-                                adapter_taken_3.setMedications(medications);
-                                adapter_taken_4.setMedications(medications);
-                                adapter_taken_5.setMedications(medications);
-                                adapter_taken_6.setMedications(medications);
-                                adapter_taken_7.setMedications(medications);
-                                medicationsListViewModel.getMedicationsLiveData().removeObserver(this);
-                            }
-                        }
-                    });
+                    medicationsListViewModel.getMedicationsLiveData().observe(fragment, medicationsListObserver);
+                } else {
+                    medicationsListViewModel.getMedicationsLiveData().removeObserver(medicationsListObserver);
                 }
             }
-        });
+        };
+
+        medActivitiesListViewModel.getMedActivitiesLiveDataLastWeek().observe(this, medActivitiesListObserver);
     }
 
+    /**
+     * Called to have the Med Activity Report fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container  The parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_frag__selfreport, container, false);

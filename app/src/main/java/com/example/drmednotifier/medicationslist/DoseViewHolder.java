@@ -39,8 +39,6 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Medication medication) {
-        Log.d("myTag", "BIND DOSE ITEM VIEW 1");
-
         medTime.setText(String.format("%02d:%02d", medication.getHour_1(), medication.getMinute_1()));
         medName.setText(medication.getName());
         medDose.setText(String.format("%d", medication.getDose_1()));
@@ -48,8 +46,6 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Medication medication, MedActivity medActivity, int numOfAlarm) {
-        Log.d("myTag", "BIND DOSE ITEM VIEW 2");
-
         medTime.setText(String.format("%02d:%02d", medication.getHour(numOfAlarm), medication.getMinute(numOfAlarm)));
         medName.setText(medication.getName());
         medDose.setText(String.format("%d", medication.getDose(numOfAlarm)));
@@ -75,8 +71,6 @@ public class DoseViewHolder extends RecyclerView.ViewHolder {
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Log.d("myTag", "CHECKBOX CLICKED");
-
                     medication.setQuantity(medication.getQuantity() + (isChecked?-1:1) * medication.getDose(numOfAlarm));
                     MedicationsListViewModel medicationsListViewModel = new MedicationsListViewModel(application);
                     medicationsListViewModel.update(medication);

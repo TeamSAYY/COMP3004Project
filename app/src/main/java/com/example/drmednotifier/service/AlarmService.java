@@ -11,7 +11,6 @@ import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.Vibrator;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -48,8 +47,6 @@ public class AlarmService extends Service {
         NotifSettingDao notifSettingDao = notifSettingDatabase.notifSettingDao();
         NotifSetting notifSetting = notifSettingDao.getNotifSettings().get(0);
 
-        Log.d("myTag", "ALARM STARTED");
-
         Intent notificationIntent = new Intent(this, RingActivity.class);
         int medId = intent.getIntExtra(MED_ID, 1);
         notificationIntent.putExtra(MED_ID, medId);
@@ -57,16 +54,9 @@ public class AlarmService extends Service {
         notificationIntent.putExtra(MED_NAME, intent.getStringExtra(MED_NAME));
         notificationIntent.putExtra(MED_DOSE, intent.getIntExtra(MED_DOSE, 0));
 
-        Log.d("myTag", String.format("NOTIF NAME: %s", intent.getStringExtra(MED_NAME)));
-
-        Log.d("myTag", String.format("NOTIF DOSE: %d", intent.getIntExtra(MED_DOSE, 0)));
-
         PendingIntent pendingIntent = PendingIntent.getActivity(this, medId, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String alarmTitle = intent.getStringExtra(TITLE);
-
-        Log.d("myTag", "TITLE: " + alarmTitle);
-
         String notifMessage = notifSetting.getNotifMessage();
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -113,8 +103,6 @@ public class AlarmService extends Service {
         } else {
             startForeground(medId, notification);
         }
-
-        Log.d("myTag", "NOTIF_ID: " + medId);
 
         return START_STICKY;
     }

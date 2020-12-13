@@ -7,13 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -30,8 +28,10 @@ import com.example.drmednotifier.service.RescheduleAlarmsService;
 
 import java.util.Calendar;
 
+/**
+ * Fragment to show and customize the notification setting
+ */
 public class Frag_Notification extends Fragment {
-
     private NotifSettingDao notifSettingDao;
     private NotifSetting notifSetting;
 
@@ -46,10 +46,15 @@ public class Frag_Notification extends Fragment {
     private Spinner dropdown_renew_time;
     private EditText edit_noti__renew_msg;
 
-    public Frag_Notification() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public Frag_Notification() {}
 
+    /**
+     * Called to do initial creation of the Notification Setting fragment
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state, this is the state
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,13 @@ public class Frag_Notification extends Fragment {
         notifSettingDao = notifSettingDatabase.notifSettingDao();
     }
 
+    /**
+     * Called to have the Notification Setting fragment instantiate its user interface view
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment
+     * @param container  The parent view that the fragment's UI should be attached to
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here
+     * @return Return the View for the fragment's UI.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -138,7 +150,6 @@ public class Frag_Notification extends Fragment {
     };
 
     public static void setOneTimeRefillReminder(Context context) {
-        Log.d("myTag", "Set One-Time Refill Reminder");
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra("REFILL", true);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -153,7 +164,6 @@ public class Frag_Notification extends Fragment {
     }
     
     public static void setRefillReminder(Context context) {
-        Log.d("myTag", "Set Refill Reminder");
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         intent.putExtra("REFILL", true);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -173,7 +183,6 @@ public class Frag_Notification extends Fragment {
     }
 
     public static void cancelRefillReminder(Context context) {
-        Log.d("myTag", "Cancel Refill Reminder");
         Intent intent = new Intent(context, AlarmBroadcastReceiver.class);
         PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(context, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -187,21 +196,15 @@ public class Frag_Notification extends Fragment {
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
+        public void onNothingSelected(AdapterView<?> parent) {}
     };
 
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
         @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
+        public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
         @Override
         public void afterTextChanged(Editable s) {
@@ -238,17 +241,8 @@ public class Frag_Notification extends Fragment {
         dropdown_renew_time.setSelection(daysBeforeRefillId);
         edit_noti__renew_msg.setText(refillNotifMessage);
 
-        if (enableNotif) {
-            layout_noti.setVisibility(View.VISIBLE);
-        } else {
-            layout_noti.setVisibility(View.GONE);
-        }
-
-        if (enableRefillNotif) {
-            layout_renew_pre.setVisibility(View.VISIBLE);
-        } else {
-            layout_renew_pre.setVisibility(View.GONE);
-        }
+        layout_noti.setVisibility((enableNotif ? View.VISIBLE : View.GONE));
+        layout_renew_pre.setVisibility((enableRefillNotif ? View.VISIBLE : View.GONE));
     }
 
     private void saveNotifSetting() {
