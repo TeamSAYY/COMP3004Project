@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <include
-        layout="@layout/nav_page_top_tollbar" />
+        layout="@layout/nav_page_top_toolbar" />
 
     <FrameLayout
         android:id="@+id/frameLayoutView"

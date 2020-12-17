@@ -117,8 +117,8 @@ public class Second_page_get_personaldata extends AppCompatActivity {
         saveUser();
 
         Intent i = new Intent(this,Nav_page.class);
-        finish();
         startActivity(i);
+        finish();
     }
 
     /**
@@ -127,7 +127,7 @@ public class Second_page_get_personaldata extends AppCompatActivity {
      */
     public void launchActivitywithnovalue(View v){
         Intent i = new Intent(this,Nav_page.class);
-        finish();
         startActivity(i);
+        finish();
     }
 }

@@ -54,9 +54,11 @@ public class MainActivity extends AppCompatActivity {
         if (existingUserInfo()) {
             Intent i = new Intent(this, Nav_page.class);
             startActivity(i);
+            finish();
         } else {
             Intent i = new Intent(this, Second_page_get_personaldata.class);
             startActivity(i);
+            finish();
         }
     }
 

@@ -99,7 +99,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Please take your medication!" />
+                    android:text="Please take your medication!"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"/>
             </LinearLayout>
 
             <LinearLayout
@@ -171,7 +173,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="It's time for a medication refill!" />
+                    android:text="It's time for a medication refill!"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

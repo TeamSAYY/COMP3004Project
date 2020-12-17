@@ -34,7 +34,9 @@ public class Nav_page extends AppCompatActivity{
         navView.setSelectedItemId(R.id.home);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home(), "HOME_FRAGMENT").commit();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutView, new Frag_Home(), "HOME_FRAGMENT").commit();
+        }
     }
 
     /**
@@ -165,6 +167,15 @@ public class Nav_page extends AppCompatActivity{
     }
 
     /**
+     * Launches the Avatar Selection activity
+     * @param view The linear layout, that displays user information, located on the top of the Home fragment
+     */
+    public void avatar_click(View view) {
+        Intent i = new Intent(this, Popup_Window.class);
+        startActivityForResult(i, 1);
+    }
+
+    /**
      * Called when the activity has detected the user's press of the back key
      */
     @Override
@@ -172,10 +183,10 @@ public class Nav_page extends AppCompatActivity{
         Fragment addFragment = getSupportFragmentManager().findFragmentByTag("ADD_FRAGMENT");
         // If the Add fragment is currently active, the user's press of the back key triggers an alert dialog
         if (addFragment != null && addFragment.isVisible()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this); //alert for confirm to delete
+            AlertDialog.Builder builder = new AlertDialog.Builder(this); // alert for confirm to delete
             builder.setMessage("Are you sure to leave?");    //set message
-            //not removing items if cancel is done
-//when click on DELETE
+            // not removing items if cancel is done
+            // when click on DELETE
             builder.setPositiveButton("LEAVE", (dialog, which) -> {
                 // Nav_page.super.onBackPressed();
                 Intent intent = new Intent();
